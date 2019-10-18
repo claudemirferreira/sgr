@@ -21,8 +21,10 @@ import {
   MatTooltipModule,
   MatTableModule,
   MatPaginatorModule,
-  MatCardModule
+  MatCardModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
+import { FormsModule }   from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -69,7 +71,9 @@ const appRoutes: Routes = [
     MatTooltipModule,
     MatTableModule,
     MatPaginatorModule,
-    MatCardModule
+    MatCardModule,
+    MatProgressSpinnerModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
@@ -90,7 +94,9 @@ const appRoutes: Routes = [
     MatTooltipModule,
     MatTableModule,
     MatPaginatorModule,
-    MatCardModule
+    MatCardModule,
+    MatProgressSpinnerModule,
+    FormsModule
   ],
 })
 export class AppModule { }

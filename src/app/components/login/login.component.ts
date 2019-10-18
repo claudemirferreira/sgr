@@ -1,5 +1,6 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import {MatFormFieldControl} from '@angular/material/form-field';
+
 
 @Component({
   selector: 'app-login',
@@ -7,10 +8,21 @@ import {MatFormFieldControl} from '@angular/material/form-field';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  
+  username: string;
+  password: string;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
+  }
+
+  login(): void {
+    if (this.username == 'admin' && this.password == 'admin') {
+      this.router.navigate(["user"]);
+    } else {
+      alert("Invalid credentials");
+    }
   }
 
 }
