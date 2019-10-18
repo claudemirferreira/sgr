@@ -2,23 +2,46 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
-import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
+
+import {
+  MatButtonModule,
+  MatToolbarModule,
+  MatIconModule,
+  MatBadgeModule,
+  MatSidenavModule,
+  MatListModule,
+  MatGridListModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatSelectModule,
+  MatRadioModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatChipsModule,
+  MatTooltipModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatCardModule
+} from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RelatorioComponent } from './components/relatorio/relatorio.component';
 import { UsuarioComponent } from './components/usuario/usuario.component';
+import { LoginComponent } from './components/login/login.component';
 
 const appRoutes: Routes = [
   { path: 'relatorio', component: RelatorioComponent },
-  { path: 'usuario',      component: UsuarioComponent }
+  { path: 'login', component: LoginComponent },
+  { path: 'usuario', component: UsuarioComponent }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     RelatorioComponent,
-    UsuarioComponent
+    UsuarioComponent,
+    LoginComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -29,9 +52,45 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     RouterModule,
     NgxExtendedPdfViewerModule,
-    PdfJsViewerModule
+    MatButtonModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatBadgeModule,
+    MatListModule,
+    MatGridListModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatChipsModule,
+    MatTooltipModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatCardModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [
+    MatButtonModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatBadgeModule,
+    MatListModule,
+    MatGridListModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatDatepickerModule,
+    MatChipsModule,
+    MatTooltipModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatCardModule
+  ],
 })
 export class AppModule { }

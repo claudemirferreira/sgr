@@ -1,11 +1,12 @@
-<h1>Angular Router</h1>
-<nav>
-  <a routerLink="/relatorio" routerLinkActive="active">Relatorio</a>
-  <a routerLink="/usuario" routerLinkActive="active">Usuario</a>
-</nav>
+<mat-toolbar color="primary">
+  <span>SGR {{title}}</span>
+  <span class="toolbar-spacer"></span>
 
-<div>
-  <ngx-extended-pdf-viewer [src]="'example.pdf'" useBrowserLocale="true" height="80vh"></ngx-extended-pdf-viewer>
- 
-</div>
+  <button mat-raised-button color="primary" routerLink="/relatorio" routerLinkActive="active">Relatorio</button>
+  <button mat-raised-button color="primary" routerLink="/usuario" routerLinkActive="active">Usuario </button>
+  <button mat-raised-button color="primary" routerLink="/login" routerLinkActive="active">Login </button>
+  <button mat-raised-button color="accent" *ngIf="isAuthenticated">Logout </button>
+
+</mat-toolbar>
+
 <router-outlet></router-outlet>

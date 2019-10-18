@@ -6,5 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'angular8';
+  title = ' - Sistema de Gerenciamento de Relatórios';
+  isAuthenticated: boolean;
+
+  constructor() {
+  }
+
+  async ngOnInit() {
+    
+  }
 }
