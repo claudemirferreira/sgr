@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import {HttpClientModule} from '@angular/common/http';
+import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
 
 import {
   MatButtonModule,
@@ -22,7 +24,7 @@ import {
   MatTableModule,
   MatPaginatorModule,
   MatCardModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule  
 } from '@angular/material';
 import { FormsModule }   from '@angular/forms';
 
@@ -73,7 +75,9 @@ const appRoutes: Routes = [
     MatPaginatorModule,
     MatCardModule,
     MatProgressSpinnerModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    PdfJsViewerModule
   ],
   providers: [],
   bootstrap: [AppComponent],
@@ -96,7 +100,9 @@ const appRoutes: Routes = [
     MatPaginatorModule,
     MatCardModule,
     MatProgressSpinnerModule,
-    FormsModule
+    FormsModule,
+    NgxExtendedPdfViewerModule,
+    HttpClientModule
   ],
 })
 export class AppModule { }
