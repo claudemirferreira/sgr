@@ -11,60 +11,47 @@ import { map } from 'rxjs/operators';
 })
 export class RelatorioComponent implements OnInit {
   
-  @ViewChild('pdfViewerOnDemand',{static: false}) pdfViewerOnDemand;
-  @ViewChild('pdfViewerAutoLoad',{static: false}) pdfViewerAutoLoad;
+  @ViewChild('pdfViewerOnDemand', {static: false}) pdfViewerOnDemand;
 
-  @ViewChild('pdfSrc',{static: false}) pdfSrc;
-
-  fileURL ="1111";
-  url : '';
-
-  urll = "http://localhost:8080/api/relatorio/pdf";
+  @ViewChild('pdfViewerAutoLoad', {static: false}) 
+  pdfViewerAutoLoad;
+  
+  constructor(private http: HttpClient) {
+      let url = "http://localhost:8080/api/relatorio/downloadPDF"; // Or your url
+      this.downloadFile(url).subscribe(
+          (res) => {
+              this.pdfViewerAutoLoad.pdfSrc = res; // pdfSrc can be Blob or Uint8Array
+              this.pdfViewerAutoLoad.refresh(); // Ask pdf viewer to load/refresh pdf
+          }
+      );
+  }
 
   ngOnInit() {
-
   }
-  
-  constructor(private http: HttpClient,
-    private relatorioService: RelatorioService) {
-    
-}
 
-download(){
-  let url = "http://localhost:8080/api/relatorio/pdf";
-  this.downloadFile(url);
-}
+  private downloadFile(url: string): any {
+        return this.http.get(url, { responseType: 'blob' })
+            .pipe(
+                map((result: any) => {
+                    return result;
+                })
+            );
+    }
 
-downloadFile1(route: string, filename: string = null): void{
+  public openPdf() {
+    let url = "https://github.com/intbot/ng2-pdfjs-viewer/tree/master/sampledoc/pdf-sample.pdf"; // E.g. http://localhost:3000/api/GetMyPdf
+    // url can be local url or remote http request to an api/pdf file. 
+    // E.g: let url = "assets/pdf-sample.pdf";
+    // E.g: https://github.com/intbot/ng2-pdfjs-viewer/tree/master/sampledoc/pdf-sample.pdf
+    // E.g: http://localhost:3000/api/GetMyPdf
+    // Please note, for remote urls to work, CORS should be enabled at the server. Read: https://enable-cors.org/server.html
 
-  const baseUrl = "http://localhost:8080/api/relatorio/pdf";
-  const token = 'my JWT';
-  const headers = new HttpHeaders().set('authorization','Bearer '+token);
-  this.http.get(baseUrl,{headers, responseType: 'blob' as 'json'}).subscribe(
-      (response: any) =>{
-          let dataType = response.type;
-          let binaryData = [];
-          binaryData.push(response);
-          let downloadLink = document.createElement('a');
-          downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}));
-          
-          let u = downloadLink.href.replace("blob:","");
-          console.log(u);
-          if (filename)
-              downloadLink.setAttribute('download', filename);
-          document.body.appendChild(downloadLink);
-          downloadLink.click();
+    this.downloadFile(url).subscribe(
+    (res) => {
+        this.pdfViewerOnDemand.pdfSrc = res; // pdfSrc can be Blob or Uint8Array
+        this.pdfViewerOnDemand.refresh(); // Ask pdf viewer to load/reresh pdf
       }
-  )
-}
-
-downloadFile(url: string): any {
-      return this.http.get(url, { responseType: 'blob' })
-          .pipe(
-              map((result: any) => {
-                  return result;
-              })
-          );
+    );
   }
 
 }

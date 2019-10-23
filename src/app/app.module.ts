@@ -1,8 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import {HttpClientModule} from '@angular/common/http';
+
+//add dep pdf
 import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
 
 import {
@@ -26,6 +27,7 @@ import {
   MatCardModule,
   MatProgressSpinnerModule  
 } from '@angular/material';
+
 import { FormsModule }   from '@angular/forms';
 
 import { AppComponent } from './app.component';
@@ -33,19 +35,22 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RelatorioComponent } from './components/relatorio/relatorio.component';
 import { UsuarioComponent } from './components/usuario/usuario.component';
 import { LoginComponent } from './components/login/login.component';
+import { RelatorioDebitoComponent } from './components/relatorio-debito/relatorio-debito.component';
 
 const appRoutes: Routes = [
+  { path: 'relatorio-debito', component: RelatorioDebitoComponent },
   { path: 'relatorio', component: RelatorioComponent },
   { path: 'login', component: LoginComponent },
   { path: 'usuario', component: UsuarioComponent }
 ];
 
-@NgModule({
+@NgModule ({
   declarations: [
     AppComponent,
     RelatorioComponent,
     UsuarioComponent,
-    LoginComponent
+    LoginComponent,
+    RelatorioDebitoComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -55,7 +60,6 @@ const appRoutes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule,
-    NgxExtendedPdfViewerModule,
     MatButtonModule,
     MatToolbarModule,
     MatIconModule,
@@ -101,8 +105,8 @@ const appRoutes: Routes = [
     MatCardModule,
     MatProgressSpinnerModule,
     FormsModule,
-    NgxExtendedPdfViewerModule,
-    HttpClientModule
+    HttpClientModule,
+    PdfJsViewerModule
   ],
 })
 export class AppModule { }
