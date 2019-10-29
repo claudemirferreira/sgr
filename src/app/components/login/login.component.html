@@ -7,11 +7,27 @@
       <form class="my-form">
          <mat-form-field class="full-width">
             <mat-label>Email</mat-label>
-            <input  matInput  placeholder="Email" name="email">
+            <input type="email" 
+                 [(ngModel)]="user.email"
+                 name="email"
+                 class="form-control" 
+                 id="inputEmail" 
+                 #email="ngModel"
+                 placeholder="Email"
+                 email
+                 matInput>
          </mat-form-field>
          <mat-form-field class="full-width">
             <mat-label>Password</mat-label>
-            <input  matInput  placeholder="Password" name="password">
+            <input type="password" 
+                 [(ngModel)]="user.password"
+                 name="password" 
+                 class="form-control" 
+                 id="inputPassword" 
+                 placeholder="Password"
+                 #password="ngModel" 
+                 required
+                 matInput>
          </mat-form-field>
       </form>
    </mat-card-content>

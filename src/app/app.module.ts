@@ -1,7 +1,11 @@
+import { AuthGuard } from './components/login/auth.guard';
+import { AuthInterceptor } from './components/login/auth.interceptor';
+import { UsuarioService } from './services/usuario.service';
+import { SharedService } from './services/shared.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 //add dep pdf
 import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
@@ -25,10 +29,10 @@ import {
   MatTableModule,
   MatPaginatorModule,
   MatCardModule,
-  MatProgressSpinnerModule  
+  MatProgressSpinnerModule
 } from '@angular/material';
 
-import { FormsModule }   from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -38,13 +42,13 @@ import { LoginComponent } from './components/login/login.component';
 import { RelatorioDebitoComponent } from './components/relatorio-debito/relatorio-debito.component';
 
 const appRoutes: Routes = [
-  { path: 'relatorio-debito', component: RelatorioDebitoComponent },
+  { path: 'relatorio-debito', component: RelatorioDebitoComponent, canActivate: [AuthGuard] },
   { path: 'relatorio', component: RelatorioComponent },
   { path: 'login', component: LoginComponent },
   { path: 'usuario', component: UsuarioComponent }
 ];
 
-@NgModule ({
+@NgModule({
   declarations: [
     AppComponent,
     RelatorioComponent,
@@ -83,7 +87,15 @@ const appRoutes: Routes = [
     HttpClientModule,
     PdfJsViewerModule
   ],
-  providers: [],
+  providers: [UsuarioService,
+    SharedService,
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+  ],
   bootstrap: [AppComponent],
   exports: [
     MatButtonModule,
