@@ -1,5 +1,22 @@
-<p>relatorio-debito works!</p>
+<div class="example-container">
+    <p>Relatório</p>
+    <mat-select placeholder="Favorite food" [(ngModel)]="selectedFood1" (change)="onFoodSelection1()">
+            <mat-option *ngFor="let food of foods" [value]="food.idZona">
+                    {{food.nome}}
+            </mat-option>
+          </mat-select>
 
+    <mat-form-field>
+        <mat-label>Favorite food</mat-label>
+        <mat-select [(ngModel)]="selectedFood1" (change)="onSelect($event.value)" >
+            <mat-option *ngFor="let food of foods" [value]="food.idZona">
+                {{food.nome}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    
+</div>
 <div style="height: 600px">
     <ng2-pdfjs-viewer #pdfViewer></ng2-pdfjs-viewer>
 </div>
