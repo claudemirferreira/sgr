@@ -6,6 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 //add dep pdf
 import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
@@ -85,6 +86,7 @@ const appRoutes: Routes = [
     MatProgressSpinnerModule,
     FormsModule,
     HttpClientModule,
+    FlexLayoutModule,
     PdfJsViewerModule
   ],
   providers: [UsuarioService,

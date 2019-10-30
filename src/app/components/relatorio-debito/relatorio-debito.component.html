@@ -1,21 +1,28 @@
-<div class="example-container">
-    <p>Relatório</p>
-    <mat-select placeholder="Favorite food" [(ngModel)]="selectedFood1" (change)="onFoodSelection1()">
-        <mat-option *ngFor="let zona of zonas" [value]="zona.idZona">
-            {{zona.nome}}
-        </mat-option>
-    </mat-select>
-
+<p>Relatório</p>
+<div class="example-container">    
     <mat-form-field>
-        <mat-label>Favorite food</mat-label>
-        <mat-select [(ngModel)]="selectedFood1" (change)="onSelect($event.value)">
-            <mat-option *ngFor="let food of foods" [value]="food.idZona">
-                {{food.nome}}
+        <mat-select placeholder="Zona" [(ngModel)]="zona.idZona" (selectionChange)="changeZona($event)">
+            <mat-option *ngFor="let zona of zonas" [value]="zona.idZona">
+                {{zona.nome}}
             </mat-option>
         </mat-select>
     </mat-form-field>
 
+    <mat-form-field>
+        <mat-select placeholder="Nucleo" [(ngModel)]="nucleo.idNucleo" (selectionChange)="changeZona($event)">
+            <mat-option *ngFor="let nucleo of nucleos" [value]="nucleo.idNucleo">
+                {{nucleo.nome}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
 
+    <mat-form-field>
+        <mat-select placeholder="Area" [(ngModel)]="area.id" (selectionChange)="changeZona($event)">
+            <mat-option *ngFor="let area of areas" [value]="area.id">
+                {{nucleo.nome}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
 </div>
 <div style="height: 600px">
     <ng2-pdfjs-viewer #pdfViewer></ng2-pdfjs-viewer>
