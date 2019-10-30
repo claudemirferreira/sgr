@@ -75,8 +75,21 @@ export class RelatorioDebitoComponent implements OnInit {
   ngOnInit() {
   }
 
-
   carregarNucleo(){
+    this.relatorioService.carregarNucleo(this.zona.idZona).subscribe((responseApi:ResponseApi) => {        
+        this.dto = responseApi['data'];
+        this.nucleos = responseApi['data'];
+        console.log(this.dto);
+        console.log(this.dto.nucleos);
+    } , err => {
+      this.showMessage({
+        type: 'error',
+        text: err['error']['errors'][0]
+      });
+    });
+  }  
+
+  carregarArea(){
     this.relatorioService.carregarNucleo(this.zona.idZona).subscribe((responseApi:ResponseApi) => {        
         this.dto = responseApi['data'];
         this.nucleos = responseApi['data'];

@@ -36,5 +36,10 @@ export class RelatorioService {
     return this.http.get(`${HELP_DESK_API}/api/relatorio/carregarNucleo/${id}`);
   }
 
+  carregarArea(id:string){
+    return this.http.get(`${HELP_DESK_API}/api/relatorio/carregarNucleo/${id}`);
+  }
+
+
 
 }

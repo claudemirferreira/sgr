@@ -17,7 +17,7 @@
     </mat-form-field>
 
     <mat-form-field>
-        <mat-select placeholder="Area" [(ngModel)]="area.id" (selectionChange)="changeZona($event)">
+        <mat-select placeholder="Area" [(ngModel)]="area.id" (selectionChange)="changeArea($event)">
             <mat-option *ngFor="let area of areas" [value]="area.id">
                 {{nucleo.nome}}
             </mat-option>
