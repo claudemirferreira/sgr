@@ -34,8 +34,6 @@ export class RelatorioDebitoComponent implements OnInit {
   areas: [];
   anos: [];
   classCss: {};
-  url = "http://localhost:8080/api/relatorio/downloadPDF";
-  urll = "http://localhost:8080/api/relatorio/downloadPDFPOST";
 
   @Output()
   select: EventEmitter<any>;
@@ -44,15 +42,6 @@ export class RelatorioDebitoComponent implements OnInit {
     private relatorioService: RelatorioService) {
     this.carregarDados();
   }
-
-  download() {
-    this.downloadFile(this.url).subscribe(
-      (res) => {
-        this.pdfViewer.pdfSrc = res; // pdfSrc can be Blob or Uint8Array
-        this.pdfViewer.refresh(); // Ask pdf viewer to load/refresh pdf
-      }
-    );
-  }  
 
   gerarRelatorio() {
     this.paramentroRelatorioDto = new ParamentroRelatorioDto(
@@ -76,9 +65,7 @@ export class RelatorioDebitoComponent implements OnInit {
 
   changeZona($event: EventEmitter<MatSelectChange>) {
     console.log('zona selecionada = ' + this.zona.idZona);
-    console.log('oiiiii' + $event);
     this.carregarNucleo();
-    //this.select. emit($event);
   }
 
   changeArea($event: EventEmitter<MatSelectChange>) {
@@ -87,44 +74,13 @@ export class RelatorioDebitoComponent implements OnInit {
     //this.select. emit($event);
   }
 
-  private downloadFile(url: string): any {
-    return this.http.get(url, { responseType: 'blob' })
-      .pipe(
-        map((result: any) => {
-          return result;
-        })
-      );
-  }
-
-  teste(): any {
-    //return this.http.post(`${HELP_DESK_API}/api/user`, user);
-    this.paramentroRelatorioDto = new ParamentroRelatorioDto('2', '2', '2', '2', 2018);
-    this.url = 'http://localhost:8080/api/relatorio/teste';
-    return this.http.post(this.url, this.paramentroRelatorioDto, { responseType: 'blob' })
-      .pipe(
-        map((result: any) => {
-          return result;
-        })
-      );
-  }
-
-  private downloadFilePost(url: string): any {
-    //return this.http.post(`${HELP_DESK_API}/api/user`, user);
-    this.paramentroRelatorioDto = new ParamentroRelatorioDto('2', '2', '2', '2', 2018);
-    return this.http.post(url, this.paramentroRelatorioDto, { responseType: 'blob' })
-      .pipe(
-        map((result: any) => {
-          return result;
-        })
-      );
-  }
-
   ngOnInit() {
   }
 
   carregarNucleo() {
     this.relatorioService.carregarNucleo(this.zona.idZona).subscribe((responseApi: ResponseApi) => {
       this.nucleos = responseApi['data'];
+      this.areas = [];
       console.log(this.nucleos);
     }, err => {
       this.showMessage({
@@ -153,7 +109,7 @@ export class RelatorioDebitoComponent implements OnInit {
       this.zonas = this.dto.zonas;
       this.nucleos = this.dto.nucleos;
       this.anos = this.dto.anos;
-      this.ano = this.anos[1];
+      this.ano = this.anos[0];
       console.log(this.anos);
       console.log(this.dto.zonas);
       console.log(this.dto.nucleos);
