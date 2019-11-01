@@ -1,3 +1,4 @@
+import { ParamentroRelatorioDto } from './../model/paramentro-relatorio-dto';
 import { HttpClient } from '@angular/common/http';
 import { HELP_DESK_API } from './helpdesk.api';
 import { Injectable } from '@angular/core';
@@ -10,36 +11,25 @@ export class RelatorioService {
 
   constructor(private http: HttpClient) { }
 
-  pdf() {
-    return this.http.get(`${HELP_DESK_API}/api/relatorio/pdf`, { responseType: 'blob' })
-      .pipe(
-        map((result: any) => {
-          return result;
-        })
-      );
-  }
-
-  imprimir(url: string): any {
-    return this.http.get(`${HELP_DESK_API}` + `url`, { responseType: 'blob' })
-      .pipe(
-        map((result: any) => {
-          return result;
-        })
-      );
-  }
-      
-  carregarDados(){
+  carregarDados() {
     return this.http.get(`${HELP_DESK_API}/api/relatorio/carregarDados`);
   }
 
-  carregarNucleo(id:string){
+  carregarNucleo(id: string) {
     return this.http.get(`${HELP_DESK_API}/api/relatorio/carregarNucleo/${id}`);
   }
 
-  carregarArea(id:string){
-    return this.http.get(`${HELP_DESK_API}/api/relatorio/carregarNucleo/${id}`);
+  carregarArea(id: string) {
+    return this.http.get(`${HELP_DESK_API}/api/relatorio/carregarArea/${id}`);
   }
 
-
+  geraPdf(dto: ParamentroRelatorioDto) {
+    return this.http.post(`${HELP_DESK_API}/api/relatorio/geraPdf`, dto, { responseType: 'blob' })
+      .pipe(
+        map((result: any) => {
+          return result;
+        })
+      );
+  }
 
 }

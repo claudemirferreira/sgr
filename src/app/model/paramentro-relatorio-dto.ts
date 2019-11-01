@@ -3,9 +3,9 @@ export class ParamentroRelatorioDto {
 
     constructor(
         public nomeRelatorio: string,
-        public idNucleo: number,
-        public idArea: number,
-        public idZona: number) {
-
+        public idZona: string,
+        public idNucleo: string,
+        public idArea: string,
+        public ano: number) {
         }
 }

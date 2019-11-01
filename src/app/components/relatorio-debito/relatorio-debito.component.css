@@ -1,10 +1,7 @@
-.example-container {
-    display: flex;
-    flex-direction: column;
-    padding: 50px 50px 75px 100px;
-  }
-  
-  .example-container > * {
-    width: 100%;
-  }
+mat-form-field {
+    margin-right: 12px;
+}
 
+mat-select {
+  margin-right: 12px;
+}

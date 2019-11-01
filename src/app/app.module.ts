@@ -8,7 +8,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-//add dep pdf
 import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
 
 import {
@@ -87,7 +86,8 @@ const appRoutes: Routes = [
     FormsModule,
     HttpClientModule,
     FlexLayoutModule,
-    PdfJsViewerModule
+    PdfJsViewerModule,
+    MatCardModule
   ],
   providers: [UsuarioService,
     SharedService,
@@ -120,7 +120,8 @@ const appRoutes: Routes = [
     MatProgressSpinnerModule,
     FormsModule,
     HttpClientModule,
-    PdfJsViewerModule
+    PdfJsViewerModule,
+    MatCardModule
   ],
 })
 export class AppModule { }

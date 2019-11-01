@@ -1,7 +1,7 @@
 export class NucleoDto {
 
     constructor(
-        public idNucleo: string,
+        public id: string,
         public nome: string) {
     }
 }
