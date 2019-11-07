@@ -1,3 +1,4 @@
+import { FiltroDto } from './../model/filtro-dto';
 import { ParamentroRelatorioDto } from './../model/paramentro-relatorio-dto';
 import { HttpClient } from '@angular/common/http';
 import { HELP_DESK_API } from './helpdesk.api';
@@ -20,10 +21,11 @@ export class RelatorioService {
   }
 
   carregarArea(id: string) {
+    console.log(id);
     return this.http.get(`${HELP_DESK_API}/api/relatorio/carregarArea/${id}`);
   }
 
-  geraPdf(dto: ParamentroRelatorioDto) {
+  geraPdf(dto: FiltroDto) {
     return this.http.post(`${HELP_DESK_API}/api/relatorio/geraPdf`, dto, { responseType: 'blob' })
       .pipe(
         map((result: any) => {

@@ -1,19 +1,32 @@
-mat-form-field {
-  margin-right: 10px;
+:host {
+  display: flex;
+  justify-content: center;
+  margin: 100px 0px;
 }
 
-.img {
+.mat-form-field {
   width: 100%;
-  margin-bottom: 18%;
+  min-width: 300px;
 }
-.card-picture {
-  width: 23%;
-  margin-bottom: 2%;
+
+mat-card-title,
+mat-card-content {
+  display: flex;
+  justify-content: center;
 }
-.container {
-  min-height: 100%;
-  width: 100%;
+
+.error {
+  padding: 16px;
+  width: 300px;
+  color: white;
+  background-color: red;
 }
-.search-form {
-  width: 90%;
+
+.button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.logo_my-bg {
+  background: url(/assets/img/shiba2.jpg);
 }

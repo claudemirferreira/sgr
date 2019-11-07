@@ -1,3 +1,4 @@
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CurrentUsuario } from './../../model/current-usuario';
 import { SharedService } from './../../services/shared.service';
 import { Usuario } from './../../model/usuario';
@@ -12,21 +13,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  
-  username: string;
-  password: string;
 
+  formGroup: FormGroup;
   user = new Usuario('','','','');
   shared : SharedService;
   message : string;  
 
   constructor(private userService: UsuarioService,
-              private router: Router) { 
+              private router: Router,
+              private formBuilder: FormBuilder) { 
     this.shared = SharedService.getInstance();
   }
 
   ngOnInit() {
+    this.createForm();
   }
+
+  createForm() {    
+    this.formGroup = this.formBuilder.group({
+      'email': [null, Validators.required],
+      'password': [null, Validators.required]
+    });
+  }  
 
   login(){
     this.message = '';
@@ -57,14 +65,6 @@ export class LoginComponent implements OnInit {
       'has-error' : isInvalid  && isDirty,
       'has-success' : !isInvalid  && isDirty
     };
-  }
-
-  login1(): void {
-    if (this.username == 'admin' && this.password == 'admin') {
-      this.router.navigate(["user"]);
-    } else {
-      alert("Invalid credentials");
-    }
   }
 
 }

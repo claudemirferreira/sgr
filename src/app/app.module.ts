@@ -7,7 +7,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
-
 import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
 
 import {
@@ -32,18 +31,24 @@ import {
   MatProgressSpinnerModule
 } from '@angular/material';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RelatorioComponent } from './components/relatorio/relatorio.component';
 import { UsuarioComponent } from './components/usuario/usuario.component';
 import { LoginComponent } from './components/login/login.component';
 import { RelatorioDebitoComponent } from './components/relatorio-debito/relatorio-debito.component';
+import { DebitoFinaceiroComponent } from './components/debito-finaceiro/debito-finaceiro.component';
+import { BalanceteAnaliticoComponent } from './components/balancete-analitico/balancete-analitico.component';
+import { BalanceteSinteticoComponent } from './components/balancete-sintetico/balancete-sintetico.component';
+import { CentroCustoComponent } from './components/centro-custo/centro-custo.component';
+import { DebitoPastoralComponent } from './components/debito-pastoral/debito-pastoral.component';
+import { DebitoSecretariaComponent } from './components/debito-secretaria/debito-secretaria.component';
+import { EstatisticoComponent } from './components/estatistico/estatistico.component';
 
 const appRoutes: Routes = [
   { path: 'relatorio-debito', component: RelatorioDebitoComponent, canActivate: [AuthGuard] },
-  { path: 'relatorio', component: RelatorioComponent },
+  { path: 'debito-financeiro', component: DebitoFinaceiroComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'usuario', component: UsuarioComponent }
 ];
@@ -51,10 +56,16 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    RelatorioComponent,
     UsuarioComponent,
     LoginComponent,
-    RelatorioDebitoComponent
+    RelatorioDebitoComponent,
+    DebitoFinaceiroComponent,
+    BalanceteAnaliticoComponent,
+    BalanceteSinteticoComponent,
+    CentroCustoComponent,
+    DebitoPastoralComponent,
+    DebitoSecretariaComponent,
+    EstatisticoComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -87,7 +98,8 @@ const appRoutes: Routes = [
     HttpClientModule,
     FlexLayoutModule,
     PdfJsViewerModule,
-    MatCardModule
+    MatCardModule,
+    ReactiveFormsModule
   ],
   providers: [UsuarioService,
     SharedService,

@@ -1,7 +1,7 @@
 export class ZonaDto {
 
     constructor(
-        public idZona: string,
+        public id: number,
         public nome: string) {
     }
 }
