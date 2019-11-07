@@ -1,3 +1,4 @@
+import { ZonaDto } from './../../model/zona-dto';
 import { FiltroDto } from './../../model/filtro-dto';
 import { ParamRelatorioDto } from './../../model/param-relatorio-dto';
 import { SharedService } from './../../services/shared.service';
@@ -27,6 +28,7 @@ export class DebitoFinaceiroComponent implements OnInit {
   zonas: [];
   anos: number[];
   classCss: {};
+  valido = false;
 
   @Output()
   select: EventEmitter<any>;
@@ -61,6 +63,14 @@ export class DebitoFinaceiroComponent implements OnInit {
     });
   }
 
+  validateZona(){
+    if (this.filtroDto.zona == null || this.filtroDto.zona.id > 0){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   ngOnInit() {
     //this.dto = new ParamRelatorioDto();
     this.filtroDto = new FiltroDto();
@@ -83,6 +93,8 @@ export class DebitoFinaceiroComponent implements OnInit {
     this.relatorioService.carregarDados().subscribe((responseApi: ResponseApi) => {
       this.filtroDto = responseApi['data'];
       //this.paramentroRelatorioDto.zonas = responseApi['zonas'];
+      this.filtroDto.zona = new ZonaDto(0,'');
+      this.filtroDto.zona.id = 0;
     }, err => {
       this.showMessage({
         type: 'error',
