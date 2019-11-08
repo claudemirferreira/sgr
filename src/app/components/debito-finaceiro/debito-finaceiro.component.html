@@ -40,7 +40,7 @@
 
         </mat-card-content>
         <mat-card-actions>
-            <button [disabled]="validateZona()"
+            <button [disabled]="!validateZona()"
                 mat-raised-button 
                 (click)="gerarRelatorio()">Imprimir</button>
         </mat-card-actions>

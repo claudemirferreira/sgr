@@ -37,7 +37,6 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UsuarioComponent } from './components/usuario/usuario.component';
 import { LoginComponent } from './components/login/login.component';
-import { RelatorioDebitoComponent } from './components/relatorio-debito/relatorio-debito.component';
 import { DebitoFinaceiroComponent } from './components/debito-finaceiro/debito-finaceiro.component';
 import { BalanceteAnaliticoComponent } from './components/balancete-analitico/balancete-analitico.component';
 import { BalanceteSinteticoComponent } from './components/balancete-sintetico/balancete-sintetico.component';
@@ -45,9 +44,12 @@ import { CentroCustoComponent } from './components/centro-custo/centro-custo.com
 import { DebitoPastoralComponent } from './components/debito-pastoral/debito-pastoral.component';
 import { DebitoSecretariaComponent } from './components/debito-secretaria/debito-secretaria.component';
 import { EstatisticoComponent } from './components/estatistico/estatistico.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
 
 const appRoutes: Routes = [
-  { path: 'relatorio-debito', component: RelatorioDebitoComponent, canActivate: [AuthGuard] },
+  { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard] },
+  { path: 'debito-secretaria', component: DebitoSecretariaComponent, canActivate: [AuthGuard] },
+  { path: 'debito-pastoral', component: DebitoPastoralComponent, canActivate: [AuthGuard] },
   { path: 'debito-financeiro', component: DebitoFinaceiroComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'usuario', component: UsuarioComponent }
@@ -58,14 +60,14 @@ const appRoutes: Routes = [
     AppComponent,
     UsuarioComponent,
     LoginComponent,
-    RelatorioDebitoComponent,
     DebitoFinaceiroComponent,
     BalanceteAnaliticoComponent,
     BalanceteSinteticoComponent,
     CentroCustoComponent,
     DebitoPastoralComponent,
     DebitoSecretariaComponent,
-    EstatisticoComponent
+    EstatisticoComponent,
+    PerfilComponent
   ],
   imports: [
     RouterModule.forRoot(
