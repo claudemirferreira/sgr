@@ -1,5 +1,4 @@
 import { FiltroDto } from './../model/filtro-dto';
-import { ParamentroRelatorioDto } from './../model/paramentro-relatorio-dto';
 import { HttpClient } from '@angular/common/http';
 import { HELP_DESK_API } from './helpdesk.api';
 import { Injectable } from '@angular/core';

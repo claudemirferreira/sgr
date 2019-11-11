@@ -1,33 +1,10 @@
-<div fxLayout="row"  fxLayoutGap="12px"  [style.margin-top]="'12px'">
-    <mat-card>
-      <div class="mat-body-2">Claudemir compilé</div>
-      <div class="mat-body-1">Le code écrit en TypeScript est compilé en JavaScript avant d'être utilisé : de ce fait, tout code JavaScript valide est du code TypeScript valide.</div>
-    </mat-card>
-    <mat-card>
-      <div class="mat-body-2">Impératif</div>
-      <div class="mat-body-1">Se rapproche des langages de type impératif, tels que le Java : utilisation de classes, interfaces, héritage ...</div>
-    </mat-card>
-    <mat-card>
-      <div class="mat-body-2">Ressources</div>
-      <mat-list>
-        <mat-list-item>
-          <div matLine>
-            Sandbox TypeScript :
-            <button mat-button
-              (click)="playground.click()">Playground</button>
-            <a #playground href="http://www.typescriptlang.org/play/" target="_blank" [style.display]="'none'">TS Playground</a>
-          </div>
-        </mat-list-item>
-        <mat-list-item>
-          <div matLine>
-            Documentation : 
-            <button mat-button
-              (click)="documentation.click()">TS Doc</button>
-            <a #documentation href="http://www.typescriptlang.org/docs/home.html" target="_blank" [style.display]="'none'">TS Doc</a>
-          </div>
-        </mat-list-item>
-      </mat-list>
-    </mat-card>
+<div fxLayout="row" fxLayoutGap="12px" [style.margin-top]="'12px'">
+  <mat-nav-list>
+    <mat-list-item *ngFor="let perfil of perfils">
+      <a color="warn" mat-button  routerLink="/debito-secretaria">{{ perfil.nome }}</a>  
+      <button mat-raised-button color="warn" (click)="listarRotinas()">Warn</button>    
+    </mat-list-item>
+  </mat-nav-list>
 
-    
-  </div>
+
+</div>
