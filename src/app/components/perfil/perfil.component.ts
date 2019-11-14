@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { PerfilDto } from './../../model/perfil-dto';
 import { ResponseApi } from './../../model/response-api';
 import { HttpClient } from '@angular/common/http';
@@ -16,11 +17,12 @@ export class PerfilComponent implements OnInit {
   classCss: {};
 
   constructor(private http: HttpClient,
+    private router: Router,
     private service: PerfilService) {
     this.perfilUsuario();
   }
 
-  ngOnInit() {
+  ngOnInit() {     
   }
 
   perfilUsuario() {
@@ -34,8 +36,10 @@ export class PerfilComponent implements OnInit {
     });
   }
 
-  listarRotinas(){
-    
+  listarRotinas(idPerfil: number){
+    this.router.navigate(['/rotina']);
+    console.log('##########' + idPerfil);
+
   }
 
   private showMessage(message: { type: string, text: string }): void {

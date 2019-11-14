@@ -1,8 +1,9 @@
 <div fxLayout="row" fxLayoutGap="12px" [style.margin-top]="'12px'">
   <mat-nav-list>
     <mat-list-item *ngFor="let perfil of perfils">
-      <a color="warn" mat-button  routerLink="/debito-secretaria">{{ perfil.nome }}</a>  
-      <button mat-raised-button color="warn" (click)="listarRotinas()">Warn</button>    
+      <a color="warn" mat-button  routerLink="/rotina" [queryParams]="idPerfil:1" >{{ perfil.nome }}</a>  
+      
+      <button mat-raised-button color="warn" (click)="listarRotinas(perfil.id)">Warn</button>    
     </mat-list-item>
   </mat-nav-list>
 

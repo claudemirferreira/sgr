@@ -45,8 +45,10 @@ import { DebitoPastoralComponent } from './components/debito-pastoral/debito-pas
 import { DebitoSecretariaComponent } from './components/debito-secretaria/debito-secretaria.component';
 import { EstatisticoComponent } from './components/estatistico/estatistico.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
+import { RotinaComponent } from './components/rotina/rotina.component';
 
 const appRoutes: Routes = [
+  { path: 'rotina', component: RotinaComponent, canActivate: [AuthGuard] },
   { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard] },
   { path: 'debito-secretaria', component: DebitoSecretariaComponent, canActivate: [AuthGuard] },
   { path: 'debito-pastoral', component: DebitoPastoralComponent, canActivate: [AuthGuard] },
@@ -67,7 +69,8 @@ const appRoutes: Routes = [
     DebitoPastoralComponent,
     DebitoSecretariaComponent,
     EstatisticoComponent,
-    PerfilComponent
+    PerfilComponent,
+    RotinaComponent
   ],
   imports: [
     RouterModule.forRoot(
