@@ -1,18 +1,19 @@
-import { ZonaDto } from './../../model/zona-dto';
-import { FiltroDto } from './../../model/filtro-dto';
-import { ParamRelatorioDto } from './../../model/param-relatorio-dto';
-import { SharedService } from './../../services/shared.service';
-import { RelatorioService } from './../../services/relatorio.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ZonaDto } from 'src/app/model/zona-dto';
+import { ResponseApi } from 'src/app/model/response-api';
+import { FiltroDto } from 'src/app/model/filtro-dto';
+import { RelatorioService } from 'src/app/services/relatorio.service';
 import { HttpClient } from '@angular/common/http';
-import { ResponseApi } from './../../model/response-api';
-import { Component, OnInit, EventEmitter, Output, ViewChild } from '@angular/core';
+import { ParamRelatorioDto } from 'src/app/model/param-relatorio-dto';
+import { SharedService } from 'src/app/services/shared.service';
+import { MembroService } from 'src/app/services/membro.service';
 
 @Component({
-  selector: 'app-debito-finaceiro',
-  templateUrl: './debito-finaceiro.component.html',
-  styleUrls: ['./debito-finaceiro.component.css']
+  selector: 'app-relatorio-membro',
+  templateUrl: './relatorio-membro.component.html',
+  styleUrls: ['./relatorio-membro.component.css']
 })
-export class DebitoFinaceiroComponent implements OnInit {
+export class RelatorioMembroComponent implements OnInit {
 
   @ViewChild('pdfViewer', { static: false }) 
   public pdfViewer;
@@ -24,17 +25,16 @@ export class DebitoFinaceiroComponent implements OnInit {
   anoInicio: number;
   anoFim: number;
   ano: number;
+  membro: string
 
-  zonas: [];
+  membros: [];
   anos: number[];
   classCss: {};
   valido = false;
 
-  @Output()
-  select: EventEmitter<any>;
-
   constructor(private http: HttpClient,
-    private relatorioService: RelatorioService) {
+    private relatorioService: RelatorioService,
+    private membroService: MembroService) {
     this.carregarDados();
   }
 
@@ -43,6 +43,17 @@ export class DebitoFinaceiroComponent implements OnInit {
     this.relatorioService.geraPdf(this.filtroDto).subscribe((res) => {
       this.pdfViewer.pdfSrc = res; // pdfSrc can be Blob or Uint8Array
       this.pdfViewer.refresh(); // Ask pdf viewer to load/refresh pdf
+    }, err => {
+      this.showMessage({
+        type: 'error',
+        text: err['error']['errors'][0]
+      });
+    });
+  }
+
+  find() {
+    this.membroService.find(this.filtroDto).subscribe((responseApi: ResponseApi) => {
+      this.membros = responseApi['data'];
     }, err => {
       this.showMessage({
         type: 'error',
@@ -93,9 +104,9 @@ export class DebitoFinaceiroComponent implements OnInit {
   carregarDados() {
     this.relatorioService.carregarDados().subscribe((responseApi: ResponseApi) => {
       this.filtroDto = responseApi['data'];
-      //this.paramentroRelatorioDto.zonas = responseApi['zonas'];
       this.filtroDto.zona = new ZonaDto();
       this.filtroDto.zona.id = 0;
+      this.filtroDto.membro = 'informe o nome do membro';
     }, err => {
       this.showMessage({
         type: 'error',

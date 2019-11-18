@@ -1,18 +1,18 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ResponseApi } from 'src/app/model/response-api';
 import { ZonaDto } from 'src/app/model/zona-dto';
+import { ResponseApi } from 'src/app/model/response-api';
 import { FiltroDto } from 'src/app/model/filtro-dto';
 import { HttpClient } from '@angular/common/http';
 import { RelatorioService } from 'src/app/services/relatorio.service';
-import { SharedService } from 'src/app/services/shared.service';
 import { ParamRelatorioDto } from 'src/app/model/param-relatorio-dto';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
-  selector: 'app-estatistico',
-  templateUrl: './estatistico.component.html',
-  styleUrls: ['./estatistico.component.css']
+  selector: 'app-debito-financeiro',
+  templateUrl: './debito-financeiro.component.html',
+  styleUrls: ['./debito-financeiro.component.css']
 })
-export class EstatisticoComponent implements OnInit {
+export class DebitoFinanceiroComponent implements OnInit {
 
   @ViewChild('pdfViewer', { static: false }) 
   public pdfViewer;
@@ -36,7 +36,7 @@ export class EstatisticoComponent implements OnInit {
   }
 
   gerarRelatorio() {
-    this.filtroDto.nomeRelatorio = 'RelatorioEstatistico.jasper'; 
+    this.filtroDto.nomeRelatorio = 'RelatorioDebitoFinanceiro.jasper'; 
     this.relatorioService.geraPdf(this.filtroDto).subscribe((res) => {
       this.pdfViewer.pdfSrc = res; // pdfSrc can be Blob or Uint8Array
       this.pdfViewer.refresh(); // Ask pdf viewer to load/refresh pdf
@@ -90,6 +90,7 @@ export class EstatisticoComponent implements OnInit {
   carregarDados() {
     this.relatorioService.carregarDados().subscribe((responseApi: ResponseApi) => {
       this.filtroDto = responseApi['data'];
+      //this.paramentroRelatorioDto.zonas = responseApi['zonas'];
       this.filtroDto.zona = new ZonaDto();
       this.filtroDto.zona.id = 0;
     }, err => {

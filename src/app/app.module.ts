@@ -37,7 +37,6 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UsuarioComponent } from './components/usuario/usuario.component';
 import { LoginComponent } from './components/login/login.component';
-import { DebitoFinaceiroComponent } from './components/debito-finaceiro/debito-finaceiro.component';
 import { BalanceteAnaliticoComponent } from './components/balancete-analitico/balancete-analitico.component';
 import { BalanceteSinteticoComponent } from './components/balancete-sintetico/balancete-sintetico.component';
 import { CentroCustoComponent } from './components/centro-custo/centro-custo.component';
@@ -46,6 +45,9 @@ import { DebitoSecretariaComponent } from './components/debito-secretaria/debito
 import { EstatisticoComponent } from './components/estatistico/estatistico.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { RotinaComponent } from './components/rotina/rotina.component';
+import { DebitoFinanceiroComponent } from './components/debito-financeiro/debito-financeiro.component';
+import { MembroComponent } from './components/membro/membro.component';
+import { RelatorioMembroComponent } from './components/relatorio-membro/relatorio-membro.component';
 
 const appRoutes: Routes = [
   { path: 'rotina', component: RotinaComponent, canActivate: [AuthGuard] },
@@ -53,7 +55,9 @@ const appRoutes: Routes = [
   { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard] },
   { path: 'debito-secretaria', component: DebitoSecretariaComponent, canActivate: [AuthGuard] },
   { path: 'debito-pastoral', component: DebitoPastoralComponent, canActivate: [AuthGuard] },
-  { path: 'debito-financeiro', component: DebitoFinaceiroComponent, canActivate: [AuthGuard] },
+  { path: 'debito-financeiro', component: DebitoFinanceiroComponent, canActivate: [AuthGuard] },
+  { path: 'estatistico', component: EstatisticoComponent, canActivate: [AuthGuard] },
+  { path: 'membro', component: RelatorioMembroComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'usuario', component: UsuarioComponent }
 ];
@@ -63,7 +67,6 @@ const appRoutes: Routes = [
     AppComponent,
     UsuarioComponent,
     LoginComponent,
-    DebitoFinaceiroComponent,
     BalanceteAnaliticoComponent,
     BalanceteSinteticoComponent,
     CentroCustoComponent,
@@ -71,7 +74,10 @@ const appRoutes: Routes = [
     DebitoSecretariaComponent,
     EstatisticoComponent,
     PerfilComponent,
-    RotinaComponent
+    RotinaComponent,
+    DebitoFinanceiroComponent,
+    MembroComponent,
+    RelatorioMembroComponent
   ],
   imports: [
     RouterModule.forRoot(

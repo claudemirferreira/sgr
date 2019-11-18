@@ -1,12 +1,14 @@
-<div fxLayout="row" fxLayoutGap="12px" [style.margin-top]="'12px'">
+
+<mat-list-item *ngFor="let perfil of perfils">
+  <h4 mat-line>{{perfil.nome}}</h4>
   <mat-nav-list>
-    <mat-list-item *ngFor="let perfil of perfils">
-      <a color="warn" mat-button  [routerLink]="['/rotina', perfil.id]" >{{ perfil.nome }}</a> 
-      
-      
-      <button mat-raised-button color="warn" (click)="listarRotinas(perfil.id)">Warn</button>    
+    <mat-list-item *ngFor="let rotina of perfil.rotinas">
+      <button mat-icon-button (click)="selectRotina(rotina)" >
+          <span class="link-caption">{{ rotina.nome }}</span>
+        <mat-icon>info</mat-icon>
+     </button>
     </mat-list-item>
   </mat-nav-list>
+  <mat-divider></mat-divider>
 
-
-</div>
+</mat-list-item>

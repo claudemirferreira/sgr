@@ -4,6 +4,7 @@ import { ResponseApi } from './../../model/response-api';
 import { HttpClient } from '@angular/common/http';
 import { PerfilService } from './../../services/perfil.service';
 import { Component, OnInit } from '@angular/core';
+import { Rotina } from 'src/app/model/rotina';
 
 @Component({
   selector: 'app-perfil',
@@ -23,6 +24,10 @@ export class PerfilComponent implements OnInit {
   }
 
   ngOnInit() {     
+  }
+
+  selectRotina(rotina: Rotina){
+    this.router.navigate(['/'+rotina.acao]);
   }
 
   perfilUsuario() {
