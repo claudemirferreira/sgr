@@ -62,6 +62,7 @@ const appRoutes: Routes = [
   { path: 'saldo-congregacao', component: SaldoCongregacaoComponent, canActivate: [AuthGuard] },
   { path: 'estatistico', component: EstatisticoComponent, canActivate: [AuthGuard] },
   { path: 'membro', component: RelatorioMembroComponent, canActivate: [AuthGuard] },
+  { path: 'rotina', component: RotinaComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'usuario', component: UsuarioComponent }
 ];

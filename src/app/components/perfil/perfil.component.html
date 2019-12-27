@@ -1,14 +1,24 @@
 
-<mat-list-item *ngFor="let perfil of perfils">
-  <h4 mat-line>{{perfil.nome}}</h4>
-  <mat-nav-list>
-    <mat-list-item *ngFor="let rotina of perfil.rotinas">
-      <button mat-icon-button (click)="selectRotina(rotina)" >
+<div class="container">
+  <div class="flex-container" 
+    *ngFor="let perfil of perfils" 
+    fxLayout="row" 
+    fxLayout.sm="column"
+    fxLayoutAlign="center"
+    fxFlexAlign="center">
+    <span class="link-caption" fxLayout="row">{{ perfil.nome }}</span>
+    <div class="flex-container" *ngFor="let rotina of perfil.rotinas" 
+      fxLayout="row" 
+      fxLayout.xs="column" 
+      fxLayout.md="column">
+      <mat-card class="card-perfil"
+      fxFlex="0 1 calc(33.3% - 32px)"
+      fxFlex.lt-md="0 1 calc(50% - 32px)"
+      fxFlex.lt-sm="100%">
+        <button mat-icon-button (click)="selectRotina(rotina)">
           <span class="link-caption">{{ rotina.nome }}</span>
-        <mat-icon>info</mat-icon>
-     </button>
-    </mat-list-item>
-  </mat-nav-list>
-  <mat-divider></mat-divider>
-
-</mat-list-item>
+        </button>
+      </mat-card>
+    </div>
+  </div>
+</div>
