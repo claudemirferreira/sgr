@@ -1,5 +1,29 @@
+/*
+.container{
+  height: 100vh;
+  overflow: hidden;
+  overflow-y: scroll;
+  margin: 20px;
+  padding: 0 ;
+}
+
+.product{
+  min-width: 180px;
+  text-align: center;
+  margin-bottom: 20px; 
+}
+
+.product img{
+  height: 150px;
+  object-fit: contain;
+}
+
+.margin-top-20{
+  margin-top:20px;
+}
+*/
 .container {
-  /*display: flex;*/
+  display: flex;
   flex-direction: row;
   align-content: flex-center;
   align-items: flex-center;
@@ -20,6 +44,11 @@
 
 .example-card {
   max-width: 80px;
+}
+
+.mat-card {
+  width: 200px;
+  margin: 5px;
 }
 
 .card-perfil {

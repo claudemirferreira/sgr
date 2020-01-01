@@ -12,4 +12,9 @@ export class PerfilService {
   perfilUsuario() {
     return this.http.get(`${HELP_DESK_API}/api/perfil/usuario`);
   }
+
+  getPerfil(id: number) {
+    return this.http.get(`${HELP_DESK_API}/api/perfil/`+id);
+  }
+
 }

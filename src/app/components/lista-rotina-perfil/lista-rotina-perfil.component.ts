@@ -1,41 +1,55 @@
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { PerfilDto } from './../../model/perfil-dto';
 import { ResponseApi } from './../../model/response-api';
 import { HttpClient } from '@angular/common/http';
 import { PerfilService } from './../../services/perfil.service';
-import { Component, OnInit } from '@angular/core';
 import { Rotina } from 'src/app/model/rotina';
 
 @Component({
-  selector: 'app-perfil',
-  templateUrl: './perfil.component.html',
-  styleUrls: ['./perfil.component.css']
+  selector: 'app-lista-rotina-perfil',
+  templateUrl: './lista-rotina-perfil.component.html',
+  styleUrls: ['./lista-rotina-perfil.component.css']
 })
-export class PerfilComponent implements OnInit {
+export class ListaRotinaPerfilComponent implements OnInit {
 
   perfils: PerfilDto[];
   message: {};
   classCss: {};
 
+  perfil: PerfilDto;
+
+  rotinas: Rotina[];
+
   constructor(private http: HttpClient,
     private router: Router,
-    private service: PerfilService) {
-    this.perfilUsuario();
-  }
+    private route: ActivatedRoute,
+    private service: PerfilService) { }
 
-  ngOnInit() {     
+
+  ngOnInit() {
+    var id = this.route.params.subscribe(params => {
+      var id = params['id'];
+      console.log('idperfil =====================' + id);
+      if (!id)
+        return;
+      this.service.getPerfil(id).subscribe((responseApi: ResponseApi) => {
+        this.perfil = responseApi['data'];
+        this.rotinas = this.perfil.rotinas;
+      }, err => {
+        this.showMessage({
+          type: 'error',
+          text: err['error']['errors'][0]
+        });
+      });
+    });
   }
 
   selectRotina(rotina: Rotina){
     this.router.navigate(['/'+rotina.acao]);
   }
 
-  selectPerfil(perfil: PerfilDto){
-    console.log('lista-rotina-perfil/'+perfil.id);
-    this.router.navigate(['lista-rotina-perfil/'+perfil.id]);
-  }
-
-  perfilUsuario() {
+  getPerfil() {
     this.service.perfilUsuario().subscribe((responseApi: ResponseApi) => {
       this.perfils = responseApi['data'];
     }, err => {
@@ -46,7 +60,7 @@ export class PerfilComponent implements OnInit {
     });
   }
 
-  listarRotinas(idPerfil: number){
+  listarRotinas(idPerfil: number) {
     this.router.navigate(['/rotina']);
     console.log('##########' + idPerfil);
 
@@ -66,5 +80,6 @@ export class PerfilComponent implements OnInit {
     }
     this.classCss['alert-' + type] = true;
   }
+
 
 }

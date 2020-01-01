@@ -50,11 +50,13 @@ import { MembroComponent } from './components/membro/membro.component';
 import { RelatorioMembroComponent } from './components/relatorio-membro/relatorio-membro.component';
 import { ProventoPastoralComponent } from './components/provento-pastoral/provento-pastoral.component';
 import { SaldoCongregacaoComponent } from './components/saldo-congregacao/saldo-congregacao.component';
+import { ListaRotinaPerfilComponent } from './components/lista-rotina-perfil/lista-rotina-perfil.component';
 
 const appRoutes: Routes = [
   { path: 'rotina', component: RotinaComponent, canActivate: [AuthGuard] },
   { path: 'rotina/:idPerfil', component: RotinaComponent, canActivate: [AuthGuard] },
-  { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard] },
+  { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard] },  
+  { path: 'lista-rotina-perfil/:id', component: ListaRotinaPerfilComponent, canActivate: [AuthGuard] },
   { path: 'debito-secretaria', component: DebitoSecretariaComponent, canActivate: [AuthGuard] },
   { path: 'debito-pastoral', component: DebitoPastoralComponent, canActivate: [AuthGuard] },
   { path: 'debito-financeiro', component: DebitoFinanceiroComponent, canActivate: [AuthGuard] },
@@ -84,7 +86,8 @@ const appRoutes: Routes = [
     MembroComponent,
     RelatorioMembroComponent,
     ProventoPastoralComponent,
-    SaldoCongregacaoComponent
+    SaldoCongregacaoComponent,
+    ListaRotinaPerfilComponent
   ],
   imports: [
     RouterModule.forRoot(
