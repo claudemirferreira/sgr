@@ -51,12 +51,18 @@ import { RelatorioMembroComponent } from './components/relatorio-membro/relatori
 import { ProventoPastoralComponent } from './components/provento-pastoral/provento-pastoral.component';
 import { SaldoCongregacaoComponent } from './components/saldo-congregacao/saldo-congregacao.component';
 import { ListaRotinaPerfilComponent } from './components/lista-rotina-perfil/lista-rotina-perfil.component';
+import { ListarPerfilComponent } from './components/listar-perfil/listar-perfil.component';
+import { AssociarRotinaComponent } from './components/listar-perfil/associar-rotina/associar-rotina.component';
 
 const appRoutes: Routes = [
   { path: 'rotina', component: RotinaComponent, canActivate: [AuthGuard] },
   { path: 'rotina/:idPerfil', component: RotinaComponent, canActivate: [AuthGuard] },
   { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard] },  
+  { path: 'listar-perfil', component: ListarPerfilComponent, canActivate: [AuthGuard] },  
   { path: 'lista-rotina-perfil/:id', component: ListaRotinaPerfilComponent, canActivate: [AuthGuard] },
+  { path: 'associar-rotina/:id', component: AssociarRotinaComponent, canActivate: [AuthGuard] },
+
+  
   { path: 'debito-secretaria', component: DebitoSecretariaComponent, canActivate: [AuthGuard] },
   { path: 'debito-pastoral', component: DebitoPastoralComponent, canActivate: [AuthGuard] },
   { path: 'debito-financeiro', component: DebitoFinanceiroComponent, canActivate: [AuthGuard] },
@@ -87,7 +93,9 @@ const appRoutes: Routes = [
     RelatorioMembroComponent,
     ProventoPastoralComponent,
     SaldoCongregacaoComponent,
-    ListaRotinaPerfilComponent
+    ListaRotinaPerfilComponent,
+    ListarPerfilComponent,
+    AssociarRotinaComponent
   ],
   imports: [
     RouterModule.forRoot(

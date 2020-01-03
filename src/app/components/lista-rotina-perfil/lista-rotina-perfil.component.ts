@@ -5,6 +5,8 @@ import { ResponseApi } from './../../model/response-api';
 import { HttpClient } from '@angular/common/http';
 import { PerfilService } from './../../services/perfil.service';
 import { Rotina } from 'src/app/model/rotina';
+import {SelectionModel} from '@angular/cdk/collections';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-lista-rotina-perfil',
@@ -12,7 +14,7 @@ import { Rotina } from 'src/app/model/rotina';
   styleUrls: ['./lista-rotina-perfil.component.css']
 })
 export class ListaRotinaPerfilComponent implements OnInit {
-
+  
   perfils: PerfilDto[];
   message: {};
   classCss: {};
@@ -65,6 +67,8 @@ export class ListaRotinaPerfilComponent implements OnInit {
     console.log('##########' + idPerfil);
 
   }
+
+  
 
   private showMessage(message: { type: string, text: string }): void {
     this.message = message;
