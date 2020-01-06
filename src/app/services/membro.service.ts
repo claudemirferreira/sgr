@@ -19,4 +19,8 @@ export class MembroService {
         })
       );
   }
+
+  getMembro(id: number) {
+    return this.http.get(`${HELP_DESK_API}/api/membro/`+id);
+  }
 }

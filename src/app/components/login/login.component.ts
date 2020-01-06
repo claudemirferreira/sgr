@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
         this.shared.user = userAuthentication.user;
         this.shared.user.profile = this.shared.user.profile.substring(5);
         this.shared.showTemplate.emit(true);
-        this.router.navigate(['/']);
+        this.router.navigate(['/perfil']);
     } , err => {
       this.shared.token = null;
       this.shared.user = null;

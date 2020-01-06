@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { ParamRelatorioDto } from 'src/app/model/param-relatorio-dto';
 import { SharedService } from 'src/app/services/shared.service';
 import { MembroService } from 'src/app/services/membro.service';
+import { Membro } from 'src/app/model/membro';
 
 @Component({
   selector: 'app-relatorio-membro',
@@ -14,6 +15,8 @@ import { MembroService } from 'src/app/services/membro.service';
   styleUrls: ['./relatorio-membro.component.css']
 })
 export class RelatorioMembroComponent implements OnInit {
+
+  displayedColumns: string[] = ['idMembro', 'membro', 'acao'];
 
   @ViewChild('pdfViewer', { static: false }) 
   public pdfViewer;
@@ -25,24 +28,22 @@ export class RelatorioMembroComponent implements OnInit {
   anoInicio: number;
   anoFim: number;
   ano: number;
-  membro: string
 
-  membros: [];
+  zonas: [];
   anos: number[];
   classCss: {};
   valido = false;
+  membros: Membro[];
 
   constructor(private http: HttpClient,
     private relatorioService: RelatorioService,
     private membroService: MembroService) {
     this.carregarDados();
-  }
+  }  
 
-  gerarRelatorio() {
-    this.filtroDto.nomeRelatorio = 'RelatorioDebitoFinanceiro.jasper'; 
-    this.relatorioService.geraPdf(this.filtroDto).subscribe((res) => {
-      this.pdfViewer.pdfSrc = res; // pdfSrc can be Blob or Uint8Array
-      this.pdfViewer.refresh(); // Ask pdf viewer to load/refresh pdf
+  find() {
+    this.membroService.find(this.filtroDto).subscribe((responseApi: ResponseApi) => {
+      this.membros = responseApi['data'];
     }, err => {
       this.showMessage({
         type: 'error',
@@ -51,9 +52,11 @@ export class RelatorioMembroComponent implements OnInit {
     });
   }
 
-  find() {
-    this.membroService.find(this.filtroDto).subscribe((responseApi: ResponseApi) => {
-      this.membros = responseApi['data'];
+  gerarRelatorio() {
+    this.filtroDto.nomeRelatorio = 'RelatorioDebitoPastoral.jasper'; 
+    this.relatorioService.geraPdf(this.filtroDto).subscribe((res) => {
+      this.pdfViewer.pdfSrc = res; // pdfSrc can be Blob or Uint8Array
+      this.pdfViewer.refresh(); // Ask pdf viewer to load/refresh pdf
     }, err => {
       this.showMessage({
         type: 'error',
@@ -106,7 +109,6 @@ export class RelatorioMembroComponent implements OnInit {
       this.filtroDto = responseApi['data'];
       this.filtroDto.zona = new ZonaDto();
       this.filtroDto.zona.id = 0;
-      this.filtroDto.membro = 'informe o nome do membro';
     }, err => {
       this.showMessage({
         type: 'error',

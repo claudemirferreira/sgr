@@ -26,6 +26,7 @@ import {
   MatChipsModule,
   MatTooltipModule,
   MatTableModule,
+  MatTabsModule,
   MatPaginatorModule,
   MatCardModule,
   MatProgressSpinnerModule
@@ -53,6 +54,7 @@ import { SaldoCongregacaoComponent } from './components/saldo-congregacao/saldo-
 import { ListaRotinaPerfilComponent } from './components/lista-rotina-perfil/lista-rotina-perfil.component';
 import { ListarPerfilComponent } from './components/listar-perfil/listar-perfil.component';
 import { AssociarRotinaComponent } from './components/listar-perfil/associar-rotina/associar-rotina.component';
+import { MembroDetalheComponent } from './components/relatorio-membro/membro-detalhe/membro-detalhe.component';
 
 const appRoutes: Routes = [
   { path: 'rotina', component: RotinaComponent, canActivate: [AuthGuard] },
@@ -70,6 +72,7 @@ const appRoutes: Routes = [
   { path: 'saldo-congregacao', component: SaldoCongregacaoComponent, canActivate: [AuthGuard] },
   { path: 'estatistico', component: EstatisticoComponent, canActivate: [AuthGuard] },
   { path: 'membro', component: RelatorioMembroComponent, canActivate: [AuthGuard] },
+  { path: 'membro-detalhe/:idMembro', component: MembroDetalheComponent, canActivate: [AuthGuard] },
   { path: 'rotina', component: RotinaComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'usuario', component: UsuarioComponent }
@@ -95,7 +98,8 @@ const appRoutes: Routes = [
     SaldoCongregacaoComponent,
     ListaRotinaPerfilComponent,
     ListarPerfilComponent,
-    AssociarRotinaComponent
+    AssociarRotinaComponent,
+    MembroDetalheComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -121,6 +125,7 @@ const appRoutes: Routes = [
     MatChipsModule,
     MatTooltipModule,
     MatTableModule,
+    MatTabsModule,
     MatPaginatorModule,
     MatCardModule,
     MatProgressSpinnerModule,
@@ -157,6 +162,7 @@ const appRoutes: Routes = [
     MatChipsModule,
     MatTooltipModule,
     MatTableModule,
+    MatTabsModule,
     MatPaginatorModule,
     MatCardModule,
     MatProgressSpinnerModule,
