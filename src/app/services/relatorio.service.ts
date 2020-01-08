@@ -19,7 +19,7 @@ export class RelatorioService {
     return this.http.get(`${HELP_DESK_API}/api/relatorio/carregarNucleo/${id}`);
   }
 
-  carregarArea(id: string) {
+  carregarArea(id: number) {
     console.log(id);
     return this.http.get(`${HELP_DESK_API}/api/relatorio/carregarArea/${id}`);
   }

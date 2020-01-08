@@ -9,9 +9,9 @@ export class FiltroDto {
     ano: number;
     anoInicio: number;
     anoFim: number;
-    zona = new ZonaDto();
-    nucleo = new NucleoDto();
-    area = new AreaDto();
+    zona : ZonaDto;
+    nucleo : NucleoDto;
+    area : AreaDto;
     nomeRelatorio: string;
     idMembro: number;
 
