@@ -8,6 +8,7 @@ export class SharedService {
   public static instance: SharedService = null;
   user: Usuario;
   token: string;
+  idPerfil: number;
   showTemplate = new EventEmitter<boolean>();
 
   constructor() {

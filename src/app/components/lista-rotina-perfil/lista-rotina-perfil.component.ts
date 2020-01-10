@@ -7,6 +7,7 @@ import { PerfilService } from './../../services/perfil.service';
 import { Rotina } from 'src/app/model/rotina';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatTableDataSource} from '@angular/material/table';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-lista-rotina-perfil',
@@ -20,22 +21,25 @@ export class ListaRotinaPerfilComponent implements OnInit {
   classCss: {};
 
   perfil: PerfilDto;
-
-  rotinas: Rotina[];
+  rotinas: Rotina[];  
+  shared : SharedService;
 
   constructor(private http: HttpClient,
     private router: Router,
     private route: ActivatedRoute,
-    private service: PerfilService) { }
+    private service: PerfilService) { 
+      this.shared = SharedService.getInstance();
+    }
 
 
   ngOnInit() {
     var id = this.route.params.subscribe(params => {
       var id = params['id'];
+      this.shared.idPerfil = params['id'];
       console.log('idperfil =====================' + id);
       if (!id)
         return;
-      this.service.getPerfil(id).subscribe((responseApi: ResponseApi) => {
+      this.service.getPerfil(this.shared.idPerfil).subscribe((responseApi: ResponseApi) => {
         this.perfil = responseApi['data'];
         this.rotinas = this.perfil.rotinas;
       }, err => {

@@ -8,6 +8,7 @@ import { ParamRelatorioDto } from 'src/app/model/param-relatorio-dto';
 import { SharedService } from 'src/app/services/shared.service';
 import { MembroService } from 'src/app/services/membro.service';
 import { Membro } from 'src/app/model/membro';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-relatorio-membro',
@@ -36,10 +37,16 @@ export class RelatorioMembroComponent implements OnInit {
   membros: Membro[];
 
   constructor(private http: HttpClient,
+    private router: Router,
     private relatorioService: RelatorioService,
-    private membroService: MembroService) {
+    private membroService: MembroService) {     
+      this.shared = SharedService.getInstance();
     this.carregarDados();
   }  
+
+  getPerfil(){
+    this.router.navigate(['/lista-rotina-perfil/'+this.shared.idPerfil]);
+  }
 
   find() {
     this.membroService.find(this.filtroDto).subscribe((responseApi: ResponseApi) => {

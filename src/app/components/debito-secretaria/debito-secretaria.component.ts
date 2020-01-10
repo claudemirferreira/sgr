@@ -6,6 +6,7 @@ import { FiltroDto } from './../../model/filtro-dto';
 import { ParamRelatorioDto } from './../../model/param-relatorio-dto';
 import { SharedService } from './../../services/shared.service';
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-debito-secretaria',
@@ -34,8 +35,14 @@ export class DebitoSecretariaComponent implements OnInit {
   select: EventEmitter<any>;
 
   constructor(private http: HttpClient,
-    private relatorioService: RelatorioService) {
-    this.carregarDados();
+    private router: Router,
+    private relatorioService: RelatorioService) {      
+      this.shared = SharedService.getInstance();
+      this.carregarDados();
+  }
+
+  getPerfil(){
+    this.router.navigate(['/lista-rotina-perfil/'+this.shared.idPerfil]);
   }
 
   gerarRelatorio() {

@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { RelatorioService } from 'src/app/services/relatorio.service';
 import { ParamRelatorioDto } from 'src/app/model/param-relatorio-dto';
 import { SharedService } from 'src/app/services/shared.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-debito-financeiro',
@@ -31,8 +32,14 @@ export class DebitoFinanceiroComponent implements OnInit {
   valido = false;
 
   constructor(private http: HttpClient,
-    private relatorioService: RelatorioService) {
-    this.carregarDados();
+    private router: Router,
+    private relatorioService: RelatorioService) {      
+      this.shared = SharedService.getInstance();
+      this.carregarDados();
+  }
+
+  getPerfil(){
+    this.router.navigate(['/lista-rotina-perfil/'+this.shared.idPerfil]);
   }
 
   gerarRelatorio() {
