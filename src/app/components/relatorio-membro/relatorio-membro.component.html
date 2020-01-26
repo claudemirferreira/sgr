@@ -6,7 +6,7 @@
             <mat-card-title>Relatório de Membro</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-            <mat-form-field>
+            <mat-form-field class="example-full-width">
                 <mat-select placeholder="Zona" [(ngModel)]="filtroDto.zona" (selectionChange)="carregarNucleo()">
                     <mat-option *ngFor="let zona of filtroDto.zonas" [value]="zona">
                         {{zona.id}} - {{zona.nome}}
@@ -14,7 +14,7 @@
                 </mat-select>
             </mat-form-field>
 
-            <mat-form-field>
+            <mat-form-field class="example-full-width">
                 <mat-select placeholder="Nucleo" [(ngModel)]="filtroDto.nucleo" (selectionChange)="changeArea()">
                     <mat-option *ngFor="let nucleo of filtroDto.nucleos" [value]="nucleo">
                         {{nucleo.nome}}
@@ -22,7 +22,7 @@
                 </mat-select>
             </mat-form-field>
 
-            <mat-form-field>
+            <mat-form-field class="example-full-width">
                 <mat-select placeholder="Area" [(ngModel)]="filtroDto.area">
                     <mat-option *ngFor="let area of filtroDto.areas" [value]="area">
                         {{area.nome}}
@@ -30,7 +30,7 @@
                 </mat-select>
             </mat-form-field>
 
-            <mat-form-field placeholder="Membro">
+            <mat-form-field placeholder="Membro" class="example-full-width">
                 <input matInput placeholder="nome do membro" [(ngModel)]="filtroDto.membro">
             </mat-form-field>
 
@@ -38,10 +38,10 @@
         <mat-card-actions>
 
             <button mat-raised-button (click)="getPerfil()">
-                <i class="material-icons">fast_rewind</i>Voltar.</button>
+                <i class="material-icons">undo</i>Voltar.</button>
 
             <button [disabled]="!validateZona()" mat-raised-button (click)="find()">
-                <i class="material-icons">youtube_searched_for</i>Pesquisar</button>
+                <i class="material-icons">search</i>Pesquisar</button>
 
         </mat-card-actions>
     </mat-card>

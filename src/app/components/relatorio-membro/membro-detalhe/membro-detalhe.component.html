@@ -6,30 +6,46 @@
             <mat-card-title>Dados do Membro</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-            <mat-form-field placeholder="idMembro">
-                <input matInput placeholder="id do membro" [(ngModel)]="membro.idMembro">
+            <mat-form-field placeholder="Código" class="example-litle-width">
+                <input matInput placeholder="Código" [(ngModel)]="membro.idMembro">
             </mat-form-field>
 
-            <mat-form-field placeholder="Membro">
-                <input matInput placeholder="nome do membro" [(ngModel)]="membro.membro">
+            <mat-form-field placeholder="Membro" class="example-full-width">
+                <input matInput placeholder="Membro" [(ngModel)]="membro.membro">
             </mat-form-field>
 
-            <mat-form-field placeholder="Congregacao">
-                <input matInput placeholder="nome do congregacao" [(ngModel)]="membro.congregacao">
+            <mat-form-field placeholder="Congregação" class="example-full-width">
+                <input matInput placeholder="Congregação" [(ngModel)]="membro.congregacao">
             </mat-form-field>
 
-            <mat-form-field placeholder="Cidade">
-                <input matInput placeholder="nome do cidade" [(ngModel)]="membro.cidade">
+            <mat-form-field placeholder="Nucleo" class="example-full-width">
+                <input matInput placeholder="Nucleo" [(ngModel)]="membro.nucleo">
+            </mat-form-field>
+
+            <mat-form-field placeholder="Area" class="example-full-width">
+                <input matInput placeholder="Area" [(ngModel)]="membro.area">
+            </mat-form-field>
+
+            <mat-form-field placeholder="Cidade" class="example-full-width">
+                <input matInput placeholder="Cidade" [(ngModel)]="membro.cidade">
             </mat-form-field>
 
             <mat-form-field placeholder="Situacao">
                 <input matInput placeholder="situacao" [(ngModel)]="membro.situacao">
             </mat-form-field>
 
+            <mat-form-field placeholder="Situacao">
+                <input readonly matInput placeholder="situacao" value ="{{ membro.dataNascimento | date:'shortDate' }}">
+            </mat-form-field>
+            
         </mat-card-content>
 
         <mat-card-actions>
-            <button mat-raised-button (click)="gerarRelatorio()">Imprimir</button>
+            <button mat-raised-button (click)="getPerfil()">
+                <i class="material-icons">undo</i>Voltar</button>
+
+            <button mat-raised-button (click)="gerarRelatorio()">
+                <i class="material-icons">print</i>Imprimir</button>
         </mat-card-actions>
     </mat-card>
 

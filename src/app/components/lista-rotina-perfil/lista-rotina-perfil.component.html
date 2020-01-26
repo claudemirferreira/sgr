@@ -1,18 +1,9 @@
-<div class="container">
-    <div class="flex-container" 
-      fxLayout="row" 
-      fxLayout.sm="column"
-      fxLayoutAlign="center"
-      fxFlexAlign="center">
-      <div class="flex-container" *ngFor="let rotina of rotinas" 
-        fxLayout="row" 
-        fxLayout.xs="column" 
-        fxLayout.md="column">
-        <mat-card class="card-perfil">
-
-          <button mat-icon-button (click)="selectRotina(rotina)">
-            <span class="link-caption">{{ rotina.nome }}</span>
-          </button>
-        </mat-card>
-      </div>
-    </div>
+<section class="container flex flex-wrap center">
+  <div class="flex-container" *ngFor="let rotina of rotinas">
+    <mat-card >
+      <button class="card-perfil" mat-icon-button (click)="selectRotina(rotina)">
+        <span class="button">{{rotina.nome}}</span>
+      </button>
+    </mat-card>
+  </div>
+</section>

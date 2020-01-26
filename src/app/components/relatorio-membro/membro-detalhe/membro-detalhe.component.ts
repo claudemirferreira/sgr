@@ -36,6 +36,7 @@ export class MembroDetalheComponent implements OnInit {
         return;
       this.service.getMembro(id).subscribe((responseApi: ResponseApi) => {
         this.membro = responseApi['data'];
+        console.log(JSON.stringify(this.membro));
       }, err => {
         this.showMessage({
           type: 'error',
