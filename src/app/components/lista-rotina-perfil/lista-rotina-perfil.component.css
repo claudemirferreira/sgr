@@ -10,8 +10,138 @@
 .container {
 	max-width: 100%;
 	margin: 0 auto;
-	border: 0px solid #ccc;
+    border: 0px solid #ccc;
 }
+
+.bt_DP {
+    background: url(../../../assets/img/rotina/bt_DP.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 180px;
+    height: 142px;
+    padding: 5px;
+}
+
+.bt_Memb {
+    background: url(../../../assets/img/rotina/bt_Memb.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 180px;
+    height: 142px;
+    padding: 5px;
+}
+
+.bt_DebSec{
+    background: url(../../../assets/img/rotina/bt_DebSec.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 180px;
+    height: 142px;
+    padding: 5px;
+}
+
+.bt_Balanc{
+    background: url(../../../assets/img/rotina/bt_Balanc.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 180px;
+    height: 142px;
+    padding: 5px;
+}
+
+.bt_CadPerf{
+    background: url(../../../assets/img/rotina/bt_CadPerf.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 180px;
+    height: 142px;
+    padding: 5px;
+}
+
+.bt_CadRot{
+    background: url(../../../assets/img/rotina/bt_CadRot.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 180px;
+    height: 142px;
+    padding: 5px;
+}
+
+.bt_CadUsu{
+    background: url(../../../assets/img/rotina/bt_CadUsu.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 180px;
+    height: 142px;
+    padding: 5px;
+}
+
+.bt_CC{
+    background: url(../../../assets/img/rotina/bt_CC.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 180px;
+    height: 142px;
+    padding: 5px;
+}
+
+.bt_DF{
+    background: url(../../../assets/img/rotina/bt_DF.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 180px;
+    height: 142px;
+    padding: 5px;
+}
+
+.bt_Esta{
+    background: url(../../../assets/img/rotina/bt_Esta.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 180px;
+    height: 142px;
+    padding: 5px;
+}
+
+.bt_NadCons{
+    background: url(../../../assets/img/rotina/bt_NadCons.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 180px;
+    height: 142px;
+    padding: 5px;
+}
+
+.bt_PP{
+    background: url(../../../assets/img/rotina/bt_PP.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 180px;
+    height: 142px;
+    padding: 5px;
+}
+
+.bt_SC{
+    background: url(../../../assets/img/rotina/bt_SC.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 180px;
+    height: 142px;
+    padding: 5px;
+}
+
+.bt_SD{
+    background: url(../../../assets/img/rotina/bt_SD.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 180px;
+    height: 142px;
+    padding: 5px;
+}
+
+
+
+
 
 .center {
 	justify-content: center;
@@ -25,11 +155,7 @@ body {
     max-width: 200px;
     min-width: 200px;
     margin: 5px;
-	  text-align: left;
+	text-align: left;
     font-size: 1em;
     background: #f5f5f5;
   }
-
-.button {
-    color: #f44336;
-}

@@ -1,9 +1,6 @@
 <section class="container flex flex-wrap center">
-  <div class="flex-container" *ngFor="let rotina of rotinas">
-    <mat-card >
-      <button class="card-perfil" mat-icon-button (click)="selectRotina(rotina)">
-        <span class="button">{{rotina.nome}}</span>
-      </button>
-    </mat-card>
+	<div class="flex-container " *ngFor="let rotina of rotinas" >
+    <div class="{{rotina.imagem}}" (click)="selectRotina(rotina)"></div>
+      
   </div>
 </section>

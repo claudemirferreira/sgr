@@ -1,9 +1,6 @@
 <section class="container flex flex-wrap center">
-	<div class="flex-container" *ngFor="let perfil of perfils" >
-    <mat-card >
-      <button class="card-perfil" mat-icon-button [routerLink]="['/lista-rotina-perfil', perfil.id]">
-        <span class="button" >{{perfil.nome}}</span>
-      </button>
-    </mat-card>
+	<div class="flex-container " *ngFor="let perfil of perfils" >
+    <div class="{{perfil.imagem}}" [routerLink]="['/lista-rotina-perfil', perfil.id]"></div>
+      
   </div>
 </section>
