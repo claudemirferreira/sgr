@@ -1,0 +1,19 @@
+.spacer {
+    flex: 1 1 auto;
+  }
+  
+  .topo {  
+    background: url(../../../assets/img/bg_titulo.png);
+    width: 150px;
+    height: 60px;
+  }
+
+  .flex-container {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .container {
+    align-items: flex-end;
+    justify-content: flex-end;
+  }

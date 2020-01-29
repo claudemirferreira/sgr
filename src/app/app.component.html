@@ -1,12 +1,4 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<mat-toolbar>
-  <mat-toolbar-row>    
-    <a class="topo" mat-button routerLink="/perfil"></a>
-    <span class="spacer"></span>
-    <a mat-button routerLink="/perfil"><i class="material-icons">home</i></a>
-    <a mat-button routerLink="/login"><i class="material-icons">exit_to_app</i></a>
-
-  </mat-toolbar-row>
-</mat-toolbar>
+<app-header [hidden]="!showTemplate"></app-header>
 
 <router-outlet></router-outlet>

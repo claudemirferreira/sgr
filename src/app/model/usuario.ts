@@ -2,6 +2,7 @@ export class Usuario {
     constructor(public id: string,
         public email: string,
         public password: string,
-        public profile: string) {
+        public profile: string,
+        public nome: string) {
     }
 }
