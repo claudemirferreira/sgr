@@ -9,3 +9,7 @@ mat-select {
 button {
   margin-right: 12px;
 }
+
+body {      
+  background-color: #eaeaea;
+}

@@ -5,3 +5,7 @@ mat-form-field {
 mat-select {
   margin-right: 12px;
 }
+
+body {      
+  background-color: #eaeaea;
+}
