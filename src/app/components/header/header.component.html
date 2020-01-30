@@ -1,13 +1,7 @@
-<mat-toolbar>
-  <mat-toolbar-row>
-    <div class="container">
-      <a class="topo" mat-button routerLink="/perfil"></a>
-      <span class="spacer"></span>
-      <a mat-button routerLink="/perfil"><i class="material-icons">home</i></a>
-      <a mat-button (click)="signOut()"><i class="material-icons">exit_to_app</i></a>
-    </div>
-  </mat-toolbar-row>
-</mat-toolbar>
-<div class="flex-container">
-  <div>Usuario Logado: {{ shared.user.nome }}</div>
-</div>
+<section class="container flex-end">
+	<div class="topo"></div>
+	<div class="divcentro"></div>
+	<div class="item ico_conf"></div>
+	<div class="item ico_home" routerLink="/perfil"></div>
+	<div class="item ico_sair" (click)="signOut()"></div>
+</section>

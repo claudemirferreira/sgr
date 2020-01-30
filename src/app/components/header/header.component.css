@@ -2,18 +2,63 @@
     flex: 1 1 auto;
   }
   
-  .topo {  
-    background: url(../../../assets/img/bg_titulo.png);
-    width: 150px;
-    height: 60px;
-  }
-
-  .flex-container {
+  .container {
+    width: 100%;
+    margin: 0 auto;
     display: flex;
     justify-content: flex-end;
   }
 
-  .container {
-    align-items: flex-end;
+  .flex-end {
     justify-content: flex-end;
   }
+
+/* Flex Item */
+.item {
+	text-align: center;
+  font-size: 1.5em;
+  justify-content: flex-end;
+}
+
+/*
+    background: url(../../../assets/img/ico_sair.png);*/
+  .ico_sair{
+    background: url(../../../assets/ico_sair.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 32px;
+    height: 32px;
+    padding-top: 40px;
+    padding-right: 15px;
+}
+
+.ico_home{
+  background: url(../../../assets/ico_home.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 32px;
+  height: 32px;
+  padding-top: 40px;
+  padding-right: 15px;
+}
+
+.ico_conf{
+  background: url(../../../assets/ico_conf.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 32px;
+  height: 32px;
+  padding-top: 40px;
+  padding-right: 15px;
+} 
+
+.topo {  
+  background: url(../../../assets/img/bg_titulo.png);
+  max-width: 150px;
+  min-width: 150px;
+  height: 60px;
+}
+
+.divcentro {  
+  width: 100%;
+}
