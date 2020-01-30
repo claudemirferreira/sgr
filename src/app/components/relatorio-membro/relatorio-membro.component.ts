@@ -51,7 +51,7 @@ export class RelatorioMembroComponent implements OnInit {
   find() {
     this.membroService.find(this.filtroDto).subscribe((responseApi: ResponseApi) => {
       this.membros = responseApi['data'];
-      if()
+      //if()
       console.log("this.membros ============= "+this.membros.length);
     }, err => {
       this.showMessage({
