@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
       if(err.status == '401')
         this.message = 'Login e senha invalidos';
       else
-        this.message = 'Ocorreu um erro, entre em contato com admi';
+        this.message = 'Erro: entre em contato com admin';
       this.shared.token = null;
       this.shared.user = null;
       this.shared.showTemplate.emit(false);
