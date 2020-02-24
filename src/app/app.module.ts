@@ -57,6 +57,7 @@ import { AssociarRotinaComponent } from './components/listar-perfil/associar-rot
 import { MembroDetalheComponent } from './components/relatorio-membro/membro-detalhe/membro-detalhe.component';
 import { CardComponent } from './components/card/card.component';
 import { HeaderComponent } from './components/header/header.component';
+import { ListUsuarioComponent } from './components/list-usuario/list-usuario.component';
 
 const appRoutes: Routes = [
   { path: 'rotina', component: RotinaComponent, canActivate: [AuthGuard] },
@@ -77,6 +78,7 @@ const appRoutes: Routes = [
   { path: 'membro-detalhe/:idMembro', component: MembroDetalheComponent, canActivate: [AuthGuard] },
   { path: 'rotina', component: RotinaComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
+  { path: 'list-usuario', component: ListUsuarioComponent },
   { path: 'usuario', component: UsuarioComponent }
 ];
 
@@ -103,7 +105,8 @@ const appRoutes: Routes = [
     AssociarRotinaComponent,
     MembroDetalheComponent,
     CardComponent,
-    HeaderComponent
+    HeaderComponent,
+    ListUsuarioComponent
   ],
   imports: [
     RouterModule.forRoot(

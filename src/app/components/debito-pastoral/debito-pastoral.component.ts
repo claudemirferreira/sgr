@@ -71,10 +71,20 @@ export class DebitoPastoralComponent implements OnInit {
   }
 
   validateZona(){
-    if (this.filtroDto.zona == null || this.filtroDto.zona.id > 0){
-      return true;
-    } else {
+    if (this.filtroDto.area == null || this.filtroDto.area.id > 0){
       return false;
+    } else {
+      return true;
+    }
+  }
+
+  validarArea(){
+    if (this.filtroDto.area != null && this.filtroDto.area.id > 0){
+      this.valido = true;
+      console.log(this.valido);
+    } else {      
+      this.valido = false;
+      console.log(this.valido);
     }
   }
 

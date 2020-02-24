@@ -8,6 +8,10 @@ import { HttpClient} from '@angular/common/http';
 })
 export class UsuarioService {
 
+  page :string;
+  size :string;
+  param = '';
+
   constructor(private http: HttpClient) {}
 
   login(user: Usuario){
@@ -34,5 +38,13 @@ export class UsuarioService {
   delete(id:string){
     return this.http.delete(`${HELP_DESK_API}/api/user/${id}`);
   }
+
+  find(nome: string) {
+    console.log('search');
+    this.param = 'nome='+nome;
+    
+    return this.http.get(`${HELP_DESK_API}/api/user/search?`+this.param);
+  }
+
 
 }
