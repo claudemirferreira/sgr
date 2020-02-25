@@ -31,7 +31,7 @@
 
 
         <mat-form-field>
-            <mat-select placeholder="Mês inicial" [(ngModel)]="filtroDto.mesInicio">
+            <mat-select placeholder="Mês inicial" [(ngModel)]="filtroDto.mesInicio" (selectionChange)="validarArea()">
                 <mat-option *ngFor="let mes of filtroDto.meses" [value]="mes">
                     {{mes.nome}}
                 </mat-option>
@@ -52,8 +52,9 @@
         <button mat-raised-button (click)="getPerfil()">
             <i class="material-icons">undo</i>Voltar</button>
 
-        <button [disabled]="!validateZona()" mat-raised-button (click)="gerarRelatorio()">
+        <button [disabled]="!valido" mat-raised-button (click)="gerarRelatorio()">
             <i class="material-icons">print</i>Imprimir</button>
+            
     </mat-card-actions>
 </mat-card>
 

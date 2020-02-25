@@ -65,13 +65,15 @@ export class DebitoFinanceiroComponent implements OnInit {
         text: err['error']['errors'][0]
       });
     });
-  }
+  }  
 
-  validateZona(){
-    if (this.filtroDto.zona == null || this.filtroDto.zona.id > 0){
-      return true;
-    } else {
-      return false;
+  validarArea(){
+    if (this.filtroDto.area != null && this.filtroDto.area.id > 0){
+      this.valido = true;
+      console.log(this.valido);
+    } else {      
+      this.valido = false;
+      console.log(this.valido);
     }
   }
 
