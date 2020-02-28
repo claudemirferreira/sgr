@@ -11,17 +11,18 @@ import { ResponseApi } from 'src/app/model/response-api';
 })
 export class ListUsuarioComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'nome', 'acao'];
+  displayedColumns: string[] = ['id', 'nome', 'login', 'acao'];
 
   page : any;
   list: Usuario[];
   message: {};
   classCss: {};
   nome: string;
+  usuario = new Usuario();
 
   constructor(private service: UsuarioService,
     private router: Router) { 
-      this.nome = 'admin';
+      this.usuario.nome = 'admin';
       this.find();
     }
 
@@ -29,7 +30,7 @@ export class ListUsuarioComponent implements OnInit {
   }
 
   find() {
-    this.service.find(this.nome).subscribe((responseApi: ResponseApi) => {
+    this.service.pesquisar(this.usuario).subscribe((responseApi: ResponseApi) => {
       this.list = responseApi['data'];      // pageable
 
       console.log("title = " + JSON.stringify(this.list));

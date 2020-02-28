@@ -46,5 +46,8 @@ export class UsuarioService {
     return this.http.get(`${HELP_DESK_API}/api/user/search?`+this.param);
   }
 
+  pesquisar(user: Usuario){
+    return this.http.post(`${HELP_DESK_API}/api/user/pesquisar`,user);
+  }
 
 }

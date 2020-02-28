@@ -16,7 +16,7 @@ import { Erro } from 'src/app/model/erro';
 export class LoginComponent implements OnInit {
 
   formGroup: FormGroup;
-  user = new Usuario('','','','','');
+  user = new Usuario();
   shared : SharedService;
   @Input() message: string | null;
   erro: Erro;
@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit {
 
   cancelLogin(){
     this.message = '';
-    this.user = new Usuario('', '','','','');
+    this.user = new Usuario();
     window.location.href = '/login';
     window.location.reload();
   }

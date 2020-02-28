@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
   constructor(private userService: UsuarioService,
               private router: Router){
       this.shared = SharedService.getInstance();
-      this.shared.user = new Usuario('','','','','');
+      this.shared.user = new Usuario();
   }
 
   ngOnInit(){
