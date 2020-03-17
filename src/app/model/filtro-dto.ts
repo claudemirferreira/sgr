@@ -22,5 +22,5 @@ export class FiltroDto {
     nucleos:[];
     areas:[];
     anos: [];
-
+    meses: Mes[];
 }

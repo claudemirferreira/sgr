@@ -67,25 +67,10 @@ export class ProventoPastoralComponent implements OnInit {
     });
   }
 
-  validarArea() {
-    if (this.filtroDto.area != null
-      && this.filtroDto.area.id > 0
-      && this.filtroDto.mesInicio.nome.length > 0) {
-      this.valido = true;
-      console.log(this.valido);
-      console.log(this.filtroDto.mesInicio.nome);
-    } else {
-      this.valido = false;
-      console.log(this.valido);
-    }
-  }
-
   ngOnInit() {
     this.filtroDto = new FiltroDto();
     this.filtroDto.zona = new ZonaDto();
     this.filtroDto.zona.id = 0;
-    this.filtroDto.nomeRelatorio = 'RelatorioDebitoPastoral.jasper';    
-
     this.carregarDados();
   }
 

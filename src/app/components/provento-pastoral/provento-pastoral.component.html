@@ -5,8 +5,8 @@
     </mat-card-header>
     <mat-card-content>
         <mat-form-field>
-            <mat-select placeholder="Zona" [(ngModel)]="filtroDto.zona" (selectionChange)="carregarNucleo()">
-                <mat-option *ngFor="let zona of filtroDto.zonas" [value]="zona">
+            <mat-select placeholder="Zona" [(ngModel)]="filtroDto.zona.id" (selectionChange)="carregarNucleo()">
+                <mat-option *ngFor="let zona of filtroDto.zonas" [value]="zona.id">
                     {{zona.id}} - {{zona.nome}}
                 </mat-option>
             </mat-select>
@@ -31,8 +31,8 @@
 
 
         <mat-form-field>
-            <mat-select placeholder="Mês inicial" [(ngModel)]="filtroDto.mesInicio" (selectionChange)="validarArea()">
-                <mat-option *ngFor="let mes of filtroDto.meses" [value]="mes">
+            <mat-select placeholder="Mês inicial" [(ngModel)]="filtroDto.mesInicio.id">
+                <mat-option *ngFor="let mes of filtroDto.meses" [value]="mes.id">
                     {{mes.nome}}
                 </mat-option>
             </mat-select>
@@ -52,7 +52,7 @@
         <button mat-raised-button (click)="getPerfil()">
             <i class="material-icons">undo</i>Voltar</button>
 
-        <button [disabled]="!valido" mat-raised-button (click)="gerarRelatorio()">
+        <button mat-raised-button (click)="gerarRelatorio()" [disabled]="filtroDto.zona.id == 0">
             <i class="material-icons">print</i>Imprimir</button>
             
     </mat-card-actions>
