@@ -7,8 +7,6 @@ import { ParamRelatorioDto } from 'src/app/model/param-relatorio-dto';
 import { SharedService } from 'src/app/services/shared.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Mes } from 'src/app/model/mes';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-saldo-congregacao',
@@ -17,36 +15,32 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class SaldoCongregacaoComponent implements OnInit {
 
-
-  @ViewChild('pdfViewer', { static: false })
+  @ViewChild('pdfViewer', { static: false }) 
   public pdfViewer;
 
   message: {};
   shared: SharedService;
   dto: ParamRelatorioDto;
   filtroDto: FiltroDto;
-  anoInicio: number;
-  anoFim: number;
   ano: number;
 
   zonas: [];
   anos: number[];
   classCss: {};
-  valido = false;
 
   constructor(private http: HttpClient,
     private router: Router,
-    private relatorioService: RelatorioService) {
-    this.shared = SharedService.getInstance();
-    this.ngOnInit();
+    private relatorioService: RelatorioService) {      
+      this.shared = SharedService.getInstance();
+      this.carregarDados();
   }
 
-  getPerfil() {
-    this.router.navigate(['/lista-rotina-perfil/' + this.shared.idPerfil]);
+  getPerfil(){
+    this.router.navigate(['/lista-rotina-perfil/'+this.shared.idPerfil]);
   }
 
   gerarRelatorio() {
-    this.filtroDto.nomeRelatorio = 'RelatorioSaldoCongregacao.jasper';
+    this.filtroDto.nomeRelatorio = 'RelatorioSaldoCongregacao.jasper'; 
     this.relatorioService.geraPdf(this.filtroDto).subscribe((res) => {
       this.pdfViewer.pdfSrc = res; // pdfSrc can be Blob or Uint8Array
       this.pdfViewer.refresh(); // Ask pdf viewer to load/refresh pdf
@@ -70,24 +64,11 @@ export class SaldoCongregacaoComponent implements OnInit {
     });
   }
 
-  validateZona() {
-    if (this.filtroDto.zona == null || this.filtroDto.zona.id > 0) {
-      return true;
-    } else {
+  validateZona(){
+    if (this.filtroDto.area == null || this.filtroDto.area.id > 0){
       return false;
-    }
-  }
-
-  validarArea() {
-    if (this.filtroDto.area != null
-      && this.filtroDto.area.id > 0
-      && this.filtroDto.mesInicio.nome.length > 0) {
-      this.valido = true;
-      console.log(this.valido);
-      console.log(this.filtroDto.mesInicio.nome);
     } else {
-      this.valido = false;
-      console.log(this.valido);
+      return true;
     }
   }
 
@@ -95,8 +76,7 @@ export class SaldoCongregacaoComponent implements OnInit {
     this.filtroDto = new FiltroDto();
     this.filtroDto.zona = new ZonaDto();
     this.filtroDto.zona.id = 0;
-    this.filtroDto.nomeRelatorio = 'RelatorioDemonstrativoProventos.jasper';
-    this.carregarDados();
+    this.filtroDto.nomeRelatorio = 'RelatorioDebitoFinanceiro.jasper'; 
   }
 
   carregarNucleo() {
@@ -114,8 +94,7 @@ export class SaldoCongregacaoComponent implements OnInit {
   carregarDados() {
     this.relatorioService.carregarDados().subscribe((responseApi: ResponseApi) => {
       this.filtroDto = responseApi['data'];
-      this.filtroDto.zona = new ZonaDto();
-      this.filtroDto.zona.id = 0;
+
     }, err => {
       this.showMessage({
         type: 'error',

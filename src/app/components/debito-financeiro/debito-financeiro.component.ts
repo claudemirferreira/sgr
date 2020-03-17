@@ -22,14 +22,11 @@ export class DebitoFinanceiroComponent implements OnInit {
   shared: SharedService;
   dto: ParamRelatorioDto;
   filtroDto: FiltroDto;
-  anoInicio: number;
-  anoFim: number;
   ano: number;
 
   zonas: [];
   anos: number[];
   classCss: {};
-  valido = false;
 
   constructor(private http: HttpClient,
     private router: Router,
@@ -43,7 +40,7 @@ export class DebitoFinanceiroComponent implements OnInit {
   }
 
   gerarRelatorio() {
-    this.filtroDto.nomeRelatorio = 'RelatorioDebitoFinanceiro.jasper'; 
+    this.filtroDto.nomeRelatorio = 'RelatorioDebitoPastoral.jasper'; 
     this.relatorioService.geraPdf(this.filtroDto).subscribe((res) => {
       this.pdfViewer.pdfSrc = res; // pdfSrc can be Blob or Uint8Array
       this.pdfViewer.refresh(); // Ask pdf viewer to load/refresh pdf
@@ -65,15 +62,13 @@ export class DebitoFinanceiroComponent implements OnInit {
         text: err['error']['errors'][0]
       });
     });
-  }  
+  }
 
-  validarArea(){
-    if (this.filtroDto.area != null && this.filtroDto.area.id > 0){
-      this.valido = true;
-      console.log(this.valido);
-    } else {      
-      this.valido = false;
-      console.log(this.valido);
+  validateZona(){
+    if (this.filtroDto.area == null || this.filtroDto.area.id > 0){
+      return false;
+    } else {
+      return true;
     }
   }
 
@@ -81,7 +76,7 @@ export class DebitoFinanceiroComponent implements OnInit {
     this.filtroDto = new FiltroDto();
     this.filtroDto.zona = new ZonaDto();
     this.filtroDto.zona.id = 0;
-    this.filtroDto.nomeRelatorio = 'RelatorioDebitoFinanceiro.jasper';    
+    this.filtroDto.nomeRelatorio = 'RelatorioDebitoFinanceiro.jasper'; 
   }
 
   carregarNucleo() {
@@ -99,9 +94,7 @@ export class DebitoFinanceiroComponent implements OnInit {
   carregarDados() {
     this.relatorioService.carregarDados().subscribe((responseApi: ResponseApi) => {
       this.filtroDto = responseApi['data'];
-      //this.paramentroRelatorioDto.zonas = responseApi['zonas'];
-      this.filtroDto.zona = new ZonaDto();
-      this.filtroDto.zona.id = 0;
+
     }, err => {
       this.showMessage({
         type: 'error',

@@ -84,7 +84,7 @@ export class ProventoPastoralComponent implements OnInit {
     this.filtroDto = new FiltroDto();
     this.filtroDto.zona = new ZonaDto();
     this.filtroDto.zona.id = 0;
-    this.filtroDto.nomeRelatorio = 'RelatorioDemonstrativoProventos.jasper';    
+    this.filtroDto.nomeRelatorio = 'RelatorioDebitoPastoral.jasper';    
 
     this.carregarDados();
   }

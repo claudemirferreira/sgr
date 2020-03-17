@@ -22,15 +22,11 @@ export class DebitoSecretariaComponent implements OnInit {
   shared: SharedService;
   dto: ParamRelatorioDto;
   filtroDto: FiltroDto;
-  anoInicio: number;
-  anoFim: number;
   ano: number;
 
   zonas: [];
   anos: number[];
   classCss: {};
-  valido = false;
-
   @Output()
   select: EventEmitter<any>;
 
@@ -70,13 +66,11 @@ export class DebitoSecretariaComponent implements OnInit {
     });
   }
 
-  validarArea(){
-    if (this.filtroDto.area != null && this.filtroDto.area.id > 0){
-      this.valido = true;
-      console.log(this.valido);
-    } else {      
-      this.valido = false;
-      console.log(this.valido);
+  validateZona(){
+    if (this.filtroDto.area == null || this.filtroDto.area.id > 0){
+      return false;
+    } else {
+      return true;
     }
   }
 
@@ -84,6 +78,7 @@ export class DebitoSecretariaComponent implements OnInit {
     this.filtroDto = new FiltroDto();
     this.filtroDto.zona = new ZonaDto();
     this.filtroDto.zona.id = 0;
+    this.filtroDto.nomeRelatorio = 'RelatorioDebitoSecretaria.jasper'; 
   }
 
   carregarNucleo() {
@@ -101,8 +96,7 @@ export class DebitoSecretariaComponent implements OnInit {
   carregarDados() {
     this.relatorioService.carregarDados().subscribe((responseApi: ResponseApi) => {
       this.filtroDto = responseApi['data'];
-      this.filtroDto.zona = new ZonaDto();
-      this.filtroDto.zona.id = 0;
+
     }, err => {
       this.showMessage({
         type: 'error',

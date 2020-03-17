@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { FiltroDto } from './../../model/filtro-dto';
 import { ParamRelatorioDto } from './../../model/param-relatorio-dto';
 import { SharedService } from './../../services/shared.service';
-import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -30,18 +30,13 @@ export class DebitoPastoralComponent implements OnInit {
   zonas: [];
   anos: number[];
   classCss: {};
-  valido = false;
-
-  formGroup: FormGroup;
-
-  @Output()
-  select: EventEmitter<any>;
+  valido = false;  
 
   constructor(private http: HttpClient,
     private router: Router,
     private relatorioService: RelatorioService) {      
       this.shared = SharedService.getInstance();
-      this.carregarDados();
+      this.ngOnInit();
   }
 
   getPerfil(){
@@ -49,7 +44,7 @@ export class DebitoPastoralComponent implements OnInit {
   }
 
   gerarRelatorio() {
-    this.filtroDto.nomeRelatorio = 'RelatorioDebitoPastoral.jasper'; 
+    this.filtroDto.nomeRelatorio = 'RelatorioDemonstrativoProventos.jasper'; 
     this.relatorioService.geraPdf(this.filtroDto).subscribe((res) => {
       this.pdfViewer.pdfSrc = res; // pdfSrc can be Blob or Uint8Array
       this.pdfViewer.refresh(); // Ask pdf viewer to load/refresh pdf
@@ -73,19 +68,14 @@ export class DebitoPastoralComponent implements OnInit {
     });
   }
 
-  validateZona(){
-    if (this.filtroDto.area == null || this.filtroDto.area.id > 0){
-      return false;
-    } else {
-      return true;
-    }
-  }
-
-  validarArea(){
-    if (this.filtroDto.area != null && this.filtroDto.area.id > 0){
+  validarArea() {
+    if (this.filtroDto.area != null
+      && this.filtroDto.area.id > 0
+      && this.filtroDto.mesInicio.nome.length > 0) {
       this.valido = true;
       console.log(this.valido);
-    } else {      
+      console.log(this.filtroDto.mesInicio.nome);
+    } else {
       this.valido = false;
       console.log(this.valido);
     }
@@ -95,16 +85,12 @@ export class DebitoPastoralComponent implements OnInit {
     this.filtroDto = new FiltroDto();
     this.filtroDto.zona = new ZonaDto();
     this.filtroDto.zona.id = 0;
-    this.filtroDto.nomeRelatorio = 'RelatorioDebitoFinanceiro.jasper'; 
-  }
+    this.filtroDto.nomeRelatorio = 'RelatorioDemonstrativoProventos.jasper';    
 
-  validarZona(){    
-    if (this.filtroDto.zona.id > 0) this.valido = true;
-    else  this.valido = false;
+    this.carregarDados();
   }
 
   carregarNucleo() {
-    this.validarZona();
     this.relatorioService.carregarNucleo(this.filtroDto.zona.id.toString()).subscribe((responseApi: ResponseApi) => {
       this.filtroDto.nucleos = responseApi['data'];
       this.filtroDto.areas = [];
@@ -119,8 +105,8 @@ export class DebitoPastoralComponent implements OnInit {
   carregarDados() {
     this.relatorioService.carregarDados().subscribe((responseApi: ResponseApi) => {
       this.filtroDto = responseApi['data'];
-      this.validarZona();    
-
+      this.filtroDto.zona = new ZonaDto();
+      this.filtroDto.zona.id = 0;
     }, err => {
       this.showMessage({
         type: 'error',

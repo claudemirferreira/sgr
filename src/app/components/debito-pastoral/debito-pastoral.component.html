@@ -22,7 +22,7 @@
         </mat-form-field>
 
         <mat-form-field>
-            <mat-select placeholder="Area" [(ngModel)]="filtroDto.area" (selectionChange)="validarArea()">
+            <mat-select placeholder="Area" [(ngModel)]="filtroDto.area">
                 <mat-option *ngFor="let area of filtroDto.areas" [value]="area">
                     {{area.nome}}
                 </mat-option>
