@@ -1,3 +1,4 @@
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ZonaDto } from './../../model/zona-dto';
 import { ResponseApi } from './../../model/response-api';
 import { RelatorioService } from './../../services/relatorio.service';
@@ -36,7 +37,7 @@ export class DebitoPastoralComponent implements OnInit {
 
   constructor(private http: HttpClient,
     private router: Router,
-    private relatorioService: RelatorioService) {      
+    private relatorioService: RelatorioService, private fb: FormBuilder) {      
       this.shared = SharedService.getInstance();
       this.carregarDados();
   }
@@ -92,7 +93,8 @@ export class DebitoPastoralComponent implements OnInit {
     this.filtroDto = new FiltroDto();
     this.filtroDto.zona = new ZonaDto();
     this.filtroDto.zona.id = 0;
-    this.filtroDto.nomeRelatorio = 'RelatorioDebitoFinanceiro.jasper';    
+    this.filtroDto.nomeRelatorio = 'RelatorioDebitoFinanceiro.jasper'; 
+     
   }
 
   carregarNucleo() {
@@ -110,8 +112,10 @@ export class DebitoPastoralComponent implements OnInit {
   carregarDados() {
     this.relatorioService.carregarDados().subscribe((responseApi: ResponseApi) => {
       this.filtroDto = responseApi['data'];
-      this.filtroDto.zona = new ZonaDto();
-      this.filtroDto.zona.id = 0;
+      //this.filtroDto.zona = new ZonaDto();
+      console.log('this.filtroDto.zonas.length'+ this.filtroDto.zonas.length);
+           
+
     }, err => {
       this.showMessage({
         type: 'error',
