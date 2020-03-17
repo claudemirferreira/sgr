@@ -3,7 +3,7 @@
         <div mat-card-avatar class="example-header-image"></div>
         <mat-card-title>Relatório Débito Pastoral</mat-card-title>
     </mat-card-header>
-    <mat-card-content>  
+    <mat-card-content>
 
         <mat-form-field>
             <mat-select placeholder="Zona" [(ngModel)]="filtroDto.zona.id" (selectionChange)="carregarNucleo()">
@@ -14,8 +14,8 @@
         </mat-form-field>
 
         <mat-form-field>
-            <mat-select placeholder="Nucleo" [(ngModel)]="filtroDto.nucleo" (selectionChange)="changeArea()">
-                <mat-option *ngFor="let nucleo of filtroDto.nucleos" [value]="nucleo">
+            <mat-select placeholder="Nucleo" [(ngModel)]="filtroDto.nucleo.id" (selectionChange)="changeArea()">
+                <mat-option *ngFor="let nucleo of filtroDto.nucleos" [value]="nucleo.id">
                     {{nucleo.nome}}
                 </mat-option>
             </mat-select>
@@ -36,22 +36,19 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
-
     </mat-card-content>
+
     <mat-card-actions>
+        <button mat-raised-button (click)="getPerfil()">
+            <i class="material-icons">undo</i>Voltar</button>
+    
+        <button mat-raised-button (click)="gerarRelatorio()" [disabled]="filtroDto.zona.id == 0">
+            <i class="material-icons">print</i>Imprimir</button>    
 
     </mat-card-actions>
 
-    <button mat-raised-button (click)="getPerfil()">
-        <i class="material-icons">undo</i>Voltar</button>
-    <!--
-    <button [disabled]="!valido" mat-raised-button (click)="gerarRelatorio()">
-        <i class="material-icons">print</i>Imprimir</button>        
-    -->
-    <button [disabled]="!valido" mat-raised-button (click)="gerarRelatorio()">
-        <i class="material-icons">print</i>Imprimir</button>        
-
 </mat-card>
+
 
 <div style="height: 600px">
     <ng2-pdfjs-viewer #pdfViewer></ng2-pdfjs-viewer>
