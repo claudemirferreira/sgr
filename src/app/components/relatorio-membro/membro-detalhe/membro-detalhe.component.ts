@@ -61,6 +61,10 @@ export class MembroDetalheComponent implements OnInit {
     });
   }
 
+  getPerfil(){
+    this.router.navigate(['/membro']);
+  }
+
   private showMessage(message: { type: string, text: string }): void {
     this.message = message;
     this.buildClasses(message.type);
