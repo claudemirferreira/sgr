@@ -22,8 +22,6 @@ export class ListUsuarioComponent implements OnInit {
 
   constructor(private service: UsuarioService,
     private router: Router) { 
-      this.usuario.nome = 'admin';
-      this.find();
     }
 
   ngOnInit() {

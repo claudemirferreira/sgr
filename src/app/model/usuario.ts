@@ -5,6 +5,7 @@ export class Usuario {
     public password: string;
     public profile: string;
     public nome: string;
+    public idMembro: number;
 
     constructor() {
     }
