@@ -54,6 +54,7 @@ import { MembroDetalheComponent } from './components/relatorio-membro/membro-det
 import { CardComponent } from './components/card/card.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ListUsuarioComponent } from './components/list-usuario/list-usuario.component';
+import { UsuarioDetalheComponent } from './list-usuario/usuario-detalhe/usuario-detalhe.component';
 
 const appRoutes: Routes = [
   { path: 'rotina', component: RotinaComponent, canActivate: [AuthGuard] },
@@ -73,7 +74,9 @@ const appRoutes: Routes = [
   { path: 'membro-detalhe/:idMembro', component: MembroDetalheComponent, canActivate: [AuthGuard] },
   { path: 'rotina', component: RotinaComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
-  { path: 'list-usuario', component: ListUsuarioComponent },
+  //usuario
+  { path: 'list-usuario', component: ListUsuarioComponent, canActivate: [AuthGuard] },
+  { path: 'novo-usuario', component: UsuarioDetalheComponent, canActivate: [AuthGuard] },
   { path: 'usuario', component: UsuarioComponent }
 ];
 
@@ -97,7 +100,8 @@ const appRoutes: Routes = [
     MembroDetalheComponent,
     CardComponent,
     HeaderComponent,
-    ListUsuarioComponent
+    ListUsuarioComponent,
+    UsuarioDetalheComponent
   ],
   imports: [
     RouterModule.forRoot(

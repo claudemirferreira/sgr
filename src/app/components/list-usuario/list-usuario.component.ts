@@ -1,3 +1,4 @@
+import { SharedService } from './../../services/shared.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -13,16 +14,18 @@ export class ListUsuarioComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'nome', 'login', 'acao'];
 
-  page : any;
+  page: any;
   list: Usuario[];
   message: {};
   classCss: {};
   nome: string;
   usuario = new Usuario();
+  shared: SharedService;
 
   constructor(private service: UsuarioService,
-    private router: Router) { 
-    }
+    private router: Router) {
+    this.shared = SharedService.getInstance();
+  }
 
   ngOnInit() {
   }
@@ -54,6 +57,10 @@ export class ListUsuarioComponent implements OnInit {
       'alert': true
     }
     this.classCss['alert-' + type] = true;
+  }
+
+  getPerfil() {
+    this.router.navigate(['/lista-rotina-perfil/' + this.shared.idPerfil]);
   }
 
 }
