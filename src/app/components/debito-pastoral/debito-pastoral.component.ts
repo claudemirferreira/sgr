@@ -1,4 +1,3 @@
-import { FormGroup, Validators, FormBuilder, FormControl, AbstractControl } from '@angular/forms';
 import { ZonaDto } from './../../model/zona-dto';
 import { ResponseApi } from './../../model/response-api';
 import { RelatorioService } from './../../services/relatorio.service';
@@ -30,7 +29,7 @@ export class DebitoPastoralComponent implements OnInit {
   zonas: [];
   anos: number[];
   classCss: {};
-  valido = false;  
+  processamentOK = true;  
 
   constructor(private http: HttpClient,
     private router: Router,
@@ -44,11 +43,13 @@ export class DebitoPastoralComponent implements OnInit {
   }
 
   gerarRelatorio() {
-    this.filtroDto.nomeRelatorio = 'RelatorioDemonstrativoProventos.jasper'; 
+    this.processamentOK = false; 
     this.relatorioService.geraPdf(this.filtroDto).subscribe((res) => {
       this.pdfViewer.pdfSrc = res; // pdfSrc can be Blob or Uint8Array
       this.pdfViewer.refresh(); // Ask pdf viewer to load/refresh pdf
+      this.processamentOK = true; 
     }, err => {
+      this.processamentOK = true; 
       this.showMessage({
         type: 'error',
         text: err['error']['errors'][0]
@@ -69,24 +70,11 @@ export class DebitoPastoralComponent implements OnInit {
     });
   }
 
-  validarArea() {
-    if (this.filtroDto.area != null
-      && this.filtroDto.area.id > 0
-      && this.filtroDto.mesInicio.nome.length > 0) {
-      this.valido = true;
-      console.log(this.valido);
-      console.log(this.filtroDto.mesInicio.nome);
-    } else {
-      this.valido = false;
-      console.log(this.valido);
-    }
-  }
-
   ngOnInit() {
     this.filtroDto = new FiltroDto();
     this.filtroDto.zona = new ZonaDto();
     this.filtroDto.zona.id = 0;
-    this.filtroDto.nomeRelatorio = 'RelatorioDemonstrativoProventos.jasper';    
+    this.filtroDto.nomeRelatorio = 'RelatorioDebitoPastoral.jasper';    
 
     this.carregarDados();
   }

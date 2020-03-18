@@ -57,6 +57,7 @@ export class DebitoSecretariaComponent implements OnInit {
   changeArea() {
     this.relatorioService.carregarArea(this.filtroDto.nucleo.id).subscribe((responseApi: ResponseApi) => {
       this.filtroDto.areas = responseApi['data'];
+      this.filtroDto.area.id = null;
       console.log("Areas = " + this.filtroDto.areas);
     }, err => {
       this.showMessage({
@@ -64,14 +65,6 @@ export class DebitoSecretariaComponent implements OnInit {
         text: err['error']['errors'][0]
       });
     });
-  }
-
-  validateZona(){
-    if (this.filtroDto.area == null || this.filtroDto.area.id > 0){
-      return false;
-    } else {
-      return true;
-    }
   }
 
   ngOnInit() {
@@ -84,6 +77,8 @@ export class DebitoSecretariaComponent implements OnInit {
   carregarNucleo() {
     this.relatorioService.carregarNucleo(this.filtroDto.zona.id.toString()).subscribe((responseApi: ResponseApi) => {
       this.filtroDto.nucleos = responseApi['data'];
+      this.filtroDto.nucleo.id = null;
+      this.filtroDto.area.id = null;
       this.filtroDto.areas = [];
     }, err => {
       this.showMessage({
@@ -96,7 +91,6 @@ export class DebitoSecretariaComponent implements OnInit {
   carregarDados() {
     this.relatorioService.carregarDados().subscribe((responseApi: ResponseApi) => {
       this.filtroDto = responseApi['data'];
-
     }, err => {
       this.showMessage({
         type: 'error',

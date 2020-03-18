@@ -40,7 +40,6 @@ export class SaldoCongregacaoComponent implements OnInit {
   }
 
   gerarRelatorio() {
-    this.filtroDto.nomeRelatorio = 'RelatorioSaldoCongregacao.jasper'; 
     this.relatorioService.geraPdf(this.filtroDto).subscribe((res) => {
       this.pdfViewer.pdfSrc = res; // pdfSrc can be Blob or Uint8Array
       this.pdfViewer.refresh(); // Ask pdf viewer to load/refresh pdf
@@ -55,7 +54,7 @@ export class SaldoCongregacaoComponent implements OnInit {
   changeArea() {
     this.relatorioService.carregarArea(this.filtroDto.nucleo.id).subscribe((responseApi: ResponseApi) => {
       this.filtroDto.areas = responseApi['data'];
-      console.log("Areas = " + this.filtroDto.areas);
+      this.filtroDto.area.id = null;
     }, err => {
       this.showMessage({
         type: 'error',
@@ -64,24 +63,18 @@ export class SaldoCongregacaoComponent implements OnInit {
     });
   }
 
-  validateZona(){
-    if (this.filtroDto.area == null || this.filtroDto.area.id > 0){
-      return false;
-    } else {
-      return true;
-    }
-  }
-
   ngOnInit() {
     this.filtroDto = new FiltroDto();
     this.filtroDto.zona = new ZonaDto();
     this.filtroDto.zona.id = 0;
-    this.filtroDto.nomeRelatorio = 'RelatorioDebitoFinanceiro.jasper'; 
+    this.filtroDto.nomeRelatorio = 'RelatorioSaldoCongregacao.jasper'; 
   }
 
   carregarNucleo() {
     this.relatorioService.carregarNucleo(this.filtroDto.zona.id.toString()).subscribe((responseApi: ResponseApi) => {
       this.filtroDto.nucleos = responseApi['data'];
+      this.filtroDto.nucleo.id = null;
+      this.filtroDto.area.id = null;
       this.filtroDto.areas = [];
     }, err => {
       this.showMessage({
@@ -94,7 +87,6 @@ export class SaldoCongregacaoComponent implements OnInit {
   carregarDados() {
     this.relatorioService.carregarDados().subscribe((responseApi: ResponseApi) => {
       this.filtroDto = responseApi['data'];
-
     }, err => {
       this.showMessage({
         type: 'error',
