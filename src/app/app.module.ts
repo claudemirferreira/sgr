@@ -58,7 +58,7 @@ import { ListRotinaComponent } from './components/list-rotina/list-rotina.compon
 
 const appRoutes: Routes = [
   { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard] },  
-  { path: 'listar-perfil', component: ListarPerfilComponent, canActivate: [AuthGuard] },  
+  { path: 'list-perfil', component: ListarPerfilComponent, canActivate: [AuthGuard] },  
   { path: 'lista-rotina-perfil/:id', component: ListaRotinaPerfilComponent, canActivate: [AuthGuard] },
   { path: 'associar-rotina/:id', component: AssociarRotinaComponent, canActivate: [AuthGuard] },
 
