@@ -1,37 +1,51 @@
-import { SharedService } from './../../services/shared.service';
-import { Component, OnInit } from '@angular/core';
+import { ResponseApi } from './../../model/response-api';
+import { Rotina } from 'src/app/model/rotina';
 import { Router } from '@angular/router';
-import { UsuarioService } from 'src/app/services/usuario.service';
-import { Usuario } from 'src/app/model/usuario';
-import { ResponseApi } from 'src/app/model/response-api';
+import { SharedService } from './../../services/shared.service';
+import { RotinaService } from './../../services/rotina.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-list-usuario',
-  templateUrl: './list-usuario.component.html',
-  styleUrls: ['./list-usuario.component.css']
+  selector: 'app-list-rotina',
+  templateUrl: './list-rotina.component.html',
+  styleUrls: ['./list-rotina.component.css']
 })
-export class ListUsuarioComponent implements OnInit {
+export class ListRotinaComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'nome', 'login', 'acao'];
+  displayedColumns: string[] = ['id', 'nome', 'acao'];
 
   page: any;
-  list: Usuario[];
+  list: Rotina[];
   message: {};
   classCss: {};
   nome: string;
-  usuario = new Usuario();
+  rotina = new Rotina();
   shared: SharedService;
 
-  constructor(private service: UsuarioService,
+  constructor(private service: RotinaService,
     private router: Router) {
     this.shared = SharedService.getInstance();
+    this.findAll();
   }
 
   ngOnInit() {
   }
 
+  findAll() {
+    this.service.findAll().subscribe((responseApi: ResponseApi) => {
+      this.list = responseApi['data'];
+
+    }, err => {
+      this.showMessage({
+        type: 'error',
+        text: err['error']['errors'][0]
+      });
+    });
+  }
+
   find() {
-    this.service.pesquisar(this.usuario).subscribe((responseApi: ResponseApi) => {
+    console.log(this.rotina.nome);
+    this.service.pesquisar(this.rotina).subscribe((responseApi: ResponseApi) => {
       this.list = responseApi['data'];
     }, err => {
       this.showMessage({
