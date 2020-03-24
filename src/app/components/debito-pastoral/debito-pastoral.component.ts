@@ -43,7 +43,7 @@ export class DebitoPastoralComponent implements OnInit {
   }
 
   gerarRelatorio() {
-    this.processamentOK = false; 
+    this.filtroDto.nomeRelatorio = 'RelatorioDebitoPastoral.jasper'; 
     this.relatorioService.geraPdf(this.filtroDto).subscribe((res) => {
       this.pdfViewer.pdfSrc = res; // pdfSrc can be Blob or Uint8Array
       this.pdfViewer.refresh(); // Ask pdf viewer to load/refresh pdf
@@ -74,7 +74,6 @@ export class DebitoPastoralComponent implements OnInit {
     this.filtroDto = new FiltroDto();
     this.filtroDto.zona = new ZonaDto();
     this.filtroDto.zona.id = 0;
-    this.filtroDto.nomeRelatorio = 'RelatorioDebitoPastoral.jasper';    
 
     this.carregarDados();
   }
@@ -97,7 +96,7 @@ export class DebitoPastoralComponent implements OnInit {
     this.relatorioService.carregarDados().subscribe((responseApi: ResponseApi) => {
       this.filtroDto = responseApi['data'];
       this.filtroDto.zona = new ZonaDto();
-      this.filtroDto.zona.id = 0;
+      this.filtroDto.zona.id = -1;
     }, err => {
       this.showMessage({
         type: 'error',
