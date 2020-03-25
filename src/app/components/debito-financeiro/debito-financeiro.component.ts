@@ -67,7 +67,7 @@ export class DebitoFinanceiroComponent implements OnInit {
   ngOnInit() {
     this.filtroDto = new FiltroDto();
     this.filtroDto.zona = new ZonaDto();
-    this.filtroDto.zona.id = 0;
+    this.filtroDto.zona.id = -1;
     this.filtroDto.nomeRelatorio = 'RelatorioDebitoFinanceiro.jasper'; 
   }
 
@@ -88,6 +88,8 @@ export class DebitoFinanceiroComponent implements OnInit {
   carregarDados() {
     this.relatorioService.carregarDados().subscribe((responseApi: ResponseApi) => {
       this.filtroDto = responseApi['data'];
+      this.filtroDto.zona = new ZonaDto();
+      this.filtroDto.zona.id = -1;
 
     }, err => {
       this.showMessage({

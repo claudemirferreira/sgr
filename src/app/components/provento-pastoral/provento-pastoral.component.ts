@@ -70,7 +70,7 @@ export class ProventoPastoralComponent implements OnInit {
   ngOnInit() {
     this.filtroDto = new FiltroDto();
     this.filtroDto.zona = new ZonaDto();
-    this.filtroDto.zona.id = 0;
+    this.filtroDto.zona.id = -1;
     this.carregarDados();
   }
 
@@ -92,7 +92,7 @@ export class ProventoPastoralComponent implements OnInit {
     this.relatorioService.carregarDados().subscribe((responseApi: ResponseApi) => {
       this.filtroDto = responseApi['data'];
       this.filtroDto.zona = new ZonaDto();
-      this.filtroDto.zona.id = 0;
+      this.filtroDto.zona.id = -1;
     }, err => {
       this.showMessage({
         type: 'error',
