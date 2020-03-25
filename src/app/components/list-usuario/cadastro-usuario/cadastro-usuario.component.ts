@@ -56,40 +56,25 @@ export class CadastroUsuarioComponent implements OnInit {
 
   createForm() {    
     this.formGroup = this.formBuilder.group({
+      'id': [null, Validators.required],
       'nome': [null, Validators.required],
       'login': [null, Validators.required],
-      'senha': [null, Validators.required]
+      'senha': [null, Validators.required],
+      'status': [null, Validators.required],
+      'telefone': [null, Validators.required],
+      'email': [null, Validators.required]
     });
   }  
 
-  login(){
-    this.message = null;
-    this.service.login(this.user).subscribe((userAuthentication:CurrentUsuario) => {
-        this.shared.token = userAuthentication.token;
-        console.log('this.shared.token='+this.shared.token);
-        this.shared.user = userAuthentication.user;
-        this.shared.showTemplate.emit(true);
-        this.router.navigate(['/perfil']);
-    } , err => {
-      console.log('erro de autenticação='+ JSON.stringify(err.status));
-      this.erro =  err.status;
-      console.log(this.erro.status);
-      if(err.status == '401')
-        this.message = 'Login e senha invalidos';
-      else
-        this.message = 'Erro: entre em contato com admin';
-      this.shared.token = null;
-      this.shared.user = null;
-      this.shared.showTemplate.emit(false);
-      console.log(this.message);
+  save() {
+    this.service.update(this.user).subscribe((responseApi: ResponseApi) => {
+      this.user = responseApi['data'];
+    }, err => {
+      this.showMessage({
+        type: 'error',
+        text: err['error']['errors'][0]
+      });
     });
-  }
-
-  cancelLogin(){
-    this.message = '';
-    this.user = new Usuario();
-    window.location.href = '/login';
-    window.location.reload();
   }
 
   getFormGroupClass(isInvalid: boolean, isDirty:boolean): {} {

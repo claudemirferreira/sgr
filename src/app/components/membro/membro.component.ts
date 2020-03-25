@@ -60,15 +60,7 @@ export class MembroComponent implements OnInit {
         });
       });
     }
-  
-    validateZona(){
-      if (this.filtroDto.zona == null || this.filtroDto.zona.id > 0){
-        return true;
-      } else {
-        return false;
-      }
-    }
-  
+    
     ngOnInit() {
       this.filtroDto = new FiltroDto();
       this.filtroDto.zona = new ZonaDto();
