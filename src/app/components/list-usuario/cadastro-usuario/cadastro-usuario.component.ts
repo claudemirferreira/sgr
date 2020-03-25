@@ -18,56 +18,56 @@ export class CadastroUsuarioComponent implements OnInit {
 
   formGroup: FormGroup;
   user = new Usuario();
-  shared : SharedService;
+  shared: SharedService;
   erro: Erro;
 
-  message: {};  
+  message: {};
   classCss: {};
 
   constructor(private http: HttpClient,
     private router: Router,
     private route: ActivatedRoute,
     private service: UsuarioService,
-    private formBuilder: FormBuilder) { 
-      this.shared = SharedService.getInstance();
-    }
+    private formBuilder: FormBuilder) {
+    this.shared = SharedService.getInstance();
+  }
 
 
   ngOnInit() {
     this.createForm();
     var id = this.route.params.subscribe(params => {
       var id = params['id'];
-      console.log('id =====================' + id);
-      if (!id)
-        return;
-      this.service.findById(id).subscribe((responseApi: ResponseApi) => {
-        this.user = responseApi['data'];
-        console.log(JSON.stringify(this.user));
-      }, err => {
-        this.showMessage({
-          type: 'error',
-          text: err['error']['errors'][0]
+      if (!id){
+        this.user = new Usuario();
+        this.user.id = 0;
+      } else {
+        this.service.findById(id).subscribe((responseApi: ResponseApi) => {
+          this.user = responseApi['data'];
+          console.log(JSON.stringify(this.user));
+        }, err => {
+          this.showMessage({
+            type: 'error',
+            text: err['error']['errors'][0]
+          });
         });
-      });
+      }
     });
   }
 
   //ngOnInit() {   this.createForm();  }
 
-  createForm() {    
+  createForm() {
     this.formGroup = this.formBuilder.group({
-      'id': [null, Validators.required],
       'nome': [null, Validators.required],
       'login': [null, Validators.required],
-      'senha': [null, Validators.required],
       'status': [null, Validators.required],
       'telefone': [null, Validators.required],
       'email': [null, Validators.required]
     });
-  }  
+  }
 
   save() {
-    this.service.update(this.user).subscribe((responseApi: ResponseApi) => {
+    this.service.createOrUpdate(this.user).subscribe((responseApi: ResponseApi) => {
       this.user = responseApi['data'];
     }, err => {
       this.showMessage({
@@ -77,13 +77,13 @@ export class CadastroUsuarioComponent implements OnInit {
     });
   }
 
-  getFormGroupClass(isInvalid: boolean, isDirty:boolean): {} {
+  getFormGroupClass(isInvalid: boolean, isDirty: boolean): {} {
     return {
       'form-group': true,
-      'has-error' : isInvalid  && isDirty,
-      'has-success' : !isInvalid  && isDirty
+      'has-error': isInvalid && isDirty,
+      'has-success': !isInvalid && isDirty
     };
-  }  
+  }
 
   private showMessage(message: { type: string, text: string }): void {
     this.message = message;

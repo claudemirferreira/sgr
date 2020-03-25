@@ -19,7 +19,7 @@ export class UsuarioService {
   }
 
   createOrUpdate(user: Usuario){
-    if(user.id != null && user.id != ''){
+    if(user.id != null && user.id > 0){
       return this.http.put(`${HELP_DESK_API}/api/user`,user);
     } else {
       user.id = null;
