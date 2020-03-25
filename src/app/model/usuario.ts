@@ -3,7 +3,6 @@ export class Usuario {
     public email: string;
     public login: string;
     public password: string;
-    public profile: string;
     public nome: string;
     public idMembro: number;
 
