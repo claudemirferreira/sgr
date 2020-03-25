@@ -1,4 +1,4 @@
-import { UsuarioDetalheComponent } from './components/list-usuario/usuario-detalhe/usuario-detalhe.component';
+import { CadastroUsuarioComponent } from './components/list-usuario/cadastro-usuario/cadastro-usuario.component';
 import { AuthGuard } from './components/login/auth.guard';
 import { AuthInterceptor } from './components/login/auth.interceptor';
 import { UsuarioService } from './services/usuario.service';
@@ -61,7 +61,6 @@ const appRoutes: Routes = [
   { path: 'list-perfil', component: ListarPerfilComponent, canActivate: [AuthGuard] },  
   { path: 'lista-rotina-perfil/:id', component: ListaRotinaPerfilComponent, canActivate: [AuthGuard] },
   { path: 'associar-rotina/:id', component: AssociarRotinaComponent, canActivate: [AuthGuard] },
-
   
   { path: 'debito-secretaria', component: DebitoSecretariaComponent, canActivate: [AuthGuard] },
   { path: 'debito-pastoral', component: DebitoPastoralComponent, canActivate: [AuthGuard] },
@@ -72,10 +71,12 @@ const appRoutes: Routes = [
   { path: 'membro-detalhe/:idMembro', component: MembroDetalheComponent, canActivate: [AuthGuard] },
 
   { path: 'list-rotina', component: ListRotinaComponent, canActivate: [AuthGuard] },
-  { path: 'login', component: LoginComponent },
-  //usuario
+  { path: 'login', component: LoginComponent },  
+  { path: '', component: LoginComponent },
+  
   { path: 'list-usuario', component: ListUsuarioComponent, canActivate: [AuthGuard] },
-  { path: 'novo-usuario', component: UsuarioDetalheComponent, canActivate: [AuthGuard] },
+  { path: 'cadastro-usuario', component: CadastroUsuarioComponent, canActivate: [AuthGuard] },
+  { path: 'edit-usuario/:id', component: CadastroUsuarioComponent, canActivate: [AuthGuard] },
   { path: 'usuario', component: UsuarioComponent }
 ];
 
@@ -99,7 +100,7 @@ const appRoutes: Routes = [
     CardComponent,
     HeaderComponent,
     ListUsuarioComponent,
-    UsuarioDetalheComponent,
+    CadastroUsuarioComponent,
     ListRotinaComponent
   ],
   imports: [

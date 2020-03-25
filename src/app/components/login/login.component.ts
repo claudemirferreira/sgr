@@ -25,6 +25,10 @@ export class LoginComponent implements OnInit {
               private router: Router,
               private formBuilder: FormBuilder) { 
     this.shared = SharedService.getInstance();
+    this.shared.token = null;
+    this.shared.user = null;
+    this.shared.showTemplate.emit(false);
+    
     
   }
 
@@ -56,10 +60,10 @@ export class LoginComponent implements OnInit {
         this.message = 'Login e senha invalidos';
       else
         this.message = 'Erro: entre em contato com admin';
-      this.shared.token = null;
-      this.shared.user = null;
-      this.shared.showTemplate.emit(false);
-      console.log(this.message);
+        this.shared.token = null;
+        this.shared.user = null;
+        this.shared.showTemplate.emit(false);
+        console.log(this.message);
     });
   }
 
