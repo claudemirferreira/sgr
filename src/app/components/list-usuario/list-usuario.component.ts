@@ -41,6 +41,36 @@ export class ListUsuarioComponent implements OnInit {
     });
   }
 
+  delete(user){
+
+    if (confirm("deseja excluir o registro " + user.nome + "?")) {
+      this.service.delete(user.id)
+        .subscribe(null,
+          err => {
+            alert("Could not delete user.");            
+          });
+
+      this.find();
+    }
+
+  }
+
+  /*
+  delete(user){
+    if (confirm("Are you sure you want to delete " + user.name + "?")) {
+      var index = this.users.indexOf(user);
+      this.service.splice(index, 1);
+
+      this.service.deleteUser(user.id)
+        .subscribe(null,
+          err => {
+            alert("Could not delete user.");
+            // Revert the view back to its original state
+            this.users.splice(index, 0, user);
+          });
+    }
+  }
+  */
   private showMessage(message: { type: string, text: string }): void {
     this.message = message;
     this.buildClasses(message.type);

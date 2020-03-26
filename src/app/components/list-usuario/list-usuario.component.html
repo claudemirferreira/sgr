@@ -64,6 +64,9 @@
                 <a [routerLink]="['/edit-usuario', element.id]">
                     <i class="material-icons">mode_edit</i>
                 </a>
+                <a (click)="delete(element)">
+                    <i class="material-icons">highlight_off</i>
+                </a>
             </td>
     
         </ng-container>
