@@ -4,6 +4,10 @@ import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Usuario } from 'src/app/model/usuario';
 import { ResponseApi } from 'src/app/model/response-api';
+import { HttpErrorResponse } from '@angular/common/http';
+import { throwError } from 'rxjs';
+import { retry, catchError } from 'rxjs/operators';
+import { error } from 'util';
 
 @Component({
   selector: 'app-list-usuario',
@@ -41,36 +45,34 @@ export class ListUsuarioComponent implements OnInit {
     });
   }
 
-  delete(user){
-
-    if (confirm("deseja excluir o registro " + user.nome + "?")) {
-      this.service.delete(user.id)
-        .subscribe(null,
-          err => {
-            alert("Could not delete user.");            
-          });
-
-      this.find();
-    }
-
+  delete(user: Usuario) {
+    return this.service.delete(user.id)
+      .subscribe(() => {
+        console.log('saved');
+        this.find();
+      }, 
+        error => {
+          alert('Ocoreu um erro, entre em contato com o suporte');
+          console.log(JSON.stringify(error));
+        }
+      
+      );
   }
 
-  /*
-  delete(user){
-    if (confirm("Are you sure you want to delete " + user.name + "?")) {
-      var index = this.users.indexOf(user);
-      this.service.splice(index, 1);
-
-      this.service.deleteUser(user.id)
-        .subscribe(null,
-          err => {
-            alert("Could not delete user.");
-            // Revert the view back to its original state
-            this.users.splice(index, 0, user);
-          });
+  // Manipulação de erros
+  handleError(error: HttpErrorResponse) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      // Erro ocorreu no lado do client
+      errorMessage = error.error.message;
+    } else {
+      // Erro ocorreu no lado do servidor
+      errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.message}`;
     }
-  }
-  */
+    console.log(errorMessage);
+    return throwError(errorMessage);
+  };
+
   private showMessage(message: { type: string, text: string }): void {
     this.message = message;
     this.buildClasses(message.type);
