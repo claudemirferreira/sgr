@@ -24,6 +24,8 @@ export class CadastroUsuarioComponent implements OnInit {
   message: {};
   classCss: {};
 
+  class = 'sucess';
+
   constructor(private http: HttpClient,
     private router: Router,
     private route: ActivatedRoute,
@@ -67,13 +69,21 @@ export class CadastroUsuarioComponent implements OnInit {
   }
 
   save() {
-    this.service.createOrUpdate(this.user).subscribe((responseApi: ResponseApi) => {
+    this.message = '';
+    this.service.update(this.user).subscribe((responseApi: ResponseApi) => {
       this.user = responseApi['data'];
+      this.class = 'sucess';
+      this.message = 'Operacao realizada com sucesso';
     }, err => {
-      this.showMessage({
-        type: 'error',
-        text: err['error']['errors'][0]
-      });
+      console.log('erro de autenticação='+ JSON.stringify(err.status));
+      this.erro =  err.status;
+      console.log(this.erro.status);
+      this.class = 'error';
+      if(err.status == '400')
+      this.message = 'Ja existe um usuario com o login '+this.user.login;
+      else
+        this.message = 'Erro: entre em contato com o suporte';
+        console.log(this.message);
     });
   }
 

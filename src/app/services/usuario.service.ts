@@ -25,9 +25,7 @@ export class UsuarioService {
       user.id = null;
       return this.http.post(`${HELP_DESK_API}/api/user`, user);
     }
-  }
-
-  
+  }  
 
   update(user: Usuario){
     return this.http.put(`${HELP_DESK_API}/api/user`,user);

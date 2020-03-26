@@ -13,3 +13,17 @@ mat-form-field {
   body {
     background-color: #eaeaea;
   }
+
+  .error {
+    padding: 16px;
+    width: 300px;
+    color: white;
+    background-color: red;
+  }
+
+  .sucess {
+    padding: 16px;
+    width: 300px;
+    color: white;
+    background-color: cadetblue;
+  }
