@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 })
 export class SaldoCongregacaoComponent implements OnInit {
 
-  @ViewChild('pdfViewer', { static: false }) 
+  @ViewChild('pdfViewer') 
   public pdfViewer;
 
   message: {};

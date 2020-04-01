@@ -19,7 +19,7 @@ export class RelatorioMembroComponent implements OnInit {
 
   displayedColumns: string[] = ['idMembro', 'membro', 'acao'];
 
-  @ViewChild('pdfViewer', { static: false }) 
+  @ViewChild('pdfViewer') 
   public pdfViewer;
 
   message: {};

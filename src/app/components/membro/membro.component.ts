@@ -16,7 +16,7 @@ import { Membro } from 'src/app/model/membro';
 })
 export class MembroComponent implements OnInit {
 
-  @ViewChild('pdfViewer', { static: false }) 
+  @ViewChild('pdfViewer') 
   public pdfViewer;
 
   message: {};

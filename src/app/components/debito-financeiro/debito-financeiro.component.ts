@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 })
 export class DebitoFinanceiroComponent implements OnInit {
 
-  @ViewChild('pdfViewer', { static: false }) 
+  @ViewChild('pdfViewer') 
   public pdfViewer;
 
   message: {};

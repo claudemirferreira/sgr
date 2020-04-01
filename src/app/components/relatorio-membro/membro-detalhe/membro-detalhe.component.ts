@@ -14,7 +14,7 @@ import { RelatorioService } from 'src/app/services/relatorio.service';
 })
 export class MembroDetalheComponent implements OnInit {
 
-  @ViewChild('pdfViewer', { static: false }) 
+  @ViewChild('pdfViewer') 
   public pdfViewer;
 
   membro: Membro;
