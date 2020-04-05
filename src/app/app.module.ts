@@ -10,28 +10,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
 
-import {
-  MatButtonModule,
-  MatToolbarModule,
-  MatIconModule,
-  MatBadgeModule,
-  MatSidenavModule,
-  MatListModule,
-  MatGridListModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatSelectModule,
-  MatRadioModule,
-  MatDatepickerModule,
-  MatNativeDateModule,
-  MatChipsModule,
-  MatTooltipModule,
-  MatTableModule,
-  MatTabsModule,
-  MatPaginatorModule,
-  MatCardModule,
-  MatProgressSpinnerModule
-} from '@angular/material';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -51,10 +29,39 @@ import { ListaRotinaPerfilComponent } from './components/lista-rotina-perfil/lis
 import { ListarPerfilComponent } from './components/listar-perfil/listar-perfil.component';
 import { AssociarRotinaComponent } from './components/listar-perfil/associar-rotina/associar-rotina.component';
 import { MembroDetalheComponent } from './components/relatorio-membro/membro-detalhe/membro-detalhe.component';
-import { CardComponent } from './components/card/card.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ListUsuarioComponent } from './components/list-usuario/list-usuario.component';
 import { ListRotinaComponent } from './components/list-rotina/list-rotina.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatListModule } from '@angular/material/list';
+import { MatGridListModule } from '@angular/material/grid-list';
+
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+
+import { MatRadioModule } from '@angular/material/radio';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
+
+import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AssociacaoUsuarioComponent } from './components/list-usuario/associacao-usuario/associacao-usuario.component';
+
+
 
 const appRoutes: Routes = [
   { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard] },  
@@ -97,11 +104,12 @@ const appRoutes: Routes = [
     ListarPerfilComponent,
     AssociarRotinaComponent,
     MembroDetalheComponent,
-    CardComponent,
     HeaderComponent,
     ListUsuarioComponent,
     CadastroUsuarioComponent,
-    ListRotinaComponent
+    ListRotinaComponent,
+    AssociacaoUsuarioComponent
+
   ],
   imports: [
     RouterModule.forRoot(
@@ -123,14 +131,15 @@ const appRoutes: Routes = [
     MatSelectModule,
     MatRadioModule,
     MatDatepickerModule,
-    MatNativeDateModule,
     MatChipsModule,
     MatTooltipModule,
     MatTableModule,
+    MatDialogModule,
     MatTabsModule,
     MatPaginatorModule,
     MatCardModule,
     MatProgressSpinnerModule,
+    MatCheckboxModule,
     FormsModule,
     HttpClientModule,
     FlexLayoutModule,

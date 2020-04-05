@@ -2,6 +2,7 @@ import { HELP_DESK_API } from './helpdesk.api';
 import { Usuario } from './../model/usuario';
 import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
+import { Autentication } from '../model/autentication';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class UsuarioService {
 
   constructor(private http: HttpClient) {}
 
-  login(user: Usuario){
+  login(user: Autentication){
     return this.http.post(`${HELP_DESK_API}/api/auth`,user);
   }
 

@@ -5,7 +5,7 @@ import { PerfilService } from 'src/app/services/perfil.service';
 import { Rotina } from 'src/app/model/rotina';
 import { ResponseApi } from 'src/app/model/response-api';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-associar-rotina',

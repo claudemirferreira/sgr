@@ -7,7 +7,10 @@ import { ResponseApi } from 'src/app/model/response-api';
 import { HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
-import { error } from 'util';
+import { MatDialog } from '@angular/material/dialog';
+import { AssociacaoUsuarioComponent } from './associacao-usuario/associacao-usuario.component';
+import { UsuarioAssociacaoService } from 'src/app/services/usuario-associacao.service';
+import { UsuarioAssociacao } from 'src/app/model/usuario-associacao';
 
 @Component({
   selector: 'app-list-usuario',
@@ -25,10 +28,32 @@ export class ListUsuarioComponent implements OnInit {
   nome: string;
   usuario = new Usuario();
   shared: SharedService;
+  usuarioAssociacao : UsuarioAssociacao;
 
   constructor(private service: UsuarioService,
-    private router: Router) {
+    private usuarioAssociacaoService: UsuarioAssociacaoService,
+    private router: Router,
+    public dialog: MatDialog) {
     this.shared = SharedService.getInstance();
+  }
+
+  openDialog(idMembro: number) {    
+
+    this.usuarioAssociacaoService.listarAssociacaoUsuario(idMembro)
+      .subscribe((responseApi: ResponseApi) => {
+      this.usuarioAssociacao = responseApi['data'];
+      let dialogRef = this.dialog.open(AssociacaoUsuarioComponent, { data: responseApi['data'] })
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      });     
+
+    }, err => {
+      this.showMessage({
+        type: 'error',
+        text: err['error']['errors'][0]
+      });
+    });
+    
   }
 
   ngOnInit() {

@@ -37,8 +37,7 @@
 
         </mat-card-content>
         <mat-card-actions>
-            <button [disabled]="!validateZona()"
-                mat-raised-button 
+            <button mat-raised-button 
                 (click)="pesquisar()">Pesquisar</button>
         </mat-card-actions>
     </mat-card>
@@ -68,8 +67,8 @@
     
         </ng-container>
     
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-header-row ></tr>
+        <tr mat-row *matRowDef="let row;"></tr>
     
     </table>
     

@@ -1,7 +1,7 @@
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CurrentUsuario } from './../../model/current-usuario';
 import { SharedService } from './../../services/shared.service';
-import { Usuario } from './../../model/usuario';
+import { Autentication } from './../../model/autentication';
 import { UsuarioService } from './../../services/usuario.service';
 import { Router } from '@angular/router';
 import { Component, OnInit, Input } from '@angular/core';
@@ -16,7 +16,7 @@ import { Erro } from 'src/app/model/erro';
 export class LoginComponent implements OnInit {
 
   formGroup: FormGroup;
-  user = new Usuario();
+  user = new Autentication();
   shared : SharedService;
   @Input() message: string | null;
   erro: Erro;
@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
 
   cancelLogin(){
     this.message = '';
-    this.user = new Usuario();
+    this.user = new Autentication();
     window.location.href = '/login';
     window.location.reload();
   }
