@@ -7,6 +7,10 @@ export class Usuario {
     public email: string;
     public nome: string;
     public idMembro: number;
+    public zona: boolean;
+    public nucleo: boolean;
+    public area: boolean;
+    public in_privilegio: boolean;
 
     constructor() {
     }

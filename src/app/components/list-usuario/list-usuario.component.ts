@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AssociacaoUsuarioComponent } from './associacao-usuario/associacao-usuario.component';
 import { UsuarioAssociacaoService } from 'src/app/services/usuario-associacao.service';
 import { UsuarioAssociacao } from 'src/app/model/usuario-associacao';
+import { PerfilService } from 'src/app/services/perfil.service';
 
 @Component({
   selector: 'app-list-usuario',
@@ -19,7 +20,7 @@ import { UsuarioAssociacao } from 'src/app/model/usuario-associacao';
 })
 export class ListUsuarioComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'nome', 'login', 'acao'];
+  displayedColumns: string[] = ['id', 'nome', 'login', 'zona','nucleo', 'area', 'in_privilegio', 'acao'];
 
   page: any;
   list: Usuario[];
@@ -32,6 +33,7 @@ export class ListUsuarioComponent implements OnInit {
 
   constructor(private service: UsuarioService,
     private usuarioAssociacaoService: UsuarioAssociacaoService,
+    private perfilService: PerfilService,
     private router: Router,
     public dialog: MatDialog) {
     this.shared = SharedService.getInstance();
@@ -58,6 +60,19 @@ export class ListUsuarioComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  listarPerfil(id) {
+    this.perfilService.listarPerfil(id).subscribe((responseApi: ResponseApi) => {
+      console.log( responseApi['data']);
+    }, err => {
+      this.showMessage({
+        type: 'error',
+        text: err['error']['errors'][0]
+      });
+    });
+  }
+
+
 
   find() {
     this.service.pesquisar(this.usuario).subscribe((responseApi: ResponseApi) => {

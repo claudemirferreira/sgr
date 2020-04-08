@@ -24,5 +24,9 @@ export class PerfilService {
   listarRotinaPorPerfil(id: number) {
     return this.http.get(`${HELP_DESK_API}/api/perfil/listarRotinaPorPerfil/`+id);
   }
+  
+  listarPerfil(id: number) {
+    return this.http.get(`${HELP_DESK_API}/api/perfil/usuario-perfil/`+id);
+  }
 
 }
