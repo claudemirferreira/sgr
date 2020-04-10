@@ -1,0 +1,35 @@
+/* Flex */
+.flex {
+	display: flex;
+}
+
+.flex-wrap {
+	flex-wrap: wrap;
+}
+
+.container {
+	max-width: 100%;
+	margin: 0 auto;
+  border: 0px solid #ccc;
+}
+
+table {
+  width: 100%;
+}
+
+.center {
+	justify-content: center;
+}
+
+body {
+	color: #f44336; 
+}
+
+.mat-card {
+    min-width: 250px;
+    max-width: 250px;
+    margin: 0px;
+	  text-align: left;
+    font-size: 0.5em;
+    background: #eaeaea;
+  }

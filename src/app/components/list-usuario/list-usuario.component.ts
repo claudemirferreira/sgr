@@ -11,7 +11,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { AssociacaoUsuarioComponent } from './associacao-usuario/associacao-usuario.component';
 import { UsuarioAssociacaoService } from 'src/app/services/usuario-associacao.service';
 import { UsuarioAssociacao } from 'src/app/model/usuario-associacao';
+
 import { PerfilService } from 'src/app/services/perfil.service';
+import { AssociacaoPerfilComponent } from './associacao-perfil/associacao-perfil.component';
 
 @Component({
   selector: 'app-list-usuario',
@@ -37,6 +39,15 @@ export class ListUsuarioComponent implements OnInit {
     private router: Router,
     public dialog: MatDialog) {
     this.shared = SharedService.getInstance();
+  }
+
+  openDialogPerfil(idUsuario: number){
+    console.log('openDialogPerfil');
+    let dialogRef = this.dialog.open(AssociacaoPerfilComponent, { data: {idUsuario: idUsuario}})
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      });    
+
   }
 
   openDialog(idMembro: number) {    

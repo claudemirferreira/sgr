@@ -90,7 +90,7 @@
                 <button mat-raised-button [routerLink]="['/edit-usuario', element.id]"><mat-icon>create</mat-icon>Editar</button>                
                 <button mat-raised-button (click)="delete(element)"><mat-icon>delete_forever</mat-icon>Excluir</button>
                 <button mat-raised-button (click)="openDialog(element.idMembro)"><mat-icon>people</mat-icon>Associação</button>
-                <button mat-raised-button (click)="listarPerfil(element.id)"><mat-icon>person</mat-icon>Perfil</button>
+                <button mat-raised-button (click)="openDialogPerfil(element.id)"><mat-icon>person</mat-icon>Perfil</button>
             </td>    
         </ng-container>
 

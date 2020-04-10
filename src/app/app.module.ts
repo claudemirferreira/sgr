@@ -10,7 +10,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
 
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
@@ -60,8 +59,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AssociacaoUsuarioComponent } from './components/list-usuario/associacao-usuario/associacao-usuario.component';
-
-
+import { AssociacaoPerfilComponent } from './components/list-usuario/associacao-perfil/associacao-perfil.component';
 
 const appRoutes: Routes = [
   { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard] },  
@@ -108,7 +106,8 @@ const appRoutes: Routes = [
     ListUsuarioComponent,
     CadastroUsuarioComponent,
     ListRotinaComponent,
-    AssociacaoUsuarioComponent
+    AssociacaoUsuarioComponent,
+    AssociacaoPerfilComponent
 
   ],
   imports: [
