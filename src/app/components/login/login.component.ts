@@ -1,4 +1,4 @@
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { CurrentUsuario } from './../../model/current-usuario';
 import { SharedService } from './../../services/shared.service';
 import { Autentication } from './../../model/autentication';
@@ -15,30 +15,29 @@ import { Erro } from 'src/app/model/erro';
 })
 export class LoginComponent implements OnInit {
 
-  formGroup: FormGroup;
+  loginForm: FormGroup;
+
   user = new Autentication();
   shared : SharedService;
   @Input() message: string | null;
   erro: Erro;
 
   constructor(private userService: UsuarioService,
-              private router: Router,
-              private formBuilder: FormBuilder) { 
+              private router: Router) { 
     this.shared = SharedService.getInstance();
     this.shared.token = null;
     this.shared.user = null;
-    this.shared.showTemplate.emit(false);   
-    
-  }
+    this.shared.showTemplate.emit(false);       
+  }  
 
   ngOnInit() {
     this.createForm();
   }
-
+  
   createForm() {    
-    this.formGroup = this.formBuilder.group({
-      'login': [null, Validators.required],
-      'password': [null, Validators.required]
+    this.loginForm = new FormGroup({
+      login: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required])
     });
   }  
 
