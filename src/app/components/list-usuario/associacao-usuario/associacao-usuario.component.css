@@ -1,44 +1,27 @@
-/* Flex */
-.flex {
-	display: flex;
+
+.box {
+  border: 1px;;
+  border-color: red;
+  border-style: solid;
 }
 
-.flex-wrap {
-	flex-wrap: wrap;
+.item {
+  min-width: 250px;
+  max-width: 250px;
+  height: 400px;
+  margin: 1px;
+  text-align: left;
+  overflow-y: auto;
 }
 
-.container {
-	max-width: 100%;
-	margin: 0 auto;
-  border: 0px solid #ccc;
-  overflow: auto;
+div.registro {
+  font-weight: bold;
+  color: red;
+  padding: 5px;
+  text-align: center;
+  width: 100%;
 }
 
 table {
   width: 100%;
-}
-
-.center {
-	justify-content: center;
-}
-
-body {
-	color: #f44336; 
-}
-
-.mat-card {
-    min-width: 250px;
-    max-width: 250px;
-    margin: 2px;
-	  text-align: left;
-    font-size: 0.5em;
-    background: #eaeaea;
-    height: 380px;
-    overflow: auto;
-  }
-
-  div.ex3{
-    overflow:auto; 
-    width: 100%;
-    max-height: 400px;
 }

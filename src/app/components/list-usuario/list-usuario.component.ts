@@ -1,5 +1,5 @@
 import { SharedService } from './../../services/shared.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Usuario } from 'src/app/model/usuario';
@@ -25,8 +25,8 @@ export class ListUsuarioComponent implements OnInit {
   displayedColumns: string[] = ['id', 'nome', 'login', 'zona','nucleo', 'area', 'in_privilegio', 'acao'];
 
   page: any;
-  list: Usuario[];
-  message: {};
+  list: Usuario[];  
+  @Input() message: string | null;
   classCss: {};
   nome: string;
   usuario = new Usuario();
@@ -83,11 +83,12 @@ export class ListUsuarioComponent implements OnInit {
     });
   }
 
-
-
   find() {
+    this.message ='';
     this.service.pesquisar(this.usuario).subscribe((responseApi: ResponseApi) => {
       this.list = responseApi['data'];
+      if (this.list.length == 0)
+        this.message = 'Nenhum registro encontrado.';
     }, err => {
       this.showMessage({
         type: 'error',
@@ -123,9 +124,10 @@ export class ListUsuarioComponent implements OnInit {
     console.log(errorMessage);
     return throwError(errorMessage);
   };
+  
 
   private showMessage(message: { type: string, text: string }): void {
-    this.message = message;
+    //this.message = message;
     this.buildClasses(message.type);
     setTimeout(() => {
       this.message = undefined;

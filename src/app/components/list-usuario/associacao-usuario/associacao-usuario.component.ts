@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UsuarioAssociacao } from 'src/app/model/usuario-associacao';
 import { UsuarioAssociacaoService } from 'src/app/services/usuario-associacao.service';
 import { ResponseApi } from 'src/app/model/response-api';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-associacao-usuario',
@@ -12,6 +13,7 @@ import { ResponseApi } from 'src/app/model/response-api';
 export class AssociacaoUsuarioComponent implements OnInit {
 
   usuarioAssociacao : UsuarioAssociacao;
+  areas: any;
   displayedColumnsZona: string[] = ['nome', 'usuarioZona'];
 
   displayedColumnsNucleo: string[] = ['nome', 'usuarioNucleo'];
@@ -26,10 +28,16 @@ export class AssociacaoUsuarioComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
       public service :UsuarioAssociacaoService) { 
     this.usuarioAssociacao = data;
+    this.areas = new MatTableDataSource(data.usuarioAreas); //data;
     console.log(JSON.stringify(this.usuarioAssociacao));
   }
 
   ngOnInit() {
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.areas.filter = filterValue.trim().toLowerCase();
   }
 
   onChangeZona(usuarioZona) {

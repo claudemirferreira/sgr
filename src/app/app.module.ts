@@ -54,6 +54,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatProgressButtonsModule } from 'mat-progress-buttons';
 
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCardModule } from '@angular/material/card';
@@ -144,7 +145,8 @@ const appRoutes: Routes = [
     FlexLayoutModule,
     PdfJsViewerModule,
     MatCardModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatProgressButtonsModule
   ],
   providers: [UsuarioService,
     SharedService,

@@ -33,8 +33,7 @@ background-color: #eaeaea;
 }
 
 .error {
-      padding: 16px;
+      padding: 10px;
       width: 300px;
-      color: white;
-      background-color: red;
-    }
+      color: goldenrod;
+}

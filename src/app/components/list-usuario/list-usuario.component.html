@@ -6,6 +6,7 @@
             <mat-card-title>FORMULARIO DE PESQUISA DE USUÁRIO</mat-card-title>
         </mat-card-header>
         <mat-card-content>
+            <p *ngIf="message" class="error"> {{ message }} </p>
             
             <mat-form-field appearance="legacy" class="example-full-width">
                 <mat-label>Nome</mat-label>

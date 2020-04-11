@@ -6,6 +6,7 @@ import { UsuarioService } from './../../services/usuario.service';
 import { Router } from '@angular/router';
 import { Component, OnInit, Input } from '@angular/core';
 import { Erro } from 'src/app/model/erro';
+import { MatProgressButtonOptions } from 'mat-progress-buttons';
 
 
 @Component({
@@ -14,6 +15,22 @@ import { Erro } from 'src/app/model/erro';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+  spinnerButtonOptions: MatProgressButtonOptions = {
+    active: false,
+    text: 'Entrar',
+    spinnerSize: 18,
+    raised: true,
+    stroked: false,
+    buttonColor: 'primary',
+    spinnerColor: 'warn',
+    fullWidth: false,
+    disabled: false,
+    mode: 'indeterminate',
+    buttonIcon: {
+      fontIcon: 'input'
+    }
+  }
 
   loginForm: FormGroup;
 
@@ -41,9 +58,13 @@ export class LoginComponent implements OnInit {
     });
   }  
 
-  login(){
-    this.message = null;
-    this.userService.login(this.user).subscribe((userAuthentication:CurrentUsuario) => {
+
+  // Click handler
+  login(): void {
+    this.spinnerButtonOptions.active = true;
+    setTimeout(() => {
+      this.message = null;
+      this.userService.login(this.user).subscribe((userAuthentication:CurrentUsuario) => {
         this.shared.token = userAuthentication.token;
         console.log('this.shared.token='+this.shared.token);
         this.shared.user = userAuthentication.user;
@@ -62,6 +83,8 @@ export class LoginComponent implements OnInit {
         this.shared.showTemplate.emit(false);
         console.log(this.message);
     });
+      this.spinnerButtonOptions.active = false;
+    }, 3350);
   }
 
   cancelLogin(){
