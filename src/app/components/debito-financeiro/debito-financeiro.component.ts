@@ -7,6 +7,7 @@ import { RelatorioService } from 'src/app/services/relatorio.service';
 import { ParamRelatorioDto } from 'src/app/model/param-relatorio-dto';
 import { SharedService } from 'src/app/services/shared.service';
 import { Router } from '@angular/router';
+import { MatProgressButtonOptions } from 'mat-progress-buttons';
 
 @Component({
   selector: 'app-debito-financeiro',
@@ -14,6 +15,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./debito-financeiro.component.css']
 })
 export class DebitoFinanceiroComponent implements OnInit {
+
+  spinnerButtonOptions: MatProgressButtonOptions = {
+    active: false,
+    text: 'Imprimir',
+    spinnerSize: 18,
+    raised: true,
+    stroked: false,
+    spinnerColor: 'warn',
+    fullWidth: false,
+    disabled: false,
+    mode: 'indeterminate',
+    buttonIcon: {
+      fontIcon: 'print'
+    }
+  }
 
   @ViewChild('pdfViewer') 
   public pdfViewer;
@@ -39,16 +55,21 @@ export class DebitoFinanceiroComponent implements OnInit {
     this.router.navigate(['/lista-rotina-perfil/'+this.shared.idPerfil]);
   }
 
-  gerarRelatorio() {
-    this.relatorioService.geraPdf(this.filtroDto).subscribe((res) => {
-      this.pdfViewer.pdfSrc = res; // pdfSrc can be Blob or Uint8Array
-      this.pdfViewer.refresh(); // Ask pdf viewer to load/refresh pdf
-    }, err => {
-      this.showMessage({
-        type: 'error',
-        text: err['error']['errors'][0]
+  gerarRelatorio(): void {
+    this.spinnerButtonOptions.active = true;
+    setTimeout(() => {
+      this.filtroDto.nomeRelatorio = 'RelatorioDebitoFinanceiro.jasper'; 
+      this.relatorioService.geraPdf(this.filtroDto).subscribe((res) => {
+        this.pdfViewer.pdfSrc = res; // pdfSrc can be Blob or Uint8Array
+        this.pdfViewer.refresh(); // Ask pdf viewer to load/refresh pdf
+      }, err => {
+        this.showMessage({
+          type: 'error',
+          text: err['error']['errors'][0]
+        });
       });
-    });
+      this.spinnerButtonOptions.active = false;
+    }, 4000);
   }
 
   changeArea() {
@@ -68,7 +89,6 @@ export class DebitoFinanceiroComponent implements OnInit {
     this.filtroDto = new FiltroDto();
     this.filtroDto.zona = new ZonaDto();
     this.filtroDto.zona.id = -1;
-    this.filtroDto.nomeRelatorio = 'RelatorioDebitoFinanceiro.jasper'; 
   }
 
   carregarNucleo() {

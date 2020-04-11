@@ -7,6 +7,7 @@ import { ParamRelatorioDto } from './../../model/param-relatorio-dto';
 import { SharedService } from './../../services/shared.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatProgressButtonOptions } from 'mat-progress-buttons';
 
 @Component({
   selector: 'app-debito-pastoral',
@@ -15,7 +16,22 @@ import { Router } from '@angular/router';
 })
 export class DebitoPastoralComponent implements OnInit {
 
-  @ViewChild('pdfViewer') 
+  spinnerButtonOptions: MatProgressButtonOptions = {
+    active: false,
+    text: 'Imprimir',
+    spinnerSize: 18,
+    raised: true,
+    stroked: false,
+    spinnerColor: 'warn',
+    fullWidth: false,
+    disabled: false,
+    mode: 'indeterminate',
+    buttonIcon: {
+      fontIcon: 'print'
+    }
+  }
+
+  @ViewChild('pdfViewer')
   public pdfViewer;
 
   message: {};
@@ -29,27 +45,41 @@ export class DebitoPastoralComponent implements OnInit {
   zonas: [];
   anos: number[];
   classCss: {};
-  processamentOK = true;  
 
   constructor(private http: HttpClient,
     private router: Router,
-    private relatorioService: RelatorioService) {      
-      this.shared = SharedService.getInstance();
-      this.ngOnInit();
+    private relatorioService: RelatorioService) {
+    this.shared = SharedService.getInstance();
+    this.ngOnInit();
   }
 
-  getPerfil(){
-    this.router.navigate(['/lista-rotina-perfil/'+this.shared.idPerfil]);
+  getPerfil() {
+    this.router.navigate(['/lista-rotina-perfil/' + this.shared.idPerfil]);
   }
 
-  gerarRelatorio() {
-    this.filtroDto.nomeRelatorio = 'RelatorioDebitoPastoral.jasper'; 
+  gerarRelatorio(): void {
+    this.spinnerButtonOptions.active = true;
+    setTimeout(() => {
+      this.filtroDto.nomeRelatorio = 'RelatorioDebitoPastoral.jasper';
+      this.relatorioService.geraPdf(this.filtroDto).subscribe((res) => {
+        this.pdfViewer.pdfSrc = res; // pdfSrc can be Blob or Uint8Array
+        this.pdfViewer.refresh(); // Ask pdf viewer to load/refresh pdf
+      }, err => {
+        this.showMessage({
+          type: 'error',
+          text: err['error']['errors'][0]
+        });
+      });
+      this.spinnerButtonOptions.active = false;
+    }, 4000);
+  }
+
+  gerarRelatorio1() {
+    this.filtroDto.nomeRelatorio = 'RelatorioDebitoPastoral.jasper';
     this.relatorioService.geraPdf(this.filtroDto).subscribe((res) => {
       this.pdfViewer.pdfSrc = res; // pdfSrc can be Blob or Uint8Array
       this.pdfViewer.refresh(); // Ask pdf viewer to load/refresh pdf
-      this.processamentOK = true; 
     }, err => {
-      this.processamentOK = true; 
       this.showMessage({
         type: 'error',
         text: err['error']['errors'][0]

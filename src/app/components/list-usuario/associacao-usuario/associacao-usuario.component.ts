@@ -28,7 +28,7 @@ export class AssociacaoUsuarioComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
       public service :UsuarioAssociacaoService) { 
     this.usuarioAssociacao = data;
-    this.areas = new MatTableDataSource(data.usuarioAreas); //data;
+    this.areas = new MatTableDataSource(data.usuarioAreas);
     console.log(JSON.stringify(this.usuarioAssociacao));
   }
 

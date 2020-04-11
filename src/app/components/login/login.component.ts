@@ -58,8 +58,6 @@ export class LoginComponent implements OnInit {
     });
   }  
 
-
-  // Click handler
   login(): void {
     this.spinnerButtonOptions.active = true;
     setTimeout(() => {
