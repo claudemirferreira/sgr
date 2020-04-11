@@ -1,10 +1,7 @@
-<mat-card style="background-color: #eaeaea">
-    <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>Relatório Débito Pastoral</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
 
+<h2 class="titulo">Relatório Débito Pastoral</h2>
+<mat-card style="background-color: #eaeaea">
+    <mat-card-content>
         <mat-form-field>
             <mat-select placeholder="Zona" [(ngModel)]="filtroDto.zona.id" (selectionChange)="carregarNucleo()">
                 <mat-option *ngFor="let zona of filtroDto.zonas" [value]="zona.id">

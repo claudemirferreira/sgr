@@ -4,6 +4,7 @@ import { UsuarioAssociacao } from 'src/app/model/usuario-associacao';
 import { UsuarioAssociacaoService } from 'src/app/services/usuario-associacao.service';
 import { ResponseApi } from 'src/app/model/response-api';
 import { MatTableDataSource } from '@angular/material/table';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-associacao-usuario',
@@ -13,7 +14,9 @@ import { MatTableDataSource } from '@angular/material/table';
 export class AssociacaoUsuarioComponent implements OnInit {
 
   usuarioAssociacao : UsuarioAssociacao;
+
   areas: any;
+
   displayedColumnsZona: string[] = ['nome', 'usuarioZona'];
 
   displayedColumnsNucleo: string[] = ['nome', 'usuarioNucleo'];
@@ -26,7 +29,8 @@ export class AssociacaoUsuarioComponent implements OnInit {
 
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
-      public service :UsuarioAssociacaoService) { 
+      public service :UsuarioAssociacaoService,
+      public usuarioService :UsuarioService) { 
     this.usuarioAssociacao = data;
     this.areas = new MatTableDataSource(data.usuarioAreas);
     console.log(JSON.stringify(this.usuarioAssociacao));
@@ -41,16 +45,9 @@ export class AssociacaoUsuarioComponent implements OnInit {
   }
 
   onChangeZona(usuarioZona) {
-    //this.message = '';
     this.service.atualizarZona(usuarioZona).subscribe((responseApi: ResponseApi) => {
-      //this.usuarioZona = responseApi['data'];
-      //this.class = 'sucess';
-      //this.message = 'Operacao realizada com sucesso';
     }, err => {
       console.log('erro de autenticação='+ JSON.stringify(err.status));
-      //this.erro =  err.status;
-      //console.log(this.erro.status);
-      //this.class = 'error';
       if(err.status == '400')
          this.message = 'Ja existe um usuarioZona';
       else
@@ -79,22 +76,29 @@ export class AssociacaoUsuarioComponent implements OnInit {
   }
 
   onChangeArea(usuarioArea) {
-    //this.message = '';
     this.service.atualizarArea(usuarioArea).subscribe((responseApi: ResponseApi) => {
-      //this.usuarioZona = responseApi['data'];
-      //this.class = 'sucess';
-      //this.message = 'Operacao realizada com sucesso';
+      
     }, err => {
       console.log('erro de autenticação='+ JSON.stringify(err.status));
-      //this.erro =  err.status;
-      //console.log(this.erro.status);
-      //this.class = 'error';
       if(err.status == '400')
          this.message = 'Ja existe um usuarioZona';
       else
         this.message = 'Erro: entre em contato com o suporte';
         console.log(this.message);
     });
+  }
+  
+  onChangeUsuario(usuario){
+    this.usuarioService.update(usuario).subscribe((responseApi: ResponseApi) => {      
+    }, err => {
+      console.log('erro de autenticação='+ JSON.stringify(err.status));
+      if(err.status == '400')
+         this.message = 'Ja existe um usuarioZona';
+      else
+        this.message = 'Erro: entre em contato com o suporte';
+        console.log(this.message);
+    });
+
   }
   
 }

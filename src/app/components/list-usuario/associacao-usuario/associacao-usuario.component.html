@@ -1,12 +1,27 @@
+<h2 class="registro">Associação do Usuário: {{usuarioAssociacao.usuario.nome}}</h2>
+<div class="container">
+  <div fxLayout="row wrap">
+    <div fxLayout="column" class="itemCheck">
+      <mat-checkbox [(ngModel)]="usuarioAssociacao.usuario.in_privilegio" (change)="onChangeUsuario(usuarioAssociacao.usuario)">Privilégio</mat-checkbox>
+    </div>
+    <div fxLayout="column"class="itemCheck">
+      <mat-checkbox [(ngModel)]="usuarioAssociacao.usuario.zona" (change)="onChangeUsuario(usuarioAssociacao.usuario)">Zona</mat-checkbox>
+    </div>
+    <div fxLayout="column" class="itemCheck">
+      <mat-checkbox [(ngModel)]="usuarioAssociacao.usuario.nucleo" (change)="onChangeUsuario(usuarioAssociacao.usuario)">Nucleo</mat-checkbox>
+    </div>
+    <div fxLayout="column" class="itemCheck">
+      <mat-checkbox [(ngModel)]="usuarioAssociacao.usuario.area" (change)="onChangeUsuario(usuarioAssociacao.usuario)">Area</mat-checkbox>
+    </div>
+  </div>
+</div>
+
 <hr />
 <div class="container">
   <div fxLayout="row wrap">
     <div fxLayout="column">
       <div class="item">
         <mat-card class="example-card">
-          <mat-card-header>
-            <mat-card-title>Ussociacao de usuario</mat-card-title>
-          </mat-card-header>
           <mat-card-content>
 
             <table mat-table [dataSource]="usuarioAssociacao.usuarioZonas" class="mat-elevation-z8">
@@ -36,9 +51,6 @@
       <div class="item">
 
         <mat-card class="example-card">
-          <mat-card-header>
-            <mat-card-title>Ussociacao de usuario</mat-card-title>
-          </mat-card-header>
           <mat-card-content>
 
             <table mat-table [dataSource]="usuarioAssociacao.usuarioNucleos" class="mat-elevation-z8">
@@ -67,38 +79,35 @@
 
     <div fxLayout="column">
       <div class="item">
-  
+
         <mat-card class="example-card">
-          <mat-card-header>
-            <mat-card-title>Ussociacao de usuario</mat-card-title>
-          </mat-card-header>
+
           <mat-card-content>
 
             <mat-form-field>
               <mat-label>Filter</mat-label>
               <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium">
             </mat-form-field>
-
             <table mat-table [dataSource]="areas" class="mat-elevation-z8">
-  
+
               <ng-container matColumnDef="nome">
                 <th mat-header-cell *matHeaderCellDef> Nome </th>
                 <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
               </ng-container>
-  
+
               <ng-container matColumnDef="usuarioArea">
                 <th mat-header-cell *matHeaderCellDef> Check </th>
                 <td mat-cell *matCellDef="let element">
                   <mat-checkbox [(ngModel)]="element.usuarioArea" (change)="onChangeArea(element)"></mat-checkbox>
                 </td>
               </ng-container>
-  
+
               <tr mat-header-row *matHeaderRowDef="displayedColumnsArea"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumnsArea;"></tr>
             </table>
           </mat-card-content>
         </mat-card>
-  
+
       </div>
 
       <div class="registro">total de registros: {{usuarioAssociacao.usuarioAreas.length}} areas</div>

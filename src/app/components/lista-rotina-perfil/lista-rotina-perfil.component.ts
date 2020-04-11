@@ -40,8 +40,8 @@ export class ListaRotinaPerfilComponent implements OnInit {
       if (!id)
         return;
       this.service.getPerfil(this.shared.idPerfil).subscribe((responseApi: ResponseApi) => {
-        this.perfil = responseApi['data'];
-        this.rotinas = this.perfil.rotinas;
+      this.perfil = responseApi['data'];
+      this.rotinas = this.perfil.rotinas;
       }, err => {
         this.showMessage({
           type: 'error',

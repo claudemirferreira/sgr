@@ -156,4 +156,12 @@ body {
     background-color: #eaeaea;
   }
 
+.titulo {
+    font-weight: bold;
+    color: #6a1212;
+    padding: 5px;
+    text-align: left;
+    width: 100%;
+}
+
  

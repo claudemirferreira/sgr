@@ -1,6 +1,6 @@
 
 .box {
-  border: 1px;;
+  border: 1px;
   border-color: red;
   border-style: solid;
 }
@@ -14,9 +14,17 @@
   overflow-y: auto;
 }
 
+.itemCheck {
+  min-height: 15px;
+  max-height: 30px;
+  margin: 1px;
+  text-align: left;
+  width: 23%;
+}
+
 div.registro {
   font-weight: bold;
-  color: red;
+  color: #6a1212;
   padding: 5px;
   text-align: center;
   width: 100%;
