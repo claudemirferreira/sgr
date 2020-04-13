@@ -30,7 +30,7 @@ export class AssociacaoUsuarioComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
       public service :UsuarioAssociacaoService,
-      public usuarioService :UsuarioService) { 
+      public usuarioService :UsuarioService) {
     this.usuarioAssociacao = data;
     this.areas = new MatTableDataSource(data.usuarioAreas);
     console.log(JSON.stringify(this.usuarioAssociacao));
@@ -77,7 +77,7 @@ export class AssociacaoUsuarioComponent implements OnInit {
 
   onChangeArea(usuarioArea) {
     this.service.atualizarArea(usuarioArea).subscribe((responseApi: ResponseApi) => {
-      
+
     }, err => {
       console.log('erro de autenticação='+ JSON.stringify(err.status));
       if(err.status == '400')
@@ -87,9 +87,9 @@ export class AssociacaoUsuarioComponent implements OnInit {
         console.log(this.message);
     });
   }
-  
+
   onChangeUsuario(usuario){
-    this.usuarioService.update(usuario).subscribe((responseApi: ResponseApi) => {      
+    this.usuarioService.update(usuario).subscribe((responseApi: ResponseApi) => {
     }, err => {
       console.log('erro de autenticação='+ JSON.stringify(err.status));
       if(err.status == '400')
@@ -100,5 +100,5 @@ export class AssociacaoUsuarioComponent implements OnInit {
     });
 
   }
-  
+
 }
