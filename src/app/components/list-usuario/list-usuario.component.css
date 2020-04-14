@@ -1,5 +1,10 @@
 table {
   width: 100%;
+  background-color: #eaeaea;
+}
+
+mat-card {
+  background-color: #eaeaea;
 }
 
 mat-form-field {
@@ -7,7 +12,7 @@ mat-form-field {
 }
 
 mat-select {
-margin-right: 12px;
+  margin-right: 12px;
 }
 
 .example-form {
@@ -28,12 +33,16 @@ margin-right: 12px;
   width: 100%;
 }
 
-body {      
-background-color: #eaeaea;
-}
-
 .error {
       padding: 10px;
       width: 300px;
       color: goldenrod;
+}
+
+.titulo {
+  font-weight: bold;
+  color: #6a1212;
+  padding: 5px;
+  text-align: left;
+  width: 100%;
 }

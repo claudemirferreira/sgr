@@ -1,3 +1,5 @@
+import { SharedService } from './../../services/shared.service';
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PerfilService } from 'src/app/services/perfil.service';
@@ -13,10 +15,15 @@ export class ListarPerfilComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'nome', 'acao'];
   perfils : PerfilDto[];
-  message: {};  
+  perfil = new PerfilDto();
+
+  shared: SharedService;
+
+  message: {};
   classCss: {};
 
   constructor(private http: HttpClient,
+    private router: Router,
     private service: PerfilService) { }
 
   ngOnInit() {
@@ -33,6 +40,24 @@ export class ListarPerfilComponent implements OnInit {
         text: err['error']['errors'][0]
       });
     });
+  }
+
+  find() {
+    this.message ='';
+    this.service.pesquisar(this.perfil).subscribe((responseApi: ResponseApi) => {
+      this.perfils = responseApi['data'];
+      if (this.perfils.length == 0)
+        this.message = 'Nenhum registro encontrado.';
+    }, err => {
+      this.showMessage({
+        type: 'error',
+        text: err['error']['errors'][0]
+      });
+    });
+  }
+
+  getPerfil() {
+    this.router.navigate(['/lista-rotina-perfil/' + this.shared.idPerfil]);
   }
 
   private showMessage(message: { type: string, text: string }): void {

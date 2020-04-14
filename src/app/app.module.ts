@@ -1,3 +1,5 @@
+import { AlterarSenhaComponent } from './components/list-usuario/alterar-senha/alterar-senha.component';
+import { CadastrarPerfilComponent } from './components/listar-perfil/cadastrar-perfil/cadastrar-perfil.component';
 import { CadastroUsuarioComponent } from './components/list-usuario/cadastro-usuario/cadastro-usuario.component';
 import { AuthGuard } from './components/login/auth.guard';
 import { AuthInterceptor } from './components/login/auth.interceptor';
@@ -49,7 +51,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -63,11 +64,13 @@ import { AssociacaoUsuarioComponent } from './components/list-usuario/associacao
 import { AssociacaoPerfilComponent } from './components/list-usuario/associacao-perfil/associacao-perfil.component';
 
 const appRoutes: Routes = [
-  { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard] },  
-  { path: 'list-perfil', component: ListarPerfilComponent, canActivate: [AuthGuard] },  
+  { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard] },
+  { path: 'list-perfil', component: ListarPerfilComponent, canActivate: [AuthGuard] },
+  { path: 'cadastrar-perfil', component: CadastrarPerfilComponent, canActivate: [AuthGuard] },
+
   { path: 'lista-rotina-perfil/:id', component: ListaRotinaPerfilComponent, canActivate: [AuthGuard] },
   { path: 'associar-rotina/:id', component: AssociarRotinaComponent, canActivate: [AuthGuard] },
-  
+
   { path: 'debito-secretaria', component: DebitoSecretariaComponent, canActivate: [AuthGuard] },
   { path: 'debito-pastoral', component: DebitoPastoralComponent, canActivate: [AuthGuard] },
   { path: 'debito-financeiro', component: DebitoFinanceiroComponent, canActivate: [AuthGuard] },
@@ -77,9 +80,9 @@ const appRoutes: Routes = [
   { path: 'membro-detalhe/:idMembro', component: MembroDetalheComponent, canActivate: [AuthGuard] },
 
   { path: 'list-rotina', component: ListRotinaComponent, canActivate: [AuthGuard] },
-  { path: 'login', component: LoginComponent },  
+  { path: 'login', component: LoginComponent },
   { path: '', component: LoginComponent },
-  
+
   { path: 'list-usuario', component: ListUsuarioComponent, canActivate: [AuthGuard] },
   { path: 'cadastro-usuario', component: CadastroUsuarioComponent, canActivate: [AuthGuard] },
   { path: 'edit-usuario/:id', component: CadastroUsuarioComponent, canActivate: [AuthGuard] },
@@ -101,6 +104,7 @@ const appRoutes: Routes = [
     SaldoCongregacaoComponent,
     ListaRotinaPerfilComponent,
     ListarPerfilComponent,
+    CadastrarPerfilComponent,
     AssociarRotinaComponent,
     MembroDetalheComponent,
     HeaderComponent,
@@ -108,7 +112,8 @@ const appRoutes: Routes = [
     CadastroUsuarioComponent,
     ListRotinaComponent,
     AssociacaoUsuarioComponent,
-    AssociacaoPerfilComponent
+    AssociacaoPerfilComponent,
+    AlterarSenhaComponent
 
   ],
   imports: [

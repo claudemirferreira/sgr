@@ -26,7 +26,7 @@ export class UsuarioService {
       user.id = null;
       return this.http.post(`${HELP_DESK_API}/api/user`, user);
     }
-  }  
+  }
 
   update(user: Usuario){
     return this.http.put(`${HELP_DESK_API}/api/user`,user);
@@ -36,7 +36,7 @@ export class UsuarioService {
     return this.http.get(`${HELP_DESK_API}/api/user/${page}/${count}`);
   }
 
-  findById(id:string){
+  findById(id:number){
     return this.http.get(`${HELP_DESK_API}/api/user/${id}`);
   }
 
@@ -47,12 +47,17 @@ export class UsuarioService {
   find(nome: string) {
     console.log('search');
     this.param = 'nome='+nome;
-    
+
     return this.http.get(`${HELP_DESK_API}/api/user/search?`+this.param);
   }
 
   pesquisar(user: Usuario){
     return this.http.post(`${HELP_DESK_API}/api/user/pesquisar`,user);
   }
+
+  alterarSenha(user: Usuario){
+    return this.http.put(`${HELP_DESK_API}/api/user/alterar-senha`,user);
+  }
+
 
 }

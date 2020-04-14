@@ -1,17 +1,29 @@
+mat-card {
+  background-color: #eaeaea;
+}
+
 mat-form-field {
     margin-right: 12px;
   }
-  
+
   mat-select {
   margin-right: 12px;
   }
-  
+
   button {
   margin-right: 12px;
   }
-  
+
   body {
     background-color: #eaeaea;
+  }
+
+  .titulo {
+    font-weight: bold;
+    color: #6a1212;
+    padding: 5px;
+    text-align: left;
+    width: 100%;
   }
 
   .error {

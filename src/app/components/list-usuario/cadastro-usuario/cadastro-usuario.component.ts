@@ -66,10 +66,15 @@ export class CadastroUsuarioComponent implements OnInit {
       'telefone': [null, Validators.required],
       'email': [null, Validators.required]
     });
+
+    console.log('user='+this.user.id);
   }
 
   save() {
     this.message = '';
+    if(this.user.senha ==''){
+      this.user.senha = 'ieadam';
+    }
     this.service.update(this.user).subscribe((responseApi: ResponseApi) => {
       this.user = responseApi['data'];
       this.class = 'sucess';

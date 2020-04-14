@@ -1,3 +1,4 @@
+import { PerfilDto } from './../model/perfil-dto';
 import { HELP_DESK_API } from './helpdesk.api';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -33,9 +34,13 @@ export class PerfilService {
   listarRotinaPorPerfil(id: number) {
     return this.http.get(`${HELP_DESK_API}/api/perfil/listarRotinaPorPerfil/`+id);
   }
-  
+
   listarPerfil(id: number) {
     return this.http.get(`${HELP_DESK_API}/api/perfil/usuario-perfil/`+id);
+  }
+
+  pesquisar(perfil: PerfilDto){
+    return this.http.post(`${HELP_DESK_API}/api/perfil/pesquisar`,perfil);
   }
 
 }

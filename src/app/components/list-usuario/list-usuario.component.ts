@@ -1,3 +1,4 @@
+import { AlterarSenhaComponent } from './alterar-senha/alterar-senha.component';
 import { SharedService } from './../../services/shared.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
@@ -22,10 +23,10 @@ import { AssociacaoPerfilComponent } from './associacao-perfil/associacao-perfil
 })
 export class ListUsuarioComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'nome', 'login', 'zona','nucleo', 'area', 'in_privilegio', 'acao'];
+  displayedColumns: string[] = [ 'nome', 'login', 'status', 'in_privilegio', 'zona','nucleo', 'area', 'acao'];
 
   page: any;
-  list: Usuario[];  
+  list: Usuario[];
   @Input() message: string | null;
   classCss: {};
   nome: string;
@@ -46,11 +47,20 @@ export class ListUsuarioComponent implements OnInit {
     let dialogRef = this.dialog.open(AssociacaoPerfilComponent, { data: {idUsuario: idUsuario}})
       dialogRef.afterClosed().subscribe(result => {
         console.log(`Dialog result: ${result}`);
-      });    
+      });
 
   }
 
-  openDialog(idMembro: number) {    
+  openDialogSenha(idUsuario: number){
+    console.log('openDialogSenha');
+    let dialogRef = this.dialog.open(AlterarSenhaComponent, { data: {idUsuario: idUsuario}})
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      });
+
+  }
+
+  openDialog(idMembro: number) {
 
     this.usuarioAssociacaoService.listarAssociacaoUsuario(idMembro)
       .subscribe((responseApi: ResponseApi) => {
@@ -58,7 +68,7 @@ export class ListUsuarioComponent implements OnInit {
       let dialogRef = this.dialog.open(AssociacaoUsuarioComponent, { data: responseApi['data'] })
       dialogRef.afterClosed().subscribe(result => {
         console.log(`Dialog result: ${result}`);
-      });     
+      });
 
     }, err => {
       this.showMessage({
@@ -66,7 +76,7 @@ export class ListUsuarioComponent implements OnInit {
         text: err['error']['errors'][0]
       });
     });
-    
+
   }
 
   ngOnInit() {
@@ -102,12 +112,12 @@ export class ListUsuarioComponent implements OnInit {
       .subscribe(() => {
         console.log('saved');
         this.find();
-      }, 
+      },
         error => {
           alert('Ocoreu um erro, entre em contato com o suporte');
           console.log(JSON.stringify(error));
         }
-      
+
       );
   }
 
@@ -124,7 +134,7 @@ export class ListUsuarioComponent implements OnInit {
     console.log(errorMessage);
     return throwError(errorMessage);
   };
-  
+
 
   private showMessage(message: { type: string, text: string }): void {
     //this.message = message;
