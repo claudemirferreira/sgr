@@ -15,8 +15,8 @@ export class PerfilService {
     return this.http.get(`${HELP_DESK_API}/api/perfil/usuario`);
   }
 
-  listarUsuarioPerfil() {
-    return this.http.get(`${HELP_DESK_API}/api/perfil/usuario-perfil`);
+  listarUsuarioPerfil(id: number) {
+    return this.http.get(`${HELP_DESK_API}/api/perfil/usuario-perfil/`+id);
   }
 
   atualizarPerfil(usuarioPerfil: UsuarioPerfil) {
@@ -41,6 +41,10 @@ export class PerfilService {
 
   pesquisar(perfil: PerfilDto){
     return this.http.post(`${HELP_DESK_API}/api/perfil/pesquisar`,perfil);
+  }
+
+  delete(id:number){
+    return this.http.delete(`${HELP_DESK_API}/api/perfil/`+id);
   }
 
 }

@@ -1,10 +1,10 @@
 <form [formGroup]="formGroup" (ngSubmit)="alterarSenha()" novalidate>
-<mat-card class="example-card">
-  <mat-card-header>
+  <mat-card class="example-card">
+    <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
       <mat-card-title>Deseja alterar a senha {{usuario.nome}} ?</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
+    </mat-card-header>
+    <mat-card-content>
 
   <mat-form-field class="form-element">
     <input
@@ -14,23 +14,20 @@
       formControlName="senha"
     />
 
-    <mat-error
-      *ngIf="
+        <mat-error *ngIf="
         !formGroup.controls['senha'].valid &&
         formGroup.controls['senha'].touched
-      "
-    >
-      senhar é obrigatória.
-    </mat-error>
-  </mat-form-field>
+      ">
+          senhar é obrigatória.
+        </mat-error>
+      </mat-form-field>
 
-
-  </mat-card-content>
-  <mat-card-actions>
+    </mat-card-content>
+    <mat-card-actions>
       <button mat-button [disabled]="!formGroup.valid">Alterar</button>
       <button mat-button (click)="onNoClick()">Fechar</button>
-  </mat-card-actions>
+    </mat-card-actions>
 
 
-</mat-card>
+  </mat-card>
 </form>

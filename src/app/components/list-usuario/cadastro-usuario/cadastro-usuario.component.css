@@ -1,22 +1,35 @@
 mat-card {
   background-color: #eaeaea;
+  width: 600px;
+}
+
+.example-full-width {
+  min-width: 250px;
+  max-width: 300px;
+  width: 100%;
+}
+
+.example-litle-width {
+  min-width: 50px;
+  max-width: 50px;
+  width: 100%;
 }
 
 mat-form-field {
-    margin-right: 12px;
-  }
-
-  mat-select {
   margin-right: 12px;
-  }
+}
 
-  button {
+mat-select {
   margin-right: 12px;
-  }
+}
 
-  body {
-    background-color: #eaeaea;
-  }
+button {
+  margin-right: 12px;
+}
+
+body {
+  background-color: #eaeaea;
+}
 
   .titulo {
     font-weight: bold;
