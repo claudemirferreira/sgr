@@ -1,48 +1,54 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Router, ActivatedRoute } from '@angular/router';
-import { PerfilService } from 'src/app/services/perfil.service';
-import { Rotina } from 'src/app/model/rotina';
-import { ResponseApi } from 'src/app/model/response-api';
-import { SelectionModel } from '@angular/cdk/collections';
-import { MatTableDataSource } from '@angular/material/table';
+import { PerfilRotina } from "./../../../model/perfil-rotinay";
+import { Component, OnInit, Inject } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
+import { Router, ActivatedRoute } from "@angular/router";
+import { PerfilService } from "src/app/services/perfil.service";
+import { ResponseApi } from "src/app/model/response-api";
+import { SelectionModel } from "@angular/cdk/collections";
+import { MatTableDataSource } from "@angular/material/table";
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-associar-rotina',
-  templateUrl: './associar-rotina.component.html',
-  styleUrls: ['./associar-rotina.component.css']
+  selector: "app-associar-rotina",
+  templateUrl: "./associar-rotina.component.html",
+  styleUrls: ["./associar-rotina.component.css"],
 })
 export class AssociarRotinaComponent implements OnInit {
-  
-  selection = new SelectionModel<Rotina>(true, []);
-  dataSource = new MatTableDataSource<Rotina>();
+  selection = new SelectionModel<PerfilRotina>(true, []);
+  dataSource = new MatTableDataSource<PerfilRotina>();
 
-  displayedColumns: string[] = ['id', 'nome', 'checked'];
-  rotinas: Rotina[];
-  message: {};  
+  displayedColumns: string[] = ["nome", "checked"];
+  list: PerfilRotina[];
+  idPerfil: number;
+  message: {};
   classCss: {};
 
-  constructor(private http: HttpClient,
+  constructor(
+    private http: HttpClient,
     private router: Router,
     private route: ActivatedRoute,
-    private service: PerfilService) { }
+    private service: PerfilService,
+    public dialogRef: MatDialogRef<AssociarRotinaComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+  ) {
+
+    this.idPerfil = data.idPerfil;
+
+  }
 
   ngOnInit() {
-    var id = this.route.params.subscribe(params => {
-      var id = params['id'];
-      console.log('idperfil =====================' + id);
-      if (!id)
-        return;
-      this.service.listarRotinaPorPerfil(id).subscribe((responseApi: ResponseApi) => {
-        this.rotinas = responseApi['data'];
-        this.rotinas = this.rotinas;
-      }, err => {
+    console.log(this.idPerfil)
+    this.service.listarRotinaPorPerfil(this.idPerfil).subscribe(
+      (responseApi: ResponseApi) => {
+        this.list = responseApi["data"];
+      },
+      (err) => {
         this.showMessage({
-          type: 'error',
-          text: err['error']['errors'][0]
+          type: "error",
+          text: err["error"]["errors"][0],
         });
-      });
-    });
+      }
+    );
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
@@ -54,20 +60,38 @@ export class AssociarRotinaComponent implements OnInit {
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
-    this.isAllSelected() ?
-        this.selection.clear() :
-        this.dataSource.data.forEach(row => this.selection.select(row));
+    this.isAllSelected()
+      ? this.selection.clear()
+      : this.dataSource.data.forEach((row) => this.selection.select(row));
   }
 
   /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: Rotina): string {
+  checkboxLabel(row?: PerfilRotina): string {
     if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+      return `${this.isAllSelected() ? "select" : "deselect"} all`;
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
+    return `${this.selection.isSelected(row) ? "deselect" : "select"} row ${
+      row.idRotina + 1
+    }`;
   }
 
-  private showMessage(message: { type: string, text: string }): void {
+  onChangePerfil(perfil) {
+    this.service.atualizarPerfil(perfil).subscribe(
+      (responseApi: ResponseApi) => {},
+      (err) => {
+        console.log("erro de autenticação=" + JSON.stringify(err.status));
+        if (err.status == "400") this.message = "Ja existe um usuarioZona";
+        else this.message = "Erro: entre em contato com o suporte";
+        console.log(this.message);
+      }
+    );
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  private showMessage(message: { type: string; text: string }): void {
     this.message = message;
     this.buildClasses(message.type);
     setTimeout(() => {
@@ -77,9 +101,8 @@ export class AssociarRotinaComponent implements OnInit {
 
   private buildClasses(type: string): void {
     this.classCss = {
-      'alert': true
-    }
-    this.classCss['alert-' + type] = true;
+      alert: true,
+    };
+    this.classCss["alert-" + type] = true;
   }
-
 }

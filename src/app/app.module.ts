@@ -55,6 +55,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressButtonsModule } from 'mat-progress-buttons';
 
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -67,6 +68,7 @@ const appRoutes: Routes = [
   { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard] },
   { path: 'list-perfil', component: ListarPerfilComponent, canActivate: [AuthGuard] },
   { path: 'cadastrar-perfil', component: CadastrarPerfilComponent, canActivate: [AuthGuard] },
+  { path: 'edit-perfil/:id', component: CadastrarPerfilComponent, canActivate: [AuthGuard] },
 
   { path: 'lista-rotina-perfil/:id', component: ListaRotinaPerfilComponent, canActivate: [AuthGuard] },
   { path: 'associar-rotina/:id', component: AssociarRotinaComponent, canActivate: [AuthGuard] },
@@ -151,7 +153,8 @@ const appRoutes: Routes = [
     PdfJsViewerModule,
     MatCardModule,
     ReactiveFormsModule,
-    MatProgressButtonsModule
+    MatProgressButtonsModule,
+    MatSnackBarModule
   ],
   providers: [UsuarioService,
     SharedService,
@@ -186,7 +189,8 @@ const appRoutes: Routes = [
     FormsModule,
     HttpClientModule,
     PdfJsViewerModule,
-    MatCardModule
+    MatCardModule,
+    MatSnackBarModule
   ],
 })
 export class AppModule { }

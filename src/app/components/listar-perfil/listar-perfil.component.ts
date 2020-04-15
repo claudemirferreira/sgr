@@ -7,6 +7,7 @@ import { ResponseApi } from 'src/app/model/response-api';
 import { PerfilDto } from 'src/app/model/perfil-dto';
 import { AssociarRotinaComponent } from './associar-rotina/associar-rotina.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-listar-perfil',
@@ -27,7 +28,8 @@ export class ListarPerfilComponent implements OnInit {
   constructor(private http: HttpClient,
     private router: Router,
     public dialog: MatDialog,
-    private service: PerfilService) { }
+    private service: PerfilService,
+    private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.listarTodos();
@@ -59,9 +61,9 @@ export class ListarPerfilComponent implements OnInit {
     });
   }
 
-  openDialogRotina(idUsuario: number){
-    console.log('openDialogPerfil');
-    let dialogRef = this.dialog.open(AssociarRotinaComponent, { data: {idUsuario: idUsuario}})
+  openDialogRotina(idPerfil: number){
+    console.log('openDialogPerfil idPerfil=' + idPerfil);
+    let dialogRef = this.dialog.open(AssociarRotinaComponent, { data: {idPerfil: idPerfil} } )
       dialogRef.afterClosed().subscribe(result => {
         console.log(`Dialog result: ${result}`);
       });
@@ -72,7 +74,8 @@ export class ListarPerfilComponent implements OnInit {
     return this.service.delete(perfil.id)
       .subscribe(() => {
         console.log('saved');
-        this.find();
+        this.openSnackBar('Operação realizada com sucesso','OK');
+        this.listarTodos();
       },
         error => {
           alert('Ocoreu um erro, entre em contato com o suporte');
@@ -80,6 +83,12 @@ export class ListarPerfilComponent implements OnInit {
         }
 
       );
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 3000,
+    });
   }
 
   getPerfil() {

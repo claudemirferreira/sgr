@@ -47,4 +47,12 @@ export class PerfilService {
     return this.http.delete(`${HELP_DESK_API}/api/perfil/`+id);
   }
 
+  create(perfil: PerfilDto){
+    return this.http.post(`${HELP_DESK_API}/api/perfil/`,perfil);
+  }
+
+  listarRotina(idPerfil: number) {
+    return this.http.get(`${HELP_DESK_API}/api/perfil/perfil-rotina/`+idPerfil);
+  }
+
 }

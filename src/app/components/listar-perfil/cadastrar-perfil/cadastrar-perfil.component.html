@@ -7,7 +7,7 @@
             <p *ngIf="message" class="{{ class }}">
               {{ message }}
             </p>
-  
+
             <mat-form-field class="example-full-width">
               <input
                 [(ngModel)]="perfil.nome"
@@ -15,7 +15,7 @@
                 placeholder="Nome"
                 formControlName="nome"
               />
-  
+
               <mat-error
                 *ngIf="
                   !formGroup.controls['nome'].valid &&
@@ -25,25 +25,7 @@
                 nome obrigatório.
               </mat-error>
             </mat-form-field>
-  
-            <mat-form-field class="form-element">
-              <input
-                [(ngModel)]="perfil.acao"
-                matInput
-                placeholder="acao"
-                formControlName="acao"
-              />
-  
-              <mat-error
-                *ngIf="
-                  !formGroup.controls['acao'].valid &&
-                  formGroup.controls['acao'].touched
-                "
-              >
-                nome obrigatório.
-              </mat-error>
-            </mat-form-field>
-  
+
             <mat-form-field class="example-full-width">
               <input
                 [(ngModel)]="perfil.imagem"
@@ -51,7 +33,7 @@
                 placeholder="Imagem"
                 formControlName="imagem"
               />
-  
+
               <mat-error
                 *ngIf="
                   !formGroup.controls['imagem'].valid &&
@@ -61,13 +43,13 @@
                 telefone obrigatório.
               </mat-error>
             </mat-form-field>
-  
-  
+
+
             <div class="form-element">
               <button mat-raised-button routerLink="/list-perfil">
                 <i class="material-icons">undo</i>Voltar
               </button>
-  
+
               <button
                 mat-raised-button
                 color="warn"
@@ -83,4 +65,3 @@
       </mat-card>
     </div>
   </section>
-  
