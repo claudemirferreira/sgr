@@ -9,6 +9,11 @@ import { CurrentUsuario } from './../../../model/current-usuario';
 import { Usuario } from 'src/app/model/usuario';
 import { Component, OnInit, Input } from '@angular/core';
 
+interface Status {
+  id: string;
+  nome: string;
+}
+
 @Component({
   selector: 'app-cadastro-usuario',
   templateUrl: './cadastro-usuario.component.html',
@@ -20,6 +25,11 @@ export class CadastroUsuarioComponent implements OnInit {
   user = new Usuario();
   shared: SharedService;
   erro: Erro;
+
+  listStatus: Status[] = [
+    {id: 'A', nome: 'ATIVO'},
+    {id: 'B', nome: 'BLOQUEADO'}
+  ];
 
   message: {};
   classCss: {};

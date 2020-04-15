@@ -15,8 +15,8 @@ export class PerfilService {
     return this.http.get(`${HELP_DESK_API}/api/perfil/usuario`);
   }
 
-  listarUsuarioPerfil() {
-    return this.http.get(`${HELP_DESK_API}/api/perfil/usuario-perfil`);
+  listarUsuarioPerfil(id: number) {
+    return this.http.get(`${HELP_DESK_API}/api/perfil/usuario-perfil/`+id);
   }
 
   atualizarPerfil(usuarioPerfil: UsuarioPerfil) {

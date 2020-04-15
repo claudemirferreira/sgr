@@ -37,7 +37,7 @@ export class AssociacaoPerfilComponent implements OnInit {
   }
 
   listarUsuarioPerfil() {
-    this.service.listarUsuarioPerfil().subscribe((responseApi: ResponseApi) => {
+    this.service.listarUsuarioPerfil(this.idUsuario).subscribe((responseApi: ResponseApi) => {
       this.list = responseApi['data'];
       console.log( responseApi['data']);
     }, err => {
