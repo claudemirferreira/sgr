@@ -43,4 +43,8 @@ export class PerfilService {
     return this.http.post(`${HELP_DESK_API}/api/perfil/pesquisar`,perfil);
   }
 
+  delete(id:number){
+    return this.http.delete(`${HELP_DESK_API}/api/perfil/`+id);
+  }
+
 }

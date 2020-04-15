@@ -5,6 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { PerfilService } from 'src/app/services/perfil.service';
 import { ResponseApi } from 'src/app/model/response-api';
 import { PerfilDto } from 'src/app/model/perfil-dto';
+import { AssociarRotinaComponent } from './associar-rotina/associar-rotina.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-listar-perfil',
@@ -24,6 +26,7 @@ export class ListarPerfilComponent implements OnInit {
 
   constructor(private http: HttpClient,
     private router: Router,
+    public dialog: MatDialog,
     private service: PerfilService) { }
 
   ngOnInit() {
@@ -54,6 +57,29 @@ export class ListarPerfilComponent implements OnInit {
         text: err['error']['errors'][0]
       });
     });
+  }
+
+  openDialogRotina(idUsuario: number){
+    console.log('openDialogPerfil');
+    let dialogRef = this.dialog.open(AssociarRotinaComponent, { data: {idUsuario: idUsuario}})
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      });
+
+  }
+
+  delete(perfil: PerfilDto) {
+    return this.service.delete(perfil.id)
+      .subscribe(() => {
+        console.log('saved');
+        this.find();
+      },
+        error => {
+          alert('Ocoreu um erro, entre em contato com o suporte');
+          console.log(JSON.stringify(error));
+        }
+
+      );
   }
 
   getPerfil() {
