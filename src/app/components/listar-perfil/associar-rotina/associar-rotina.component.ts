@@ -38,9 +38,10 @@ export class AssociarRotinaComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.idPerfil)
-    this.service.listarRotinaPorPerfil(this.idPerfil).subscribe(
+    this.service.listarRotina(this.idPerfil).subscribe(
       (responseApi: ResponseApi) => {
         this.list = responseApi["data"];
+        console.log(this.list);
       },
       (err) => {
         this.showMessage({
@@ -75,8 +76,8 @@ export class AssociarRotinaComponent implements OnInit {
     }`;
   }
 
-  onChangePerfil(perfil) {
-    this.service.atualizarPerfil(perfil).subscribe(
+  onChangePerfil(perfilRotina) {
+    this.service.atualizarPerfilRotina(perfilRotina).subscribe(
       (responseApi: ResponseApi) => {},
       (err) => {
         console.log("erro de autenticação=" + JSON.stringify(err.status));

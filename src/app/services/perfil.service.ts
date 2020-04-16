@@ -1,3 +1,4 @@
+import { PerfilRotina } from './../model/perfil-rotinay';
 import { PerfilDto } from './../model/perfil-dto';
 import { HELP_DESK_API } from './helpdesk.api';
 import { HttpClient } from '@angular/common/http';
@@ -21,6 +22,10 @@ export class PerfilService {
 
   atualizarPerfil(usuarioPerfil: UsuarioPerfil) {
     return this.http.post(`${HELP_DESK_API}/api/perfil/atualizar-perfil`, usuarioPerfil);
+  }
+
+  atualizarPerfilRotina(perfilRotina: PerfilRotina) {
+    return this.http.post(`${HELP_DESK_API}/api/perfil/atualizar-perfil-rotina`, perfilRotina);
   }
 
   listarTodos() {
@@ -52,6 +57,7 @@ export class PerfilService {
   }
 
   listarRotina(idPerfil: number) {
+    console.log(`${HELP_DESK_API}/api/perfil/perfil-rotina/`+idPerfil);
     return this.http.get(`${HELP_DESK_API}/api/perfil/perfil-rotina/`+idPerfil);
   }
 

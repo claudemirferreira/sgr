@@ -80,7 +80,7 @@ export class ListarPerfilComponent implements OnInit {
         this.listarTodos();
       },
         error => {
-          alert('Ocoreu um erro, entre em contato com o suporte');
+          alert('Erro, existe rotina associada a este perfil');
           console.log(JSON.stringify(error));
         }
 
