@@ -1,40 +1,55 @@
+.example-table-container {
+  position: relative;
+  max-height: 400px;
+  overflow: auto;
+}
+
 table {
-    width: 100%;
+  width: 100%;
+  background-color: #eaeaea;
+  max-height: 400px;
 }
-  
+
+mat-card {
+  background-color: #eaeaea;
+}
+
 mat-form-field {
-    margin-right: 12px;
+  margin-right: 12px;
 }
-  
+
 mat-select {
-    margin-right: 12px;
+  margin-right: 12px;
 }
-  
+
 .example-form {
-    min-width: 150px;
-    max-width: 500px;
-    width: 100%;
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
 }
-  
+
 .example-full-width {
-    min-width: 200px;
-    max-width: 250px;
-    width: 100%;
+  min-width: 200px;
+  max-width: 250px;
+  width: 100%;
 }
-  
+
 .example-litle-width {
-    min-width: 50px;
-    max-width: 50px;
-    width: 100%;
+  min-width: 150px;
+  max-width: 150px;
+  width: 100%;
 }
-  
-  body {      
-    background-color: #eaeaea;
-  }
-  
+
 .error {
-    padding: 16px;
-    width: 300px;
-    color: white;
-    background-color: red;
+      padding: 10px;
+      width: 300px;
+      color: goldenrod;
+}
+
+.titulo {
+  font-weight: bold;
+  color: #6a1212;
+  padding: 5px;
+  text-align: left;
+  width: 100%;
 }

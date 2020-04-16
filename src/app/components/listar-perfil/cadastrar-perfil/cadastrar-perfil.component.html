@@ -9,19 +9,13 @@
             </p>
 
             <mat-form-field class="example-full-width">
-              <input
-                [(ngModel)]="perfil.nome"
+              <input [(ngModel)]="perfil.nome"
                 matInput
                 placeholder="Nome"
                 formControlName="nome"
               />
 
-              <mat-error
-                *ngIf="
-                  !formGroup.controls['nome'].valid &&
-                  formGroup.controls['nome'].touched
-                "
-              >
+              <mat-error *ngIf="!formGroup.controls['nome'].valid && formGroup.controls['nome'].touched">
                 nome obrigatório.
               </mat-error>
             </mat-form-field>
@@ -34,12 +28,7 @@
                 formControlName="imagem"
               />
 
-              <mat-error
-                *ngIf="
-                  !formGroup.controls['imagem'].valid &&
-                  formGroup.controls['imagem'].touched
-                "
-              >
+              <mat-error *ngIf="!formGroup.controls['imagem'].valid && formGroup.controls['imagem'].touched">
                 telefone obrigatório.
               </mat-error>
             </mat-form-field>

@@ -15,12 +15,7 @@ export class RotinaService {
   }
 
   createOrUpdate(rotina: Rotina){
-    if(rotina.id != null && rotina.id != 0){
-      return this.http.put(`${HELP_DESK_API}/api/rotina`,rotina);
-    } else {
-      rotina.id = null;
-      return this.http.post(`${HELP_DESK_API}/api/rotina`, rotina);
-    }
+    return this.http.post(`${HELP_DESK_API}/api/rotina/`, rotina);
   }
 
   findAll(){
@@ -31,11 +26,11 @@ export class RotinaService {
     return this.http.post(`${HELP_DESK_API}/api/rotina/pesquisar`,rotina);
   }
 
-  findById(id:string){
+  findById(id:number){
     return this.http.get(`${HELP_DESK_API}/api/rotina/${id}`);
   }
 
-  delete(id:string){
+  delete(id:number){
     return this.http.delete(`${HELP_DESK_API}/api/rotina/${id}`);
   }
 

@@ -1,5 +1,6 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Rotina } from './../../model/rotina';
 import { ResponseApi } from './../../model/response-api';
-import { Rotina } from 'src/app/model/rotina';
 import { Router } from '@angular/router';
 import { SharedService } from './../../services/shared.service';
 import { RotinaService } from './../../services/rotina.service';
@@ -23,7 +24,8 @@ export class ListRotinaComponent implements OnInit {
   shared: SharedService;
 
   constructor(private service: RotinaService,
-    private router: Router) {
+    private router: Router,
+    private _snackBar: MatSnackBar) {
     this.shared = SharedService.getInstance();
     this.findAll();
   }
@@ -52,6 +54,27 @@ export class ListRotinaComponent implements OnInit {
         type: 'error',
         text: err['error']['errors'][0]
       });
+    });
+  }
+
+  delete(rotina: Rotina) {
+    return this.service.delete(rotina.id)
+      .subscribe(() => {
+        console.log('saved');
+        this.openSnackBar('Operação realizada com sucesso','OK');
+        this.findAll();
+      },
+        error => {
+          alert('Erro, existe rotina associada a este perfil');
+          console.log(JSON.stringify(error));
+        }
+
+      );
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 3000,
     });
   }
 
