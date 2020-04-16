@@ -31,7 +31,6 @@ export class PerfilComponent implements OnInit {
   }
 
   selectPerfil(perfil: PerfilDto){
-    console.log('lista-rotina-perfil/'+perfil.id);
     this.router.navigate(['lista-rotina-perfil/'+perfil.id]);
   }
 
@@ -48,7 +47,6 @@ export class PerfilComponent implements OnInit {
 
   listarRotinas(idPerfil: number){
     this.router.navigate(['/rotina']);
-    console.log('##########' + idPerfil);
 
   }
 

@@ -36,7 +36,6 @@ export class ListaRotinaPerfilComponent implements OnInit {
     var id = this.route.params.subscribe(params => {
       var id = params['id'];
       this.shared.idPerfil = params['id'];
-      console.log('idperfil =====================' + id);
       if (!id)
         return;
       this.service.getPerfil(this.shared.idPerfil).subscribe((responseApi: ResponseApi) => {

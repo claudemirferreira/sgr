@@ -33,7 +33,6 @@ export class CadastrarPerfilComponent implements OnInit {
     this.createForm();
   }
 
-
   ngOnInit() {
     var id = this.route.params.subscribe(params => {
       var id = params['id'];
@@ -42,7 +41,11 @@ export class CadastrarPerfilComponent implements OnInit {
         this.perfil.id = 0;
       } else {
         this.service.getPerfil(id).subscribe((responseApi: ResponseApi) => {
-          this.perfil = responseApi['data'];
+          var  dto  = responseApi['data'];
+          this.perfil = new PerfilDto();
+          this.perfil.id = dto.id;
+          this.perfil.imagem =dto.imagem;
+          this.perfil.nome =dto.nome;
           console.log(JSON.stringify(this.perfil));
         }, err => {
           this.showMessage({

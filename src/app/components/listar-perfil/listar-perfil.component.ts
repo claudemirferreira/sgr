@@ -29,7 +29,9 @@ export class ListarPerfilComponent implements OnInit {
     private router: Router,
     public dialog: MatDialog,
     private service: PerfilService,
-    private _snackBar: MatSnackBar) { }
+    private _snackBar: MatSnackBar) {
+    this.shared = SharedService.getInstance();
+  }
 
   ngOnInit() {
     this.listarTodos();

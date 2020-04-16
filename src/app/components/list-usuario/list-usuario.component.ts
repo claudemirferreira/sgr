@@ -43,7 +43,6 @@ export class ListUsuarioComponent implements OnInit {
   }
 
   openDialogPerfil(idUsuario: number){
-    console.log('openDialogPerfil');
     let dialogRef = this.dialog.open(AssociacaoPerfilComponent, { data: {idUsuario: idUsuario}})
       dialogRef.afterClosed().subscribe(result => {
         console.log(`Dialog result: ${result}`);
