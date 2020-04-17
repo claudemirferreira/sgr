@@ -64,6 +64,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AssociacaoUsuarioComponent } from './components/list-usuario/associacao-usuario/associacao-usuario.component';
 import { AssociacaoPerfilComponent } from './components/list-usuario/associacao-perfil/associacao-perfil.component';
+import { LogComponent } from './components/log/log.component';
 
 const appRoutes: Routes = [
   { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard] },
@@ -88,6 +89,9 @@ const appRoutes: Routes = [
 
   { path: 'login', component: LoginComponent },
   { path: '', component: LoginComponent },
+
+
+  { path: 'log', component: LogComponent },
 
   { path: 'list-usuario', component: ListUsuarioComponent, canActivate: [AuthGuard] },
   { path: 'cadastro-usuario', component: CadastroUsuarioComponent, canActivate: [AuthGuard] },
@@ -120,7 +124,8 @@ const appRoutes: Routes = [
     AssociacaoUsuarioComponent,
     AssociacaoPerfilComponent,
     AlterarSenhaComponent,
-    CadastrarRotinaComponent
+    CadastrarRotinaComponent,
+    LogComponent
 
   ],
   imports: [

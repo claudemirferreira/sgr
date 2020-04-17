@@ -130,8 +130,17 @@
     padding: 5px;
 }
 
+.log-app{
+    background: url(../../../assets/img/rotina/log-app.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 180px;
+    height: 142px;
+    padding: 5px;
+}
+
 .bt_SD{
-    background: url(../../../assets/img/rotina/bt_SD.png);
+    background: url(../../../assets/img/rotina/log-app.png);
     background-position: center;
     background-repeat: no-repeat;
     width: 180px;
