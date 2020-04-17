@@ -11,7 +11,7 @@ export class LogService {
   constructor(private http: HttpClient) { }
 
   pesquisar(log: Log) {
-    return this.http.post(`${HELP_DESK_API}/api/log/pesquisa`, log);
+    return this.http.post(`${HELP_DESK_API}/api/log/pesquisar`, log);
   }
 
 }
