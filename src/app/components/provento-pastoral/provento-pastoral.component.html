@@ -1,8 +1,5 @@
+<h2 class="titulo">Relatório Provento Pastoral</h2>
 <mat-card style="background-color: #eaeaea">
-    <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>Relatório Provento Pastoral</mat-card-title>
-    </mat-card-header>
     <mat-card-content>
         <mat-form-field>
             <mat-select placeholder="Zona" [(ngModel)]="filtroDto.zona.id" (selectionChange)="carregarNucleo()">
@@ -52,9 +49,10 @@
         <button mat-raised-button (click)="getPerfil()">
             <i class="material-icons">undo</i>Voltar</button>
 
-        <mat-spinner-button [disabled]="filtroDto.zona.id < 0 " (btnClick)="gerarRelatorio()" [options]="spinnerButtonOptions" >
-            </mat-spinner-button>
-            
+        <button mat-raised-button [disabled]="filtroDto.zona.id < 0 " (click)="gerarRelatorio()">
+              <i class="material-icons">print</i>imprimir
+          </button>
+
     </mat-card-actions>
 </mat-card>
 

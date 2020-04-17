@@ -31,7 +31,7 @@ export class DebitoFinanceiroComponent implements OnInit {
     }
   }
 
-  @ViewChild('pdfViewer') 
+  @ViewChild('pdfViewer')
   public pdfViewer;
 
   message: {};
@@ -46,7 +46,7 @@ export class DebitoFinanceiroComponent implements OnInit {
 
   constructor(private http: HttpClient,
     private router: Router,
-    private relatorioService: RelatorioService) {      
+    private relatorioService: RelatorioService) {
       this.shared = SharedService.getInstance();
       this.carregarDados();
   }
@@ -56,9 +56,7 @@ export class DebitoFinanceiroComponent implements OnInit {
   }
 
   gerarRelatorio(): void {
-    this.spinnerButtonOptions.active = true;
-    setTimeout(() => {
-      this.filtroDto.nomeRelatorio = 'RelatorioDebitoFinanceiro.jasper'; 
+      this.filtroDto.nomeRelatorio = 'RelatorioDebitoFinanceiro.jasper';
       this.relatorioService.geraPdf(this.filtroDto).subscribe((res) => {
         this.pdfViewer.pdfSrc = res; // pdfSrc can be Blob or Uint8Array
         this.pdfViewer.refresh(); // Ask pdf viewer to load/refresh pdf
@@ -68,8 +66,6 @@ export class DebitoFinanceiroComponent implements OnInit {
           text: err['error']['errors'][0]
         });
       });
-      this.spinnerButtonOptions.active = false;
-    }, 4000);
   }
 
   changeArea() {

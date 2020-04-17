@@ -1,9 +1,5 @@
+<h2 class="titulo">Relatório Débito Financeiro</h2>
 <mat-card style="background-color: #eaeaea">
-    <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>Relatório Débito Financeiro</mat-card-title>
-    </mat-card-header>
-    
     <mat-card-content>
 
         <mat-form-field>
@@ -42,9 +38,10 @@
     <mat-card-actions>
         <button mat-raised-button (click)="getPerfil()">
             <i class="material-icons">undo</i>Voltar</button>
-    
-        <mat-spinner-button [disabled]="filtroDto.zona.id < 0 " (btnClick)="gerarRelatorio()" [options]="spinnerButtonOptions" >
-            </mat-spinner-button>
+
+        <button mat-raised-button [disabled]="filtroDto.zona.id < 0 " (click)="gerarRelatorio()">
+              <i class="material-icons">print</i>imprimir
+          </button>
 
     </mat-card-actions>
 

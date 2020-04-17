@@ -19,7 +19,7 @@ export class RelatorioMembroComponent implements OnInit {
 
   displayedColumns: string[] = ['idMembro', 'membro', 'acao'];
 
-  @ViewChild('pdfViewer') 
+  @ViewChild('pdfViewer')
   public pdfViewer;
 
   message: {};
@@ -39,10 +39,10 @@ export class RelatorioMembroComponent implements OnInit {
   constructor(private http: HttpClient,
     private router: Router,
     private relatorioService: RelatorioService,
-    private membroService: MembroService) {     
+    private membroService: MembroService) {
       this.shared = SharedService.getInstance();
     this.carregarDados();
-  }  
+  }
 
   getPerfil(){
     this.router.navigate(['/lista-rotina-perfil/'+this.shared.idPerfil]);
@@ -65,7 +65,7 @@ export class RelatorioMembroComponent implements OnInit {
   }
 
   gerarRelatorio() {
-    this.filtroDto.nomeRelatorio = 'RelatorioDebitoPastoral.jasper'; 
+    this.filtroDto.nomeRelatorio = 'RelatorioDebitoPastoral.jasper';
     this.relatorioService.geraPdf(this.filtroDto).subscribe((res) => {
       this.pdfViewer.pdfSrc = res; // pdfSrc can be Blob or Uint8Array
       this.pdfViewer.refresh(); // Ask pdf viewer to load/refresh pdf
@@ -101,7 +101,7 @@ export class RelatorioMembroComponent implements OnInit {
     this.filtroDto = new FiltroDto();
     this.filtroDto.zona = new ZonaDto();
     this.filtroDto.zona.id = 0;
-    this.filtroDto.nomeRelatorio = 'RelatorioDebitoFinanceiro.jasper';    
+    this.filtroDto.nomeRelatorio = 'RelatorioDebitoFinanceiro.jasper';
   }
 
   carregarNucleo() {

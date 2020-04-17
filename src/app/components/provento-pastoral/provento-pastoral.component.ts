@@ -1,37 +1,36 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FiltroDto } from 'src/app/model/filtro-dto';
-import { ZonaDto } from 'src/app/model/zona-dto';
-import { ResponseApi } from 'src/app/model/response-api';
-import { RelatorioService } from 'src/app/services/relatorio.service';
-import { ParamRelatorioDto } from 'src/app/model/param-relatorio-dto';
-import { SharedService } from 'src/app/services/shared.service';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { MatProgressButtonOptions } from 'mat-progress-buttons';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { FiltroDto } from "src/app/model/filtro-dto";
+import { ZonaDto } from "src/app/model/zona-dto";
+import { ResponseApi } from "src/app/model/response-api";
+import { RelatorioService } from "src/app/services/relatorio.service";
+import { ParamRelatorioDto } from "src/app/model/param-relatorio-dto";
+import { SharedService } from "src/app/services/shared.service";
+import { HttpClient } from "@angular/common/http";
+import { Router } from "@angular/router";
+import { MatProgressButtonOptions } from "mat-progress-buttons";
 
 @Component({
-  selector: 'app-provento-pastoral',
-  templateUrl: './provento-pastoral.component.html',
-  styleUrls: ['./provento-pastoral.component.css']
+  selector: "app-provento-pastoral",
+  templateUrl: "./provento-pastoral.component.html",
+  styleUrls: ["./provento-pastoral.component.css"],
 })
 export class ProventoPastoralComponent implements OnInit {
-
   spinnerButtonOptions: MatProgressButtonOptions = {
     active: false,
-    text: 'Imprimir',
+    text: "Imprimir",
     spinnerSize: 18,
     raised: true,
     stroked: false,
-    spinnerColor: 'warn',
+    spinnerColor: "warn",
     fullWidth: false,
     disabled: false,
-    mode: 'indeterminate',
+    mode: "indeterminate",
     buttonIcon: {
-      fontIcon: 'print'
-    }
-  }
+      fontIcon: "print",
+    },
+  };
 
-  @ViewChild('pdfViewer') 
+  @ViewChild("pdfViewer")
   public pdfViewer;
 
   message: {};
@@ -45,46 +44,50 @@ export class ProventoPastoralComponent implements OnInit {
   zonas: [];
   anos: number[];
   classCss: {};
-  valido = false;  
+  valido = false;
 
-  constructor(private http: HttpClient,
+  constructor(
+    private http: HttpClient,
     private router: Router,
-    private relatorioService: RelatorioService) {      
-      this.shared = SharedService.getInstance();
-      this.ngOnInit();
+    private relatorioService: RelatorioService
+  ) {
+    this.shared = SharedService.getInstance();
+    this.ngOnInit();
   }
 
-  getPerfil(){
-    this.router.navigate(['/lista-rotina-perfil/'+this.shared.idPerfil]);
+  getPerfil() {
+    this.router.navigate(["/lista-rotina-perfil/" + this.shared.idPerfil]);
   }
 
   gerarRelatorio(): void {
-    this.spinnerButtonOptions.active = true;
-    setTimeout(() => {
-      this.filtroDto.nomeRelatorio = 'RelatorioDemonstrativoProventos.jasper';
-      this.relatorioService.geraPdf(this.filtroDto).subscribe((res) => {
+    this.filtroDto.nomeRelatorio = "RelatorioDemonstrativoProventos.jasper";
+    this.relatorioService.geraPdf(this.filtroDto).subscribe(
+      (res) => {
         this.pdfViewer.pdfSrc = res; // pdfSrc can be Blob or Uint8Array
         this.pdfViewer.refresh(); // Ask pdf viewer to load/refresh pdf
-      }, err => {
+      },
+      (err) => {
         this.showMessage({
-          type: 'error',
-          text: err['error']['errors'][0]
+          type: "error",
+          text: err["error"]["errors"][0],
         });
-      });
-      this.spinnerButtonOptions.active = false;
-    }, 4000);
+      }
+    );
   }
 
   changeArea() {
-    this.relatorioService.carregarArea(this.filtroDto.nucleo.id).subscribe((responseApi: ResponseApi) => {
-      this.filtroDto.areas = responseApi['data'];
-      this.filtroDto.area.id = null;
-    }, err => {
-      this.showMessage({
-        type: 'error',
-        text: err['error']['errors'][0]
-      });
-    });
+    this.relatorioService.carregarArea(this.filtroDto.nucleo.id).subscribe(
+      (responseApi: ResponseApi) => {
+        this.filtroDto.areas = responseApi["data"];
+        this.filtroDto.area.id = null;
+      },
+      (err) => {
+        this.showMessage({
+          type: "error",
+          text: err["error"]["errors"][0],
+        });
+      }
+    );
   }
 
   ngOnInit() {
@@ -95,33 +98,41 @@ export class ProventoPastoralComponent implements OnInit {
   }
 
   carregarNucleo() {
-    this.relatorioService.carregarNucleo(this.filtroDto.zona.id.toString()).subscribe((responseApi: ResponseApi) => {
-      this.filtroDto.nucleos = responseApi['data'];
-      this.filtroDto.nucleo.id = null;
-      this.filtroDto.area.id = null;
-      this.filtroDto.areas = [];
-    }, err => {
-      this.showMessage({
-        type: 'error',
-        text: err['error']['errors'][0]
-      });
-    });
+    this.relatorioService
+      .carregarNucleo(this.filtroDto.zona.id.toString())
+      .subscribe(
+        (responseApi: ResponseApi) => {
+          this.filtroDto.nucleos = responseApi["data"];
+          this.filtroDto.nucleo.id = null;
+          this.filtroDto.area.id = null;
+          this.filtroDto.areas = [];
+        },
+        (err) => {
+          this.showMessage({
+            type: "error",
+            text: err["error"]["errors"][0],
+          });
+        }
+      );
   }
 
   carregarDados() {
-    this.relatorioService.carregarDados().subscribe((responseApi: ResponseApi) => {
-      this.filtroDto = responseApi['data'];
-      this.filtroDto.zona = new ZonaDto();
-      this.filtroDto.zona.id = -1;
-    }, err => {
-      this.showMessage({
-        type: 'error',
-        text: err['error']['errors'][0]
-      });
-    });
+    this.relatorioService.carregarDados().subscribe(
+      (responseApi: ResponseApi) => {
+        this.filtroDto = responseApi["data"];
+        this.filtroDto.zona = new ZonaDto();
+        this.filtroDto.zona.id = -1;
+      },
+      (err) => {
+        this.showMessage({
+          type: "error",
+          text: err["error"]["errors"][0],
+        });
+      }
+    );
   }
 
-  private showMessage(message: { type: string, text: string }): void {
+  private showMessage(message: { type: string; text: string }): void {
     this.message = message;
     this.buildClasses(message.type);
     setTimeout(() => {
@@ -131,9 +142,8 @@ export class ProventoPastoralComponent implements OnInit {
 
   private buildClasses(type: string): void {
     this.classCss = {
-      'alert': true
-    }
-    this.classCss['alert-' + type] = true;
+      alert: true,
+    };
+    this.classCss["alert-" + type] = true;
   }
-
 }

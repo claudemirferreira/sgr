@@ -39,8 +39,9 @@
         <button mat-raised-button (click)="getPerfil()">
             <i class="material-icons">undo</i>Voltar</button>
 
-        <mat-spinner-button [disabled]="filtroDto.zona.id < 0 " (btnClick)="gerarRelatorio()" [options]="spinnerButtonOptions" >
-            </mat-spinner-button>
+        <button mat-raised-button [disabled]="filtroDto.zona.id < 0 " (click)="gerarRelatorio()">
+              <i class="material-icons">print</i>imprimir
+          </button>
 
     </mat-card-actions>
 

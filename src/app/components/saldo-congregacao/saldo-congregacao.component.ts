@@ -7,7 +7,6 @@ import { ParamRelatorioDto } from 'src/app/model/param-relatorio-dto';
 import { SharedService } from 'src/app/services/shared.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { MatProgressButtonOptions } from 'mat-progress-buttons';
 
 @Component({
   selector: 'app-saldo-congregacao',
@@ -16,22 +15,7 @@ import { MatProgressButtonOptions } from 'mat-progress-buttons';
 })
 export class SaldoCongregacaoComponent implements OnInit {
 
-  spinnerButtonOptions: MatProgressButtonOptions = {
-    active: false,
-    text: 'Imprimir',
-    spinnerSize: 18,
-    raised: true,
-    stroked: false,
-    spinnerColor: 'warn',
-    fullWidth: false,
-    disabled: false,
-    mode: 'indeterminate',
-    buttonIcon: {
-      fontIcon: 'print'
-    }
-  }
-
-  @ViewChild('pdfViewer') 
+  @ViewChild('pdfViewer')
   public pdfViewer;
 
   message: {};
@@ -46,7 +30,7 @@ export class SaldoCongregacaoComponent implements OnInit {
 
   constructor(private http: HttpClient,
     private router: Router,
-    private relatorioService: RelatorioService) {      
+    private relatorioService: RelatorioService) {
       this.shared = SharedService.getInstance();
       this.carregarDados();
   }
@@ -56,8 +40,6 @@ export class SaldoCongregacaoComponent implements OnInit {
   }
 
   gerarRelatorio(): void {
-    this.spinnerButtonOptions.active = true;
-    setTimeout(() => {
       this.filtroDto.nomeRelatorio = 'RelatorioSaldoCongregacao.jasper';
       this.relatorioService.geraPdf(this.filtroDto).subscribe((res) => {
         this.pdfViewer.pdfSrc = res; // pdfSrc can be Blob or Uint8Array
@@ -68,8 +50,6 @@ export class SaldoCongregacaoComponent implements OnInit {
           text: err['error']['errors'][0]
         });
       });
-      this.spinnerButtonOptions.active = false;
-    }, 4000);
   }
 
   changeArea() {
