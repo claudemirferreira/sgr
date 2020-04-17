@@ -23,6 +23,7 @@ export class LogComponent implements OnInit {
   constructor(private service: LogService,
     private router: Router) {
     this.shared = SharedService.getInstance();
+    this.log = new Log();
   }
 
   ngOnInit(): void {

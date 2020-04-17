@@ -1,12 +1,12 @@
 export class Log {
+	
+	idLogApp: number;
 
     nomeUsuario: string;
 
 	dataInicio: Date;
 
 	dataFim: Date;
-	
-	idLogApp: number;
 
 	dataHoraAcao: Date;
 

@@ -65,6 +65,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AssociacaoUsuarioComponent } from './components/list-usuario/associacao-usuario/associacao-usuario.component';
 import { AssociacaoPerfilComponent } from './components/list-usuario/associacao-perfil/associacao-perfil.component';
 import { LogComponent } from './components/log/log.component';
+import { MatNativeDateModule } from '@angular/material/core';
 
 const appRoutes: Routes = [
   { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard] },
@@ -164,7 +165,8 @@ const appRoutes: Routes = [
     MatCardModule,
     ReactiveFormsModule,
     MatProgressButtonsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatNativeDateModule
   ],
   providers: [UsuarioService,
     SharedService,
@@ -200,7 +202,8 @@ const appRoutes: Routes = [
     HttpClientModule,
     PdfJsViewerModule,
     MatCardModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatNativeDateModule
   ],
 })
 export class AppModule { }
