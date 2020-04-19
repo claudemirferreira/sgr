@@ -1,3 +1,5 @@
+
+<mat-card>
 <section class="container flex-end">
 	<div class="topo"></div>
 	<div class="divcentro"></div>
@@ -5,7 +7,7 @@
 	<div class="item ico_conf"></div>
 	<div class="item ico_sair" routerLink="/login"></div>
 </section>
-<div class="flex-container">
-  <div class="font_usuario">Usuário:</div> 
-  <div class="font_usuario font_usuario_italico">&nbsp;{{ shared.user.nome }}</div>
+<div fxLayout="row" fxLayoutAlign="end center" >
+  <div class="font_usuario">Usuário:&nbsp;{{ shared.user.nome }}</div> 
 </div>
+</mat-card>

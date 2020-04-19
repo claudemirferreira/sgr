@@ -39,6 +39,10 @@ export class AssociacaoUsuarioComponent implements OnInit {
   ngOnInit() {
   }
 
+  onNoClick(): void {
+    //this.dialogRef.close();
+  }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.areas.filter = filterValue.trim().toLowerCase();
@@ -57,16 +61,11 @@ export class AssociacaoUsuarioComponent implements OnInit {
   }
 
   onChangeNucleo(usuarioNucleo) {
-    //this.message = '';
     this.service.atualizarNucleo(usuarioNucleo).subscribe((responseApi: ResponseApi) => {
-      //this.usuarioZona = responseApi['data'];
-      //this.class = 'sucess';
-      //this.message = 'Operacao realizada com sucesso';
+      
     }, err => {
       console.log('erro de autenticação='+ JSON.stringify(err.status));
-      //this.erro =  err.status;
-      //console.log(this.erro.status);
-      //this.class = 'error';
+     
       if(err.status == '400')
          this.message = 'Ja existe um usuarioZona';
       else

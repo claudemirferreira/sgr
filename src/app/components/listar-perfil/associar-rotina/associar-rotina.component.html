@@ -1,6 +1,5 @@
 <section class="container row">
-	<div class="item"><h1 class="titulo">Atribuir Perfil</h1></div>
-	<div class="item"><button mat-button (click)="onNoClick()">Fechar</button></div>
+	<div class="item titulo">Associar Rotina</div>
 </section>
 
 <div class="example-container mat-elevation-z8">
@@ -12,7 +11,7 @@
 
     <ng-container matColumnDef="checked">
       <th mat-header-cell *matHeaderCellDef>Check</th>
-      <td mat-cell *matCellDef="let element">
+      <td mat-cell *matCellDef="let element" class="check">
         <mat-checkbox
           [(ngModel)]="element.checked"
           (change)="onChangePerfil(element)"
@@ -24,4 +23,8 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
+
+</div>
+<div>
+  <button mat-button (click)="onNoClick()"><mat-icon>close</mat-icon>Fechar</button>
 </div>

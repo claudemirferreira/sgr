@@ -4,15 +4,6 @@
     <div fxLayout="column" class="itemCheck">
       <mat-checkbox [(ngModel)]="usuarioAssociacao.usuario.in_privilegio" (change)="onChangeUsuario(usuarioAssociacao.usuario)">Privilégio</mat-checkbox>
     </div>
-    <div fxLayout="column"class="itemCheck">
-      <mat-checkbox [(ngModel)]="usuarioAssociacao.usuario.zona" (change)="onChangeUsuario(usuarioAssociacao.usuario)">Zona</mat-checkbox>
-    </div>
-    <div fxLayout="column" class="itemCheck">
-      <mat-checkbox [(ngModel)]="usuarioAssociacao.usuario.nucleo" (change)="onChangeUsuario(usuarioAssociacao.usuario)">Nucleo</mat-checkbox>
-    </div>
-    <div fxLayout="column" class="itemCheck">
-      <mat-checkbox [(ngModel)]="usuarioAssociacao.usuario.area" (change)="onChangeUsuario(usuarioAssociacao.usuario)">Area</mat-checkbox>
-    </div>
   </div>
 </div>
 
@@ -22,8 +13,8 @@
     <div fxLayout="column">
       <div class="item">
         <mat-card class="example-card">
-          <mat-card-content>
-
+          <mat-card-content>  
+            <mat-checkbox [(ngModel)]="usuarioAssociacao.usuario.zona" (change)="onChangeUsuario(usuarioAssociacao.usuario)">Zona</mat-checkbox>
             <table mat-table [dataSource]="usuarioAssociacao.usuarioZonas" class="mat-elevation-z8">
 
               <ng-container matColumnDef="nome">
@@ -41,18 +32,19 @@
               <tr mat-header-row *matHeaderRowDef="displayedColumnsZona; sticky: true"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumnsZona;"></tr>
             </table>
+            <div class="registro">total de registros: {{usuarioAssociacao.usuarioZonas.length}} zonas</div>
           </mat-card-content>
         </mat-card>
 
       </div>
-      <div class="registro">total de registros: {{usuarioAssociacao.usuarioZonas.length}} zonas</div>
+      
     </div>
     <div fxLayout="column">
       <div class="item">
 
         <mat-card class="example-card">
           <mat-card-content>
-
+            <mat-checkbox [(ngModel)]="usuarioAssociacao.usuario.nucleo" (change)="onChangeUsuario(usuarioAssociacao.usuario)">Nucleo</mat-checkbox>            
             <table mat-table [dataSource]="usuarioAssociacao.usuarioNucleos" class="mat-elevation-z8">
 
               <ng-container matColumnDef="nome">
@@ -67,7 +59,7 @@
                 </td>
               </ng-container>
 
-              <tr mat-header-row *matHeaderRowDef="displayedColumnsNucleo"></tr>
+              <tr mat-header-row *matHeaderRowDef="displayedColumnsNucleo; sticky: true"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumnsNucleo;"></tr>
             </table>
           </mat-card-content>
@@ -81,12 +73,12 @@
       <div class="item">
 
         <mat-card class="example-card">
-
+          <mat-checkbox [(ngModel)]="usuarioAssociacao.usuario.area" (change)="onChangeUsuario(usuarioAssociacao.usuario)">Area</mat-checkbox>
           <mat-card-content>
 
             <mat-form-field>
-              <mat-label>Filter</mat-label>
-              <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium">
+              <mat-label>Area</mat-label>
+              <input matInput (keyup)="applyFilter($event)" placeholder="area">
             </mat-form-field>
             <table mat-table [dataSource]="areas" class="mat-elevation-z8">
 
@@ -114,5 +106,5 @@
     </div>
 
   </div>
-
+  <button mat-button (click)="onNoClick()"><mat-icon>close</mat-icon>Fechar</button>
 </div>

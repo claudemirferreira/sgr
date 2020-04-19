@@ -71,9 +71,16 @@
 .font_usuario {
   font-family: "Times New Roman", Times, serif;
   font-weight: bold;
+  align-items: center;
 }
 
 .font_usuario_italico {
   font-style: italic;
 }
+mat-divider{
+  padding-top: 3px;
+}
 
+mat-card {
+  background-color: #eaeaea;
+}
