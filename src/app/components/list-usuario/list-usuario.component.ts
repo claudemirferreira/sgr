@@ -59,7 +59,7 @@ export class ListUsuarioComponent implements OnInit {
 
   }
 
-  openDialog(idMembro: number) {
+  openDialog1(idMembro: number) {
 
     this.usuarioAssociacaoService.listarAssociacaoUsuario(idMembro)
       .subscribe((responseApi: ResponseApi) => {
@@ -76,6 +76,14 @@ export class ListUsuarioComponent implements OnInit {
       });
     });
 
+  }
+
+  openDialog(idMembro: number) {
+
+    let dialogRef = this.dialog.open(AssociacaoUsuarioComponent, { data: {idMembro: idMembro}})
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      });
   }
 
   ngOnInit() {

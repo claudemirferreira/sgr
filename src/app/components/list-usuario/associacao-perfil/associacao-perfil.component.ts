@@ -22,7 +22,7 @@ export class AssociacaoPerfilComponent implements OnInit {
   class = 'sucess';
   
   constructor( @Inject(MAT_DIALOG_DATA) public data: any,
-  public dialogRef: MatDialogRef<AssociacaoPerfilComponent>,
+              public dialogRef: MatDialogRef<AssociacaoPerfilComponent>,
               public service: PerfilService) {     
     this.idUsuario = data.idUsuario;
   }
