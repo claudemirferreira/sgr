@@ -13,7 +13,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListRotinaComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'nome', 'acao'];
+  displayedColumns: string[] = ['id', 'nome', 'acao', 'imagem', 'acoes'];
 
   page: any;
   list: Rotina[];

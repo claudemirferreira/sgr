@@ -17,7 +17,15 @@ import { Router } from '@angular/router';
 })
 export class RelatorioMembroComponent implements OnInit {
 
-  displayedColumns: string[] = ['idMembro', 'membro', 'acao'];
+  displayedColumns: string[] = ['idMembro', 
+                                'membro', 
+                                'dataNascimento', 
+                                'congregacao', 
+                                'area', 
+                                'nucleo', 
+                                'zona', 
+                                'situacao', 
+                                'acao'];
 
   @ViewChild('pdfViewer')
   public pdfViewer;
@@ -40,22 +48,22 @@ export class RelatorioMembroComponent implements OnInit {
     private router: Router,
     private relatorioService: RelatorioService,
     private membroService: MembroService) {
-      this.shared = SharedService.getInstance();
+    this.shared = SharedService.getInstance();
     this.carregarDados();
   }
 
-  getPerfil(){
-    this.router.navigate(['/lista-rotina-perfil/'+this.shared.idPerfil]);
+  getPerfil() {
+    this.router.navigate(['/lista-rotina-perfil/' + this.shared.idPerfil]);
   }
 
   find() {
     this.message = null;
     this.membroService.find(this.filtroDto).subscribe((responseApi: ResponseApi) => {
       this.membros = responseApi['data'];
-      if(this.membros.length == 0){
+      if (this.membros.length == 0) {
         this.message = 'Nenhum registro encontrado';
       }
-      console.log("this.membros ============= "+this.membros.length);
+      console.log("this.membros ============= " + this.membros.length);
     }, err => {
       this.showMessage({
         type: 'error',
@@ -89,8 +97,8 @@ export class RelatorioMembroComponent implements OnInit {
     });
   }
 
-  validateZona(){
-    if (this.filtroDto.zona == null || this.filtroDto.zona.id > 0){
+  validateZona() {
+    if (this.filtroDto.zona == null || this.filtroDto.zona.id > 0) {
       return true;
     } else {
       return false;

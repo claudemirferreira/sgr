@@ -23,7 +23,6 @@ import { DebitoPastoralComponent } from './components/debito-pastoral/debito-pas
 import { DebitoSecretariaComponent } from './components/debito-secretaria/debito-secretaria.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { DebitoFinanceiroComponent } from './components/debito-financeiro/debito-financeiro.component';
-import { MembroComponent } from './components/membro/membro.component';
 import { RelatorioMembroComponent } from './components/relatorio-membro/relatorio-membro.component';
 import { ProventoPastoralComponent } from './components/provento-pastoral/provento-pastoral.component';
 import { SaldoCongregacaoComponent } from './components/saldo-congregacao/saldo-congregacao.component';
@@ -109,7 +108,6 @@ const appRoutes: Routes = [
     DebitoSecretariaComponent,
     PerfilComponent,
     DebitoFinanceiroComponent,
-    MembroComponent,
     RelatorioMembroComponent,
     ProventoPastoralComponent,
     SaldoCongregacaoComponent,

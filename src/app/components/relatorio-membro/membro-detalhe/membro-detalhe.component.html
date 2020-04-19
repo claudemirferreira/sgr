@@ -1,8 +1,5 @@
+<h2 class="titulo">Relatório de Membro</h2>
 <mat-card style="background-color: #eaeaea">
-    <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>Dados do Membro</mat-card-title>
-    </mat-card-header>
     <mat-card-content>
         <mat-form-field placeholder="Código" class="example-litle-width">
             <input matInput placeholder="Código" [(ngModel)]="membro.idMembro">
@@ -32,8 +29,8 @@
             <input matInput placeholder="situacao" [(ngModel)]="membro.situacao">
         </mat-form-field>
 
-        <mat-form-field placeholder="Situacao">
-            <input readonly matInput placeholder="situacao" value="{{ membro.dataNascimento | date:'shortDate' }}">
+        <mat-form-field placeholder="Nascimento">
+            <input readonly matInput value="{{ membro.dataNascimento | date:'shortDate' }}">
         </mat-form-field>
 
     </mat-card-content>

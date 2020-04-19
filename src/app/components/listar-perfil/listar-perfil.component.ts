@@ -16,7 +16,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class ListarPerfilComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'nome', 'acao'];
+  displayedColumns: string[] = ['id', 'nome', 'imagem', 'acao'];
   perfils : PerfilDto[];
   perfil = new PerfilDto();
 

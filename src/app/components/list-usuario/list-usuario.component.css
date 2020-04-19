@@ -1,6 +1,16 @@
 table {
   width: 100%;
   background-color: #eaeaea;
+} 
+
+.mat-cell {
+  font-size: 10px;
+  min-height: 48px;
+  border: 1px solid black;
+}
+
+.check {
+  text-align: center;
 }
 
 mat-card {
