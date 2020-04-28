@@ -59,25 +59,6 @@ export class ListUsuarioComponent implements OnInit {
 
   }
 
-  openDialog1(idMembro: number) {
-
-    this.usuarioAssociacaoService.listarAssociacaoUsuario(idMembro)
-      .subscribe((responseApi: ResponseApi) => {
-      this.usuarioAssociacao = responseApi['data'];
-      let dialogRef = this.dialog.open(AssociacaoUsuarioComponent, { data: responseApi['data'] })
-      dialogRef.afterClosed().subscribe(result => {
-        console.log(`Dialog result: ${result}`);
-      });
-
-    }, err => {
-      this.showMessage({
-        type: 'error',
-        text: err['error']['errors'][0]
-      });
-    });
-
-  }
-
   openDialog(idMembro: number) {
 
     let dialogRef = this.dialog.open(AssociacaoUsuarioComponent, { data: {idMembro: idMembro}})

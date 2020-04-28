@@ -5,7 +5,16 @@ table {
 
 .mat-cell {
   font-size: 10px;
-  min-height: 48px;
+  min-height: 28px;
+  border: 1px solid black;
+}
+
+.mat-row:nth-child(2n+1){
+  background-color: rgb(150,150,150);
+}
+
+.mat-header-cell{
+  background-color: rgb(120,120,120);
   border: 1px solid black;
 }
 
@@ -44,9 +53,9 @@ mat-select {
 }
 
 .error {
-      padding: 10px;
-      width: 300px;
-      color: goldenrod;
+  padding: 10px;
+  width: 300px;
+  color: goldenrod;
 }
 
 .titulo {
