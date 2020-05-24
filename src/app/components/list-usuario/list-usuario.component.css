@@ -1,21 +1,30 @@
 table {
   width: 100%;
   background-color: #eaeaea;
-} 
+}
 
 .mat-cell {
   font-size: 10px;
-  min-height: 28px;
-  border: 1px solid black;
+  min-height: 20px;
+  border: 0.5px solid rgb(128,128,128);
+  padding-left: 5px;
+
 }
 
-.mat-row:nth-child(2n+1){
-  background-color: rgb(150,150,150);
+.mat-header-cell {
+  background-color: rgb(200,200,200);
+  border: 0.5px solid rgb(128,128,128);
+  font-weight:bold;
+  font-size: 14px;
+  padding-left: 5px;
 }
 
-.mat-header-cell{
-  background-color: rgb(120,120,120);
-  border: 1px solid black;
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+tr.mat-header-row , mat-header-cell{
+    height: 30px;
 }
 
 .check {
@@ -64,4 +73,23 @@ mat-select {
   padding: 5px;
   text-align: left;
   width: 100%;
+}
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+}
+
+.mat-header-cell.mat-sort-header-sorted {
+  color: black;
+}
+
+.cdk-visually-hidden{
+  display: none !important;
 }

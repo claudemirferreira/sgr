@@ -44,47 +44,48 @@
   </mat-card-actions>
 </mat-card>
 
-<table mat-table [dataSource]="list" class="mat-elevation-z8">
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" >
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="nome">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome </th>
+    <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
+  </ng-container>
 
   <!-- Name Column -->
-  <ng-container matColumnDef="nome">
-    <th mat-header-cell *matHeaderCellDef>Nome</th>
-    <td mat-cell *matCellDef="let element">{{ element.nome }}</td>
-  </ng-container>
-
   <ng-container matColumnDef="login">
-    <th mat-header-cell *matHeaderCellDef>&nbsp;Login</th>
-    <td mat-cell *matCellDef="let element" class="check">{{ element.login }}</td>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Login </th>
+    <td mat-cell *matCellDef="let element"> {{element.login}} </td>
   </ng-container>
 
+  <!-- Weight Column -->
   <ng-container matColumnDef="status">
-    <th mat-header-cell *matHeaderCellDef>&nbsp;Status</th>
-    <td mat-cell *matCellDef="let element" class="check">{{ element.status }}</td>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Status </th>
+    <td mat-cell *matCellDef="let element"> {{element.status}} </td>
   </ng-container>
 
+  <!-- Symbol Column -->
   <ng-container matColumnDef="in_privilegio">
-    <th mat-header-cell *matHeaderCellDef>&nbsp;Privilegio</th>
-    <td mat-cell *matCellDef="let element" class="check">
-      <mat-checkbox [(ngModel)]="element.in_privilegio"></mat-checkbox>
-    </td>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Privilegio </th>
+    <td mat-cell *matCellDef="let element"> {{element.in_privilegio}} </td>
   </ng-container>
 
   <ng-container matColumnDef="zona">
-    <th mat-header-cell *matHeaderCellDef>&nbsp;Zona</th>
+    <th mat-header-cell *matHeaderCellDef>Zona</th>
     <td mat-cell *matCellDef="let element" class="check">
       <mat-checkbox [(ngModel)]="element.zona"></mat-checkbox>
     </td>
   </ng-container>
 
   <ng-container matColumnDef="nucleo">
-    <th mat-header-cell *matHeaderCellDef>&nbsp;Nucleo</th>
+    <th mat-header-cell *matHeaderCellDef>Nucleo</th>
     <td mat-cell *matCellDef="let element" class="check">
       <mat-checkbox [(ngModel)]="element.nucleo"></mat-checkbox>
     </td>
   </ng-container>
 
   <ng-container matColumnDef="area">
-    <th mat-header-cell *matHeaderCellDef>&nbsp;Area</th>
+    <th mat-header-cell *matHeaderCellDef>Area</th>
     <td mat-cell *matCellDef="let element" class="check">
       <mat-checkbox [(ngModel)]="element.area"></mat-checkbox>
     </td>
@@ -108,9 +109,10 @@
       <button mat-raised-button (click)="openDialogSenha(element.id)">
         <mat-icon>lock</mat-icon>Senha
       </button>
+
     </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>

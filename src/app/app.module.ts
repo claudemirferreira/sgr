@@ -57,6 +57,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressButtonsModule } from 'mat-progress-buttons';
+import { MatSortModule } from '@angular/material/sort';
 
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCardModule } from '@angular/material/card';
@@ -89,8 +90,6 @@ const appRoutes: Routes = [
 
   { path: 'login', component: LoginComponent },
   { path: '', component: LoginComponent },
-
-
   { path: 'log', component: LogComponent },
 
   { path: 'list-usuario', component: ListUsuarioComponent, canActivate: [AuthGuard] },
@@ -124,7 +123,7 @@ const appRoutes: Routes = [
     AssociacaoPerfilComponent,
     AlterarSenhaComponent,
     CadastrarRotinaComponent,
-    LogComponent
+    LogComponent,
 
   ],
   imports: [
@@ -164,7 +163,8 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     MatProgressButtonsModule,
     MatSnackBarModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSortModule,
   ],
   providers: [UsuarioService,
     SharedService,
@@ -201,7 +201,8 @@ const appRoutes: Routes = [
     PdfJsViewerModule,
     MatCardModule,
     MatSnackBarModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSortModule,
   ],
 })
 export class AppModule { }

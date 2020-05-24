@@ -1,13 +1,12 @@
 import { AlterarSenhaComponent } from './alterar-senha/alterar-senha.component';
 import { SharedService } from './../../services/shared.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Usuario } from 'src/app/model/usuario';
 import { ResponseApi } from 'src/app/model/response-api';
 import { HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { AssociacaoUsuarioComponent } from './associacao-usuario/associacao-usuario.component';
 import { UsuarioAssociacaoService } from 'src/app/services/usuario-associacao.service';
@@ -15,6 +14,26 @@ import { UsuarioAssociacao } from 'src/app/model/usuario-associacao';
 
 import { PerfilService } from 'src/app/services/perfil.service';
 import { AssociacaoPerfilComponent } from './associacao-perfil/associacao-perfil.component';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+
+
+export interface IUsuario {
+  id: number;
+  login: string;
+  senha: string;
+  status: string;
+  telefone: string;
+  email: string;
+  nome: string;
+  idMembro: number;
+  zona: boolean;
+  nucleo: boolean;
+  area: boolean;
+  in_privilegio: boolean;
+}
+
+const ELEMENT_DATA: IUsuario[] = [];
 
 @Component({
   selector: 'app-list-usuario',
@@ -23,23 +42,33 @@ import { AssociacaoPerfilComponent } from './associacao-perfil/associacao-perfil
 })
 export class ListUsuarioComponent implements OnInit {
 
-  displayedColumns: string[] = [ 'nome', 'login', 'status', 'in_privilegio', 'zona','nucleo', 'area', 'acao'];
 
-  page: any;
-  list: Usuario[];
-  @Input() message: string | null;
-  classCss: {};
-  nome: string;
+  displayedColumns: string[] = ['nome', 'login', 'status', 'in_privilegio', 'zona', 'nucleo', 'area', 'acao'];
+  dataSource = new MatTableDataSource(ELEMENT_DATA);
   usuario = new Usuario();
   shared: SharedService;
-  usuarioAssociacao : UsuarioAssociacao;
 
-  constructor(private service: UsuarioService,
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @Input() message: string | null;
+
+  constructor( private service: UsuarioService,
     private usuarioAssociacaoService: UsuarioAssociacaoService,
     private perfilService: PerfilService,
     private router: Router,
-    public dialog: MatDialog) {
-    this.shared = SharedService.getInstance();
+    private dialog: MatDialog ){
+      this.shared = SharedService.getInstance();
+  }
+
+  ngOnInit() {
+    this.dataSource.sort = this.sort;
+    //this.find();
+  }
+
+  find() {
+    this.service.pesquisar(this.usuario).subscribe((responseApi: ResponseApi) => {
+      this.dataSource = new MatTableDataSource(responseApi['data']);
+      this.dataSource.sort = this.sort;
+    });
   }
 
   openDialogPerfil(idUsuario: number){
@@ -67,34 +96,6 @@ export class ListUsuarioComponent implements OnInit {
       });
   }
 
-  ngOnInit() {
-  }
-
-  listarPerfil(id) {
-    this.perfilService.listarPerfil(id).subscribe((responseApi: ResponseApi) => {
-      console.log( responseApi['data']);
-    }, err => {
-      this.showMessage({
-        type: 'error',
-        text: err['error']['errors'][0]
-      });
-    });
-  }
-
-  find() {
-    this.message ='';
-    this.service.pesquisar(this.usuario).subscribe((responseApi: ResponseApi) => {
-      this.list = responseApi['data'];
-      if (this.list.length == 0)
-        this.message = 'Nenhum registro encontrado.';
-    }, err => {
-      this.showMessage({
-        type: 'error',
-        text: err['error']['errors'][0]
-      });
-    });
-  }
-
   delete(user: Usuario) {
     return this.service.delete(user.id)
       .subscribe(() => {
@@ -107,36 +108,6 @@ export class ListUsuarioComponent implements OnInit {
         }
 
       );
-  }
-
-  // Manipulação de erros
-  handleError(error: HttpErrorResponse) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      // Erro ocorreu no lado do client
-      errorMessage = error.error.message;
-    } else {
-      // Erro ocorreu no lado do servidor
-      errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.message}`;
-    }
-    console.log(errorMessage);
-    return throwError(errorMessage);
-  };
-
-
-  private showMessage(message: { type: string, text: string }): void {
-    //this.message = message;
-    this.buildClasses(message.type);
-    setTimeout(() => {
-      this.message = undefined;
-    }, 3000);
-  }
-
-  private buildClasses(type: string): void {
-    this.classCss = {
-      'alert': true
-    }
-    this.classCss['alert-' + type] = true;
   }
 
   getPerfil() {
