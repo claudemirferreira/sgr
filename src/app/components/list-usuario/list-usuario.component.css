@@ -93,3 +93,7 @@ mat-select {
 .cdk-visually-hidden{
   display: none !important;
 }
+
+mat-paginator {
+  background-color: #eaeaea;
+}

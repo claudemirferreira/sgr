@@ -165,6 +165,7 @@ const appRoutes: Routes = [
     MatSnackBarModule,
     MatNativeDateModule,
     MatSortModule,
+
   ],
   providers: [UsuarioService,
     SharedService,

@@ -16,6 +16,7 @@ import { PerfilService } from 'src/app/services/perfil.service';
 import { AssociacaoPerfilComponent } from './associacao-perfil/associacao-perfil.component';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { PageEvent } from '@angular/material/paginator';
 
 
 export interface IUsuario {
@@ -44,12 +45,23 @@ export class ListUsuarioComponent implements OnInit {
 
 
   displayedColumns: string[] = ['nome', 'login', 'status', 'in_privilegio', 'zona', 'nucleo', 'area', 'acao'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
   usuario = new Usuario();
   shared: SharedService;
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
+
   @Input() message: string | null;
+
+  //paginacao
+  length = 0;
+  pageSize = 10;
+  pageIndex = 1;
+  pageSizeOptions: number[] = [5, 10, 20,];
+  // MatPaginator Output
+  pageEvent: PageEvent;
+  size: number;
+  totalElements: number;
+  dataSource = new MatTableDataSource(ELEMENT_DATA);
 
   constructor( private service: UsuarioService,
     private usuarioAssociacaoService: UsuarioAssociacaoService,
@@ -59,15 +71,41 @@ export class ListUsuarioComponent implements OnInit {
       this.shared = SharedService.getInstance();
   }
 
+  setPageSizeOptions(setPageSizeOptionsInput: string) {
+    if (setPageSizeOptionsInput) {
+      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+    }
+  }
+
+  pageChange($event) {
+    console.log("############## pageChange");
+    this.pageSize = $event.pageSize;
+    this.pageIndex = $event.pageIndex
+    this.pesquisar();
+  }
+
   ngOnInit() {
     this.dataSource.sort = this.sort;
-    //this.find();
   }
 
   find() {
-    this.service.pesquisar(this.usuario).subscribe((responseApi: ResponseApi) => {
-      this.dataSource = new MatTableDataSource(responseApi['data']);
+    this.pageIndex = 1;
+    this.pesquisar();
+  }
+
+  pesquisar() {
+    if (this.pageIndex == 0)
+      this.pageIndex = 1;
+    var param = '?page='+this.pageIndex + '&size=' + this.pageSize;
+    console.log(param);
+    this.service.pesquisar(this.usuario, param).subscribe((responseApi: ResponseApi) => {
+      this.dataSource = new MatTableDataSource(responseApi['content']);
       this.dataSource.sort = this.sort;
+
+      this.totalElements = responseApi['totalElements'];
+      this.pageSize = responseApi['totalPages'];
+      this.pageIndex = responseApi['number'];
+      this.size = responseApi['size'];
     });
   }
 
@@ -76,7 +114,6 @@ export class ListUsuarioComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
         console.log(`Dialog result: ${result}`);
       });
-
   }
 
   openDialogSenha(idUsuario: number){
@@ -85,11 +122,9 @@ export class ListUsuarioComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
         console.log(`Dialog result: ${result}`);
       });
-
   }
 
   openDialog(idMembro: number) {
-
     let dialogRef = this.dialog.open(AssociacaoUsuarioComponent, { data: {idMembro: idMembro}})
       dialogRef.afterClosed().subscribe(result => {
         console.log(`Dialog result: ${result}`);
@@ -106,7 +141,6 @@ export class ListUsuarioComponent implements OnInit {
           alert('Ocoreu um erro, entre em contato com o suporte');
           console.log(JSON.stringify(error));
         }
-
       );
   }
 
