@@ -59,7 +59,7 @@ export class ListUsuarioComponent implements OnInit {
   pageSizeOptions: number[] = [5, 10, 20,];
   // MatPaginator Output
   pageEvent: PageEvent;
-  size: number;
+  size: 10;
   totalElements: number;
   dataSource = new MatTableDataSource(ELEMENT_DATA);
 
@@ -69,6 +69,8 @@ export class ListUsuarioComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog ){
       this.shared = SharedService.getInstance();
+      this.usuario.nome = '';
+      this.usuario.login = '';
   }
 
   setPageSizeOptions(setPageSizeOptionsInput: string) {
@@ -86,6 +88,10 @@ export class ListUsuarioComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource.sort = this.sort;
+    this.pageSize = 10;
+
+    this.size = 10;
+    this.pageIndex = 1;
   }
 
   find() {
@@ -94,9 +100,7 @@ export class ListUsuarioComponent implements OnInit {
   }
 
   pesquisar() {
-    if (this.pageIndex == 0)
-      this.pageIndex = 1;
-    var param = '?page='+this.pageIndex + '&size=' + this.pageSize;
+    var param = '?page='+this.pageIndex + '&size=' + this.size;
     console.log(param);
     this.service.pesquisar(this.usuario, param).subscribe((responseApi: ResponseApi) => {
       this.dataSource = new MatTableDataSource(responseApi['content']);
