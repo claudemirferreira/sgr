@@ -91,7 +91,7 @@ export class ListUsuarioComponent implements OnInit {
     this.pageSize = 10;
 
     this.size = 10;
-    this.pageIndex = 1;
+    this.pageIndex = 0;
   }
 
   find() {
