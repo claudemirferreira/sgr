@@ -95,7 +95,7 @@ export class ListUsuarioComponent implements OnInit {
   }
 
   find() {
-    this.pageIndex = 1;
+    this.pageIndex = 0;
     this.pesquisar();
   }
 
