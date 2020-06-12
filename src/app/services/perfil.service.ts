@@ -44,8 +44,9 @@ export class PerfilService {
     return this.http.get(`${HELP_DESK_API}/api/perfil/usuario-perfil/`+id);
   }
 
-  pesquisar(perfil: PerfilDto){
-    return this.http.post(`${HELP_DESK_API}/api/perfil/pesquisar`,perfil);
+  pesquisar(perfil: PerfilDto, param: string) {
+    console.log('pesquisar');
+    return this.http.post(`${HELP_DESK_API}/api/perfil/pesquisar`+param, perfil);
   }
 
   delete(id:number){

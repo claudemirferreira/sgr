@@ -37,7 +37,6 @@ export class ListRotinaComponent implements OnInit {
   pageSizeOptions: number[] = [5, 10, 20,];
   // MatPaginator Output
   pageEvent: PageEvent;
-  size: 10;
   totalElements: number;
   list = new MatTableDataSource(ELEMENT_DATA);
 
@@ -63,7 +62,6 @@ export class ListRotinaComponent implements OnInit {
   ngOnInit() {
     this.list.sort = this.sort;
     this.pageSize = 10;
-    //this.size = 0;
     this.pageIndex = 0;
     this.pesquisar();
   }
