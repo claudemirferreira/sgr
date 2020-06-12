@@ -4,7 +4,13 @@ import { ResponseApi } from './../../model/response-api';
 import { Router } from '@angular/router';
 import { SharedService } from './../../services/shared.service';
 import { RotinaService } from './../../services/rotina.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSort } from '@angular/material/sort';
+import { PageEvent } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+
+
+const ELEMENT_DATA: Rotina[] = [];
 
 @Component({
   selector: 'app-list-rotina',
@@ -16,45 +22,69 @@ export class ListRotinaComponent implements OnInit {
   displayedColumns: string[] = ['id', 'nome', 'acao', 'imagem', 'acoes'];
 
   page: any;
-  list: Rotina[];
+  //list: Rotina[];
   message: {};
   classCss: {};
   nome: string;
   rotina = new Rotina();
   shared: SharedService;
 
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  //paginacao
+  length = 0;
+  pageSize = 10;
+  pageIndex = 1;
+  pageSizeOptions: number[] = [5, 10, 20,];
+  // MatPaginator Output
+  pageEvent: PageEvent;
+  size: 10;
+  totalElements: number;
+  list = new MatTableDataSource(ELEMENT_DATA);
+
   constructor(private service: RotinaService,
     private router: Router,
     private _snackBar: MatSnackBar) {
     this.shared = SharedService.getInstance();
-    this.findAll();
+  }
+
+  setPageSizeOptions(setPageSizeOptionsInput: string) {
+    if (setPageSizeOptionsInput) {
+      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+    }
+  }
+
+  pageChange($event) {
+    console.log("############## pageChange");
+    this.pageSize = $event.pageSize;
+    this.pageIndex = $event.pageIndex
+    this.pesquisar();
   }
 
   ngOnInit() {
+    this.list.sort = this.sort;
+    this.pageSize = 10;
+    //this.size = 0;
+    this.pageIndex = 0;
+    this.pesquisar();
   }
 
-  findAll() {
-    this.service.findAll().subscribe((responseApi: ResponseApi) => {
-      this.list = responseApi['data'];
+  pesquisar() {
+    var param = '?page='+this.pageIndex + '&size=' + this.pageSize;
+    console.log(param);
+    this.service.pesquisar(this.rotina, param).subscribe((responseApi: ResponseApi) => {
+      this.list = new MatTableDataSource(responseApi['content']);
+      this.list.sort = this.sort;
 
-    }, err => {
-      this.showMessage({
-        type: 'error',
-        text: err['error']['errors'][0]
-      });
+      this.totalElements = responseApi['totalElements'];
+      this.pageSize = responseApi['totalPages'];
+      this.pageIndex = responseApi['number'];
+      this.pageSize = responseApi['size'];
     });
   }
 
   find() {
-    console.log(this.rotina.nome);
-    this.service.pesquisar(this.rotina).subscribe((responseApi: ResponseApi) => {
-      this.list = responseApi['data'];
-    }, err => {
-      this.showMessage({
-        type: 'error',
-        text: err['error']['errors'][0]
-      });
-    });
+    this.pageIndex = 0;
+    this.pesquisar();
   }
 
   delete(rotina: Rotina) {
@@ -62,7 +92,7 @@ export class ListRotinaComponent implements OnInit {
       .subscribe(() => {
         console.log('saved');
         this.openSnackBar('Operação realizada com sucesso','OK');
-        this.findAll();
+        this.pesquisar();
       },
         error => {
           alert('Erro, existe rotina associada a este perfil');

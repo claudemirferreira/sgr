@@ -22,8 +22,9 @@ export class RotinaService {
     return this.http.get(`${HELP_DESK_API}/api/rotina/`);
   }
 
-  pesquisar(rotina: Rotina){
-    return this.http.post(`${HELP_DESK_API}/api/rotina/pesquisar`,rotina);
+  pesquisar(rotina: Rotina, param: string) {
+    console.log('pesquisar');
+    return this.http.post(`${HELP_DESK_API}/api/rotina/pesquisar`+param, rotina);
   }
 
   findById(id:number){
