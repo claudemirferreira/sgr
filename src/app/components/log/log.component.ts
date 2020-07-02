@@ -1,3 +1,4 @@
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { ResponseApi } from './../../model/response-api';
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/services/shared.service';
@@ -22,7 +23,8 @@ export class LogComponent implements OnInit {
   classCss: {};
 
   constructor(private service: LogService,
-    private router: Router) {
+    private router: Router,
+    private ngxLoader: NgxUiLoaderService) {
     this.shared = SharedService.getInstance();
     this.log = new Log();
   }
@@ -32,12 +34,12 @@ export class LogComponent implements OnInit {
   }
 
   find(){
-    console.log(this.log.nomeUsuario);
-    console.log(this.log.dataInicio);
-    console.log(this.log.dataFim);
+    this.ngxLoader.start();
     this.service.pesquisar(this.log).subscribe((responseApi: ResponseApi) => {
       this.list = responseApi['data'];
+      this.ngxLoader.stop();
     }, err => {
+      this.ngxLoader.stop();
       this.showMessage({
         type: 'error',
         text: err['error']['errors'][0]

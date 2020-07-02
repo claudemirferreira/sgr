@@ -1,3 +1,4 @@
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { PerfilService } from 'src/app/services/perfil.service';
@@ -20,10 +21,11 @@ export class AssociacaoPerfilComponent implements OnInit {
   message: {};
   classCss: {};
   class = 'sucess';
-  
+
   constructor( @Inject(MAT_DIALOG_DATA) public data: any,
               public dialogRef: MatDialogRef<AssociacaoPerfilComponent>,
-              public service: PerfilService) {     
+              public service: PerfilService,
+              private ngxLoader: NgxUiLoaderService) {
     this.idUsuario = data.idUsuario;
   }
 
@@ -37,10 +39,13 @@ export class AssociacaoPerfilComponent implements OnInit {
   }
 
   listarUsuarioPerfil() {
+    this.ngxLoader.start();
     this.service.listarUsuarioPerfil(this.idUsuario).subscribe((responseApi: ResponseApi) => {
       this.list = responseApi['data'];
       console.log( responseApi['data']);
+      this.ngxLoader.stop();
     }, err => {
+      this.ngxLoader.stop();
       console.log('erro de autenticação='+ JSON.stringify(err.status));
       if(err.status == '400')
          this.message = 'Ja existe um usuarioZona';
@@ -50,9 +55,9 @@ export class AssociacaoPerfilComponent implements OnInit {
     });
   }
 
-  onChangePerfil(perfil) {    
+  onChangePerfil(perfil) {
     this.service.atualizarPerfil(perfil).subscribe((responseApi: ResponseApi) => {
-      
+
     }, err => {
       console.log('erro de autenticação='+ JSON.stringify(err.status));
       if(err.status == '400')

@@ -1,3 +1,4 @@
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Rotina } from './../../model/rotina';
 import { ResponseApi } from './../../model/response-api';
@@ -42,7 +43,8 @@ export class ListRotinaComponent implements OnInit {
 
   constructor(private service: RotinaService,
     private router: Router,
-    private _snackBar: MatSnackBar) {
+    private _snackBar: MatSnackBar,
+    private ngxLoader: NgxUiLoaderService) {
     this.shared = SharedService.getInstance();
   }
 
@@ -67,6 +69,7 @@ export class ListRotinaComponent implements OnInit {
   }
 
   pesquisar() {
+    this.ngxLoader.start();
     var param = '?page='+this.pageIndex + '&size=' + this.pageSize;
     console.log(param);
     this.service.pesquisar(this.rotina, param).subscribe((responseApi: ResponseApi) => {
@@ -77,6 +80,7 @@ export class ListRotinaComponent implements OnInit {
       this.pageSize = responseApi['totalPages'];
       this.pageIndex = responseApi['number'];
       this.pageSize = responseApi['size'];
+      this.ngxLoader.stop();
     });
   }
 

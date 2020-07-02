@@ -1,3 +1,4 @@
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { PerfilRotina } from "./../../../model/perfil-rotinay";
 import { Component, OnInit, Inject } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
@@ -30,20 +31,22 @@ export class AssociarRotinaComponent implements OnInit {
     private service: PerfilService,
     public dialogRef: MatDialogRef<AssociarRotinaComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
+    private ngxLoader: NgxUiLoaderService
   ) {
-
     this.idPerfil = data.idPerfil;
-
   }
 
   ngOnInit() {
     console.log(this.idPerfil)
+    this.ngxLoader.start();
     this.service.listarRotina(this.idPerfil).subscribe(
       (responseApi: ResponseApi) => {
         this.list = responseApi["data"];
         console.log(this.list);
+        this.ngxLoader.stop();
       },
       (err) => {
+        this.ngxLoader.stop();
         this.showMessage({
           type: "error",
           text: err["error"]["errors"][0],

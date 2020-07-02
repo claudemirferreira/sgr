@@ -1,3 +1,4 @@
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { SharedService } from './../../services/shared.service';
 import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -47,7 +48,8 @@ export class ListarPerfilComponent implements OnInit {
     private router: Router,
     public dialog: MatDialog,
     private service: PerfilService,
-    private _snackBar: MatSnackBar) {
+    private _snackBar: MatSnackBar,
+    private ngxLoader: NgxUiLoaderService) {
     this.shared = SharedService.getInstance();
   }
 
@@ -72,6 +74,7 @@ export class ListarPerfilComponent implements OnInit {
   }
 
   pesquisar() {
+    this.ngxLoader.start();
     var param = '?page='+this.pageIndex + '&size=' + this.pageSize;
     console.log(param);
     this.service.pesquisar(this.perfil, param).subscribe((responseApi: ResponseApi) => {
@@ -82,6 +85,7 @@ export class ListarPerfilComponent implements OnInit {
       this.pageSize = responseApi['totalPages'];
       this.pageIndex = responseApi['number'];
       this.pageSize = responseApi['size'];
+      this.ngxLoader.stop();
     });
   }
 

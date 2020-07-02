@@ -13,7 +13,7 @@
     <div fxLayout="column">
       <div class="item">
         <mat-card class="example-card">
-          <mat-card-content>  
+          <mat-card-content>
             <mat-checkbox [(ngModel)]="usuarioAssociacao.usuario.zona" (change)="onChangeUsuario(usuarioAssociacao.usuario)">Zona</mat-checkbox>
             <table mat-table [dataSource]="usuarioAssociacao.usuarioZonas" class="mat-elevation-z8">
 
@@ -37,14 +37,14 @@
         </mat-card>
 
       </div>
-      
+
     </div>
     <div fxLayout="column">
       <div class="item">
 
         <mat-card class="example-card">
           <mat-card-content>
-            <mat-checkbox [(ngModel)]="usuarioAssociacao.usuario.nucleo" (change)="onChangeUsuario(usuarioAssociacao.usuario)">Nucleo</mat-checkbox>            
+            <mat-checkbox [(ngModel)]="usuarioAssociacao.usuario.nucleo" (change)="onChangeUsuario(usuarioAssociacao.usuario)">Nucleo</mat-checkbox>
             <table mat-table [dataSource]="usuarioAssociacao.usuarioNucleos" class="mat-elevation-z8">
 
               <ng-container matColumnDef="nome">
@@ -108,3 +108,4 @@
   </div>
   <button mat-button (click)="onNoClick()"><mat-icon>close</mat-icon>Fechar</button>
 </div>
+<ngx-ui-loader></ngx-ui-loader>

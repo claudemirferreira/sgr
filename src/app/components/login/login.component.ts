@@ -1,3 +1,4 @@
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { CurrentUsuario } from './../../model/current-usuario';
 import { SharedService } from './../../services/shared.service';
@@ -40,25 +41,27 @@ export class LoginComponent implements OnInit {
   erro: Erro;
 
   constructor(private userService: UsuarioService,
-              private router: Router) { 
+              private router: Router,
+              private ngxLoader: NgxUiLoaderService) {
     this.shared = SharedService.getInstance();
     this.shared.token = null;
     this.shared.user = null;
-    this.shared.showTemplate.emit(false);       
-  }  
+    this.shared.showTemplate.emit(false);
+  }
 
   ngOnInit() {
     this.createForm();
   }
-  
-  createForm() {    
+
+  createForm() {
     this.loginForm = new FormGroup({
       login: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required])
     });
-  }  
+  }
 
   login(): void {
+    this.ngxLoader.start();
     this.spinnerButtonOptions.active = true;
     setTimeout(() => {
       this.message = null;
@@ -67,8 +70,10 @@ export class LoginComponent implements OnInit {
         console.log('this.shared.token='+this.shared.token);
         this.shared.user = userAuthentication.user;
         this.shared.showTemplate.emit(true);
+        this.ngxLoader.stop();
         this.router.navigate(['/perfil']);
     } , err => {
+      this.ngxLoader.stop();
       console.log('erro de autenticação='+ JSON.stringify(err.status));
       this.erro =  err.status;
       console.log(this.erro.status);

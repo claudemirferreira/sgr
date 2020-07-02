@@ -66,6 +66,7 @@ import { AssociacaoUsuarioComponent } from './components/list-usuario/associacao
 import { AssociacaoPerfilComponent } from './components/list-usuario/associacao-perfil/associacao-perfil.component';
 import { LogComponent } from './components/log/log.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
 
 const appRoutes: Routes = [
   { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard] },
@@ -165,6 +166,7 @@ const appRoutes: Routes = [
     MatSnackBarModule,
     MatNativeDateModule,
     MatSortModule,
+    NgxUiLoaderModule,
 
   ],
   providers: [UsuarioService,

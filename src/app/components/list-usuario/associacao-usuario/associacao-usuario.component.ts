@@ -1,3 +1,4 @@
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { UsuarioAssociacao } from 'src/app/model/usuario-associacao';
@@ -27,22 +28,25 @@ export class AssociacaoUsuarioComponent implements OnInit {
   message: {};
   classCss: {};
   class = 'sucess';
-  
+
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<AssociacaoUsuarioComponent>,
     public service: UsuarioAssociacaoService,
-    public usuarioService: UsuarioService) {
+    public usuarioService: UsuarioService,
+    private ngxLoader: NgxUiLoaderService) {
     this.idMembro = data.idMembro;
   }
 
   lista() {
+    this.ngxLoader.start();
     this.service.listarAssociacaoUsuario(this.idMembro)
       .subscribe((responseApi: ResponseApi) => {
         this.usuarioAssociacao = responseApi['data'];
         this.areas = new MatTableDataSource(this.usuarioAssociacao.usuarioAreas);
-        console.log(JSON.stringify(this.usuarioAssociacao));
+        this.ngxLoader.stop();
 
       }, err => {
+        this.ngxLoader.stop();
         console.log('ocorreu um erro');
       });
   }

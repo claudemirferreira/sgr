@@ -1,3 +1,4 @@
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FiltroDto } from "src/app/model/filtro-dto";
 import { ZonaDto } from "src/app/model/zona-dto";
@@ -15,20 +16,6 @@ import { MatProgressButtonOptions } from "mat-progress-buttons";
   styleUrls: ["./provento-pastoral.component.css"],
 })
 export class ProventoPastoralComponent implements OnInit {
-  spinnerButtonOptions: MatProgressButtonOptions = {
-    active: false,
-    text: "Imprimir",
-    spinnerSize: 18,
-    raised: true,
-    stroked: false,
-    spinnerColor: "warn",
-    fullWidth: false,
-    disabled: false,
-    mode: "indeterminate",
-    buttonIcon: {
-      fontIcon: "print",
-    },
-  };
 
   @ViewChild("pdfViewer")
   public pdfViewer;
@@ -49,7 +36,8 @@ export class ProventoPastoralComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private relatorioService: RelatorioService
+    private relatorioService: RelatorioService,
+    private ngxLoader: NgxUiLoaderService
   ) {
     this.shared = SharedService.getInstance();
     this.ngOnInit();
@@ -60,13 +48,16 @@ export class ProventoPastoralComponent implements OnInit {
   }
 
   gerarRelatorio(): void {
+    this.ngxLoader.start();
     this.filtroDto.nomeRelatorio = "RelatorioDemonstrativoProventos.jasper";
     this.relatorioService.geraPdf(this.filtroDto).subscribe(
       (res) => {
         this.pdfViewer.pdfSrc = res; // pdfSrc can be Blob or Uint8Array
         this.pdfViewer.refresh(); // Ask pdf viewer to load/refresh pdf
+        this.ngxLoader.stop();
       },
       (err) => {
+        this.ngxLoader.stop();
         this.showMessage({
           type: "error",
           text: err["error"]["errors"][0],
@@ -76,12 +67,15 @@ export class ProventoPastoralComponent implements OnInit {
   }
 
   changeArea() {
+    this.ngxLoader.start();
     this.relatorioService.carregarArea(this.filtroDto.nucleo.id).subscribe(
       (responseApi: ResponseApi) => {
         this.filtroDto.areas = responseApi["data"];
         this.filtroDto.area.id = null;
+        this.ngxLoader.stop();
       },
       (err) => {
+        this.ngxLoader.stop();
         this.showMessage({
           type: "error",
           text: err["error"]["errors"][0],
@@ -98,6 +92,7 @@ export class ProventoPastoralComponent implements OnInit {
   }
 
   carregarNucleo() {
+    this.ngxLoader.start();
     this.relatorioService
       .carregarNucleo(this.filtroDto.zona.id.toString())
       .subscribe(
@@ -106,8 +101,10 @@ export class ProventoPastoralComponent implements OnInit {
           this.filtroDto.nucleo.id = null;
           this.filtroDto.area.id = null;
           this.filtroDto.areas = [];
+          this.ngxLoader.stop();
         },
         (err) => {
+          this.ngxLoader.stop();
           this.showMessage({
             type: "error",
             text: err["error"]["errors"][0],
@@ -117,13 +114,16 @@ export class ProventoPastoralComponent implements OnInit {
   }
 
   carregarDados() {
+    this.ngxLoader.start();
     this.relatorioService.carregarDados().subscribe(
       (responseApi: ResponseApi) => {
         this.filtroDto = responseApi["data"];
         this.filtroDto.zona = new ZonaDto();
         this.filtroDto.zona.id = -1;
+        this.ngxLoader.stop();
       },
       (err) => {
+        this.ngxLoader.stop();
         this.showMessage({
           type: "error",
           text: err["error"]["errors"][0],

@@ -17,6 +17,7 @@ import { AssociacaoPerfilComponent } from './associacao-perfil/associacao-perfil
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { PageEvent } from '@angular/material/paginator';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 
 export interface IUsuario {
@@ -67,7 +68,8 @@ export class ListUsuarioComponent implements OnInit {
     private usuarioAssociacaoService: UsuarioAssociacaoService,
     private perfilService: PerfilService,
     private router: Router,
-    private dialog: MatDialog ){
+    private dialog: MatDialog,
+    private ngxLoader: NgxUiLoaderService ){
       this.shared = SharedService.getInstance();
       this.usuario.nome = '';
       this.usuario.login = '';
@@ -102,6 +104,7 @@ export class ListUsuarioComponent implements OnInit {
   pesquisar() {
     var param = '?page='+this.pageIndex + '&size=' + this.size;
     console.log(param);
+    this.ngxLoader.start();
     this.service.pesquisar(this.usuario, param).subscribe((responseApi: ResponseApi) => {
       this.dataSource = new MatTableDataSource(responseApi['content']);
       this.dataSource.sort = this.sort;
@@ -110,6 +113,7 @@ export class ListUsuarioComponent implements OnInit {
       this.pageSize = responseApi['totalPages'];
       this.pageIndex = responseApi['number'];
       this.size = responseApi['size'];
+      this.ngxLoader.stop();
     });
   }
 

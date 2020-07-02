@@ -1,3 +1,4 @@
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ZonaDto } from 'src/app/model/zona-dto';
 import { ResponseApi } from 'src/app/model/response-api';
@@ -17,14 +18,14 @@ import { Router } from '@angular/router';
 })
 export class RelatorioMembroComponent implements OnInit {
 
-  displayedColumns: string[] = ['idMembro', 
-                                'membro', 
-                                'dataNascimento', 
-                                'congregacao', 
-                                'area', 
-                                'nucleo', 
-                                'zona', 
-                                'situacao', 
+  displayedColumns: string[] = ['idMembro',
+                                'membro',
+                                'dataNascimento',
+                                'congregacao',
+                                'area',
+                                'nucleo',
+                                'zona',
+                                'situacao',
                                 'acao'];
 
   @ViewChild('pdfViewer')
@@ -47,7 +48,8 @@ export class RelatorioMembroComponent implements OnInit {
   constructor(private http: HttpClient,
     private router: Router,
     private relatorioService: RelatorioService,
-    private membroService: MembroService) {
+    private membroService: MembroService,
+    private ngxLoader: NgxUiLoaderService) {
     this.shared = SharedService.getInstance();
     this.carregarDados();
   }
@@ -57,14 +59,17 @@ export class RelatorioMembroComponent implements OnInit {
   }
 
   find() {
+    this.ngxLoader.start();
     this.message = null;
     this.membroService.find(this.filtroDto).subscribe((responseApi: ResponseApi) => {
       this.membros = responseApi['data'];
       if (this.membros.length == 0) {
         this.message = 'Nenhum registro encontrado';
       }
+      this.ngxLoader.stop();
       console.log("this.membros ============= " + this.membros.length);
     }, err => {
+      this.ngxLoader.stop();
       this.showMessage({
         type: 'error',
         text: err['error']['errors'][0]
@@ -73,11 +78,14 @@ export class RelatorioMembroComponent implements OnInit {
   }
 
   gerarRelatorio() {
+    this.ngxLoader.start();
     this.filtroDto.nomeRelatorio = 'RelatorioDebitoPastoral.jasper';
     this.relatorioService.geraPdf(this.filtroDto).subscribe((res) => {
       this.pdfViewer.pdfSrc = res; // pdfSrc can be Blob or Uint8Array
       this.pdfViewer.refresh(); // Ask pdf viewer to load/refresh pdf
+      this.ngxLoader.stop();
     }, err => {
+      this.ngxLoader.stop();
       this.showMessage({
         type: 'error',
         text: err['error']['errors'][0]
@@ -86,10 +94,13 @@ export class RelatorioMembroComponent implements OnInit {
   }
 
   changeArea() {
+    this.ngxLoader.start();
     this.relatorioService.carregarArea(this.filtroDto.nucleo.id).subscribe((responseApi: ResponseApi) => {
       this.filtroDto.areas = responseApi['data'];
       console.log("Areas = " + this.filtroDto.areas);
+      this.ngxLoader.stop();
     }, err => {
+      this.ngxLoader.stop();
       this.showMessage({
         type: 'error',
         text: err['error']['errors'][0]
@@ -113,10 +124,13 @@ export class RelatorioMembroComponent implements OnInit {
   }
 
   carregarNucleo() {
+    this.ngxLoader.start();
     this.relatorioService.carregarNucleo(this.filtroDto.zona.id.toString()).subscribe((responseApi: ResponseApi) => {
       this.filtroDto.nucleos = responseApi['data'];
       this.filtroDto.areas = [];
+      this.ngxLoader.stop();
     }, err => {
+      this.ngxLoader.stop();
       this.showMessage({
         type: 'error',
         text: err['error']['errors'][0]
@@ -125,11 +139,14 @@ export class RelatorioMembroComponent implements OnInit {
   }
 
   carregarDados() {
+    this.ngxLoader.start();
     this.relatorioService.carregarDados().subscribe((responseApi: ResponseApi) => {
       this.filtroDto = responseApi['data'];
       this.filtroDto.zona = new ZonaDto();
       this.filtroDto.zona.id = 0;
+      this.ngxLoader.stop();
     }, err => {
+      this.ngxLoader.stop();
       this.showMessage({
         type: 'error',
         text: err['error']['errors'][0]
