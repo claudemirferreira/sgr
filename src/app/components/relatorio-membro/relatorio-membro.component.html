@@ -2,7 +2,7 @@
 <mat-card style="background-color: #eaeaea">
     <mat-card-content>
         <mat-form-field class="example-full-width">
-            <mat-select placeholder="Zona" [(ngModel)]="filtroDto.zona" (selectionChange)="carregarNucleo()">
+            <mat-select placeholder="Região" [(ngModel)]="filtroDto.zona" (selectionChange)="carregarNucleo()">
                 <mat-option *ngFor="let zona of filtroDto.zonas" [value]="zona">
                     {{zona.id}} - {{zona.nome}}
                 </mat-option>
