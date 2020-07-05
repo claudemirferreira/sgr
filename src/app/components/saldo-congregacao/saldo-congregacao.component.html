@@ -37,6 +37,14 @@
     </mat-form-field>
 
     <mat-form-field>
+        <mat-select placeholder="Mês inicial" [(ngModel)]="filtroDto.mesInicio.id">
+            <mat-option *ngFor="let mes of filtroDto.meses" [value]="mes.id">
+                {{mes.nome}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
       <mat-select placeholder="Ano" [(ngModel)]="filtroDto.ano">
         <mat-option *ngFor="let ano of filtroDto.anos" [value]="ano">
           {{ ano }}

@@ -10,16 +10,16 @@ import { SharedService } from '../../services/shared.service';
 export class AuthGuard implements CanActivate {
 
   public shared: SharedService;
-  
+
   constructor(private userService: UsuarioService,
-              private router: Router) { 
+              private router: Router) {
                 this.shared = SharedService.getInstance();
   }
-  
+
   canActivate(
-      route: ActivatedRouteSnapshot, 
+      route: ActivatedRouteSnapshot,
       state: RouterStateSnapshot): Observable<boolean> | boolean {
-    if(this.shared.isLoggedIn()){
+    if(this.shared.token !="" && this.shared.isLoggedIn()){
         return true;
     }
     this.router.navigate(['/login']);
