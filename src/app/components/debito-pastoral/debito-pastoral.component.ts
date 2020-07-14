@@ -9,6 +9,7 @@ import { SharedService } from "./../../services/shared.service";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { MatProgressButtonOptions } from "mat-progress-buttons";
+import { AreaDto } from 'src/app/model/area-dto';
 
 @Component({
   selector: "app-debito-pastoral",
@@ -39,7 +40,6 @@ export class DebitoPastoralComponent implements OnInit {
     private ngxLoader: NgxUiLoaderService
   ) {
     this.shared = SharedService.getInstance();
-    this.ngOnInit();
   }
 
   getPerfil() {
@@ -86,8 +86,6 @@ export class DebitoPastoralComponent implements OnInit {
 
   ngOnInit() {
     this.filtroDto = new FiltroDto();
-    this.filtroDto.zona = new ZonaDto();
-    this.filtroDto.zona.id = -1;
 
     this.carregarDados();
   }
@@ -119,8 +117,6 @@ export class DebitoPastoralComponent implements OnInit {
     this.relatorioService.carregarDados().subscribe(
       (responseApi: ResponseApi) => {
         this.filtroDto = responseApi["data"];
-        this.filtroDto.zona = new ZonaDto();
-        this.filtroDto.zona.id = -1;
         this.ngxLoader.stop();
       },
       (err) => {

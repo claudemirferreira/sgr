@@ -51,7 +51,6 @@ export class RelatorioMembroComponent implements OnInit {
     private membroService: MembroService,
     private ngxLoader: NgxUiLoaderService) {
     this.shared = SharedService.getInstance();
-    this.carregarDados();
   }
 
   getPerfil() {
@@ -118,9 +117,8 @@ export class RelatorioMembroComponent implements OnInit {
 
   ngOnInit() {
     this.filtroDto = new FiltroDto();
-    this.filtroDto.zona = new ZonaDto();
-    this.filtroDto.zona.id = 0;
     this.filtroDto.nomeRelatorio = 'RelatorioDebitoFinanceiro.jasper';
+    this.carregarDados();
   }
 
   carregarNucleo() {
@@ -142,8 +140,6 @@ export class RelatorioMembroComponent implements OnInit {
     this.ngxLoader.start();
     this.relatorioService.carregarDados().subscribe((responseApi: ResponseApi) => {
       this.filtroDto = responseApi['data'];
-      this.filtroDto.zona = new ZonaDto();
-      this.filtroDto.zona.id = 0;
       this.ngxLoader.stop();
     }, err => {
       this.ngxLoader.stop();

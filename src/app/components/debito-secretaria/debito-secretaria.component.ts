@@ -45,7 +45,6 @@ export class DebitoSecretariaComponent implements OnInit {
     private ngxLoader: NgxUiLoaderService
   ) {
     this.shared = SharedService.getInstance();
-    this.carregarDados();
   }
 
   getPerfil() {
@@ -92,9 +91,8 @@ export class DebitoSecretariaComponent implements OnInit {
 
   ngOnInit() {
     this.filtroDto = new FiltroDto();
-    this.filtroDto.zona = new ZonaDto();
-    this.filtroDto.zona.id = -1;
     this.filtroDto.nomeRelatorio = "RelatorioDebitoSecretaria.jasper";
+    this.carregarDados();
   }
 
   carregarNucleo() {
@@ -124,8 +122,6 @@ export class DebitoSecretariaComponent implements OnInit {
     this.relatorioService.carregarDados().subscribe(
       (responseApi: ResponseApi) => {
         this.filtroDto = responseApi["data"];
-        this.filtroDto.zona = new ZonaDto();
-        this.filtroDto.zona.id = -1;
         this.ngxLoader.stop();
       },
       (err) => {

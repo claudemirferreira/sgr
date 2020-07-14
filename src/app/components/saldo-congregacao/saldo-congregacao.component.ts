@@ -35,7 +35,6 @@ export class SaldoCongregacaoComponent implements OnInit {
     private ngxLoader: NgxUiLoaderService
   ) {
     this.shared = SharedService.getInstance();
-    this.carregarDados();
   }
 
   getPerfil() {
@@ -81,8 +80,7 @@ export class SaldoCongregacaoComponent implements OnInit {
 
   ngOnInit() {
     this.filtroDto = new FiltroDto();
-    this.filtroDto.zona = new ZonaDto();
-    this.filtroDto.zona.id = -1;
+    this.carregarDados();
   }
 
   carregarNucleo() {
@@ -112,8 +110,6 @@ export class SaldoCongregacaoComponent implements OnInit {
     this.relatorioService.carregarDados().subscribe(
       (responseApi: ResponseApi) => {
         this.filtroDto = responseApi["data"];
-        this.filtroDto.zona = new ZonaDto();
-        this.filtroDto.zona.id = -1;
         this.ngxLoader.stop();
       },
       (err) => {
