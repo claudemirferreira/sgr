@@ -4,23 +4,23 @@ import { ZonaDto } from './zona-dto';
 import { Mes } from './mes';
 
 export class FiltroDto {
-    
+
     membro: string;
     ano: number;
     anoInicio: number;
     anoFim: number;
-    zona : ZonaDto;
-    nucleo : NucleoDto;
-    area : AreaDto;
+    zona : ZonaDto = new ZonaDto();
+    nucleo : NucleoDto = new NucleoDto();
+    area : AreaDto = new AreaDto();
     nomeRelatorio: string;
     idMembro: number;
 
     mesInicio: Mes;
     mesFim: Mes;
-    
-    zonas:[];
-    nucleos:[];
-    areas:[];
+
+    zonas: ZonaDto[];
+    nucleos: NucleoDto[];
+    areas: AreaDto[];
     anos: [];
     meses: Mes[];
 }

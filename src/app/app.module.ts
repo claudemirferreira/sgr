@@ -62,6 +62,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+
 import { AssociacaoUsuarioComponent } from './components/list-usuario/associacao-usuario/associacao-usuario.component';
 import { AssociacaoPerfilComponent } from './components/list-usuario/associacao-perfil/associacao-perfil.component';
 import { LogComponent } from './components/log/log.component';
@@ -167,6 +169,7 @@ const appRoutes: Routes = [
     MatNativeDateModule,
     MatSortModule,
     NgxUiLoaderModule,
+    AutocompleteLibModule,
 
   ],
   providers: [UsuarioService,
