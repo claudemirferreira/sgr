@@ -18,9 +18,9 @@ export class FiltroDto {
     mesInicio: Mes;
     mesFim: Mes;
 
-    zonas: ZonaDto[];
-    nucleos: NucleoDto[];
-    areas: AreaDto[];
+    zonas: ZonaDto[]=[];
+    nucleos: NucleoDto[]=[];
+    areas: AreaDto[]=[];
     anos: [];
     meses: Mes[];
 }

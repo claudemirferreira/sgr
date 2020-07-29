@@ -1,3 +1,4 @@
+import { ZonaDto } from './zona-dto';
 
 export class ParamRelatorioDto {
 
