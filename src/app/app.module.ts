@@ -1,3 +1,4 @@
+import { ModelNamedFilterPipe } from './shared/model-named.filter';
 import { CadastrarRotinaComponent } from './components/list-rotina/cadastrar-rotina/cadastrar-rotina.component';
 import { AlterarSenhaComponent } from './components/list-usuario/alterar-senha/alterar-senha.component';
 import { CadastrarPerfilComponent } from './components/listar-perfil/cadastrar-perfil/cadastrar-perfil.component';
@@ -127,7 +128,7 @@ const appRoutes: Routes = [
     AlterarSenhaComponent,
     CadastrarRotinaComponent,
     LogComponent,
-
+    ModelNamedFilterPipe,
   ],
   imports: [
     RouterModule.forRoot(

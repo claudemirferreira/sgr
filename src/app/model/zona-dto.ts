@@ -1,7 +1,7 @@
-export class ZonaDto {
+import { NamedModel } from './named-model';
+export class ZonaDto extends NamedModel {
 
     id: number;
-    nome: string;
     usuarioZona: boolean;
     
 }

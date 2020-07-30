@@ -1,15 +1,15 @@
-import { NgxUiLoaderService } from "ngx-ui-loader";
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { ResponseApi } from "src/app/model/response-api";
-import { FiltroDto } from "src/app/model/filtro-dto";
-import { HttpClient } from "@angular/common/http";
-import { RelatorioService } from "src/app/services/relatorio.service";
-import { ParamRelatorioDto } from "src/app/model/param-relatorio-dto";
-import { SharedService } from "src/app/services/shared.service";
-import { Router } from "@angular/router";
-import { ZonaDto } from 'src/app/model/zona-dto';
-import { NucleoDto } from 'src/app/model/nucleo-dto';
 import { AreaDto } from 'src/app/model/area-dto';
+import { NucleoDto } from './../../model/nucleo-dto';
+import { HttpClient } from "@angular/common/http";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { Router } from "@angular/router";
+import { NgxUiLoaderService } from "ngx-ui-loader";
+import { FiltroDto } from "src/app/model/filtro-dto";
+import { ParamRelatorioDto } from "src/app/model/param-relatorio-dto";
+import { ResponseApi } from "src/app/model/response-api";
+import { ZonaDto } from 'src/app/model/zona-dto';
+import { RelatorioService } from "src/app/services/relatorio.service";
+import { SharedService } from "src/app/services/shared.service";
 
 @Component({
   selector: "app-debito-financeiro",
@@ -27,13 +27,17 @@ export class DebitoFinanceiroComponent implements OnInit {
   shared: SharedService;
   dto: ParamRelatorioDto;
   filtroDto: FiltroDto;
-  ano: number;
+  ano: number;  
 
   zonas: [];
   anos: number[];
   classCss: {};
 
   keyword = 'nome';
+
+  filterRegiao: ZonaDto = new ZonaDto();
+  filterNucleo: NucleoDto = new NucleoDto();
+  filterArea: AreaDto = new AreaDto();
 
   constructor(
     private http: HttpClient,
@@ -58,6 +62,7 @@ export class DebitoFinanceiroComponent implements OnInit {
         this.pdfViewer.pdfSrc = res; // pdfSrc can be Blob or Uint8Array
         this.pdfViewer.refresh(); // Ask pdf viewer to load/refresh pdf
         this.ngxLoader.stop();
+        this.clearFilters();
       },
       (err) => {
         this.ngxLoader.stop();
@@ -77,6 +82,7 @@ export class DebitoFinanceiroComponent implements OnInit {
         this.filtroDto.area.id = null;
         console.log("Areas = " + this.filtroDto.areas);
         this.ngxLoader.stop();
+        this.clearFilters();
       },
       (err) => {
         this.ngxLoader.stop();
@@ -104,6 +110,7 @@ export class DebitoFinanceiroComponent implements OnInit {
           this.filtroDto.area.id = null;
           this.filtroDto.areas = [];
           this.ngxLoader.stop();
+          this.clearFilters();
         },
         (err) => {
           this.ngxLoader.stop();
@@ -163,5 +170,14 @@ export class DebitoFinanceiroComponent implements OnInit {
     console.log('onChangeSearch');
   }
 
+  onSearchChange($event) {
+    $event.stopPropagation();
+  }  
+
+  clearFilters() {
+    this.filterRegiao = new ZonaDto();
+    this.filterNucleo = new NucleoDto();
+    this.filterArea = new AreaDto();
+  }
 
 }
