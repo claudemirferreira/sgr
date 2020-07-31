@@ -2,29 +2,71 @@
 <h2 class="titulo">Relatório Débito Pastoral</h2>
 <mat-card style="background-color: #eaeaea">
     <mat-card-content>
-        <mat-form-field>
-            <mat-select placeholder="Região" [(ngModel)]="filtroDto.zona.id" (selectionChange)="carregarNucleo()">
-                <mat-option *ngFor="let zona of filtroDto.zonas" [value]="zona.id">
-                    {{zona.nome}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+      <mat-form-field>
+        <mat-select
+          placeholder="Região"
+          [(ngModel)]="filtroDto.zona.id"
+          (selectionChange)="carregarNucleo()"
+        >
 
-        <mat-form-field>
-            <mat-select placeholder="Nucleo" [(ngModel)]="filtroDto.nucleo.id" (selectionChange)="changeArea()">
-                <mat-option *ngFor="let nucleo of filtroDto.nucleos" [value]="nucleo.id">
-                    {{nucleo.nome}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+        <div class="search-select-header">
+          <input
+            [(ngModel)]="filterRegiao.nome"
+            type="search"
+            name="filterRegiao"
+            placeholder="Search"
+            (keydown)="onSearchChange($event)"
+            class="search-header-searchbox">
+        </div>
 
-        <mat-form-field>
-            <mat-select placeholder="Area" [(ngModel)]="filtroDto.area.id">
-                <mat-option *ngFor="let area of filtroDto.areas" [value]="area.id">
-                    {{area.nome}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+          <mat-option *ngFor="let zona of filtroDto.zonas | namefilter:filterRegiao" [value]="zona.id">
+            {{ zona.id }} - {{ zona.nome }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select
+          placeholder="Nucleo"
+          [(ngModel)]="filtroDto.nucleo.id"
+          (selectionChange)="changeArea()"
+        >
+        <div class="search-select-header">
+          <input
+            [(ngModel)]="filterNucleo.nome"
+            type="search"
+            name="filterRegiao"
+            placeholder="Search"
+            (keydown)="onSearchChange($event)"
+            class="search-header-searchbox">
+        </div>
+          <mat-option
+            *ngFor="let nucleo of filtroDto.nucleos | namefilter:filterNucleo" [value]="nucleo.id"
+          >
+            {{ nucleo.nome }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select placeholder="Area" [(ngModel)]="filtroDto.area.id">
+
+
+          <div class="search-select-header">
+            <input
+              [(ngModel)]="filterArea.nome"
+              type="search"
+              name="filterArea"
+              placeholder="Search"
+              (keydown)="onSearchChange($event)"
+              class="search-header-searchbox">
+          </div>
+
+          <mat-option *ngFor="let area of filtroDto.areas | namefilter:filterArea" [value]="area.id">
+            {{ area.nome }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
         <mat-form-field>
             <mat-select placeholder="Ano" [(ngModel)]="filtroDto.ano">

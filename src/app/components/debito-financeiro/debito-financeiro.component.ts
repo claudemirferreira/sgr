@@ -20,34 +20,26 @@ export class DebitoFinanceiroComponent implements OnInit {
   @ViewChild("pdfViewer")
   public pdfViewer;
 
-  @ViewChild('mydiv', { static: false })
-  public mydiv: ZonaDto;
-
   message: {};
   shared: SharedService;
   dto: ParamRelatorioDto;
   filtroDto: FiltroDto;
-  ano: number;  
+  ano: number;
 
   zonas: [];
   anos: number[];
   classCss: {};
-
-  keyword = 'nome';
 
   filterRegiao: ZonaDto = new ZonaDto();
   filterNucleo: NucleoDto = new NucleoDto();
   filterArea: AreaDto = new AreaDto();
 
   constructor(
-    private http: HttpClient,
     private router: Router,
     private relatorioService: RelatorioService,
     private ngxLoader: NgxUiLoaderService
   ) {
     this.shared = SharedService.getInstance();
-    this.mydiv = new ZonaDto();
-
   }
 
   getPerfil() {
@@ -172,7 +164,7 @@ export class DebitoFinanceiroComponent implements OnInit {
 
   onSearchChange($event) {
     $event.stopPropagation();
-  }  
+  }
 
   clearFilters() {
     this.filterRegiao = new ZonaDto();

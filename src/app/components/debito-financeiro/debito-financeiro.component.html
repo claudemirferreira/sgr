@@ -10,14 +10,14 @@
 
       <div class="search-select-header">
         <input
-          [(ngModel)]="filterRegiao.nome"  
-          type="search" 
-          name="filterRegiao" 
+          [(ngModel)]="filterRegiao.nome"
+          type="search"
+          name="filterRegiao"
           placeholder="Search"
           (keydown)="onSearchChange($event)"
           class="search-header-searchbox">
       </div>
-        
+
         <mat-option *ngFor="let zona of filtroDto.zonas | namefilter:filterRegiao" [value]="zona.id">
           {{ zona.id }} - {{ zona.nome }}
         </mat-option>
@@ -32,9 +32,9 @@
       >
       <div class="search-select-header">
         <input
-          [(ngModel)]="filterNucleo.nome"  
-          type="search" 
-          name="filterRegiao" 
+          [(ngModel)]="filterNucleo.nome"
+          type="search"
+          name="filterRegiao"
           placeholder="Search"
           (keydown)="onSearchChange($event)"
           class="search-header-searchbox">
@@ -53,9 +53,9 @@
 
         <div class="search-select-header">
           <input
-            [(ngModel)]="filterArea.nome"  
-            type="search" 
-            name="filterArea" 
+            [(ngModel)]="filterArea.nome"
+            type="search"
+            name="filterArea"
             placeholder="Search"
             (keydown)="onSearchChange($event)"
             class="search-header-searchbox">
@@ -91,29 +91,6 @@
   </mat-card-actions>
 </mat-card>
 <ngx-ui-loader></ngx-ui-loader>
-
-<div class="ng-autocomplete">
-  <ng-autocomplete #mydiv
-    [data]="filtroDto.zonas"
-    [searchKeyword]="keyword"
-    placeHolder="Enter the Country Name"
-    (selected)="selectEvent($event)"
-    (inputChanged)="onChangeSearch($event)"
-    (inputFocused)="onFocused($event)"
-    historyIdentifier="filtroDto.zonas"
-    [itemTemplate]="itemTemplate"
-    [notFoundTemplate]="notFoundTemplate"
-  >
-  </ng-autocomplete>
-
-  <ng-template #itemTemplate let-item>
-    <a [innerHTML]="item.nome" ></a>
-  </ng-template>
-
-  <ng-template #notFoundTemplate let-notFound>
-    <div [innerHTML]="notFound"></div>
-  </ng-template>
-</div>
 
 <div style="height: 600px;">
   <ng2-pdfjs-viewer #pdfViewer></ng2-pdfjs-viewer>

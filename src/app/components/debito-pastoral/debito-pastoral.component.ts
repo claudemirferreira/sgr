@@ -10,6 +10,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { MatProgressButtonOptions } from "mat-progress-buttons";
 import { AreaDto } from 'src/app/model/area-dto';
+import { NucleoDto } from 'src/app/model/nucleo-dto';
 
 @Component({
   selector: "app-debito-pastoral",
@@ -29,12 +30,15 @@ export class DebitoPastoralComponent implements OnInit {
   anoFim: number;
   ano: number;
 
+  filterRegiao: ZonaDto = new ZonaDto();
+  filterNucleo: NucleoDto = new NucleoDto();
+  filterArea: AreaDto = new AreaDto();
+
   zonas: [];
   anos: number[];
   classCss: {};
 
   constructor(
-    private http: HttpClient,
     private router: Router,
     private relatorioService: RelatorioService,
     private ngxLoader: NgxUiLoaderService
@@ -73,6 +77,7 @@ export class DebitoPastoralComponent implements OnInit {
         this.filtroDto.area.id = null;
         console.log("Areas = " + this.filtroDto.areas);
         this.ngxLoader.stop();
+        this.clearFilters();
       },
       (err) => {
         this.ngxLoader.stop();
@@ -101,6 +106,7 @@ export class DebitoPastoralComponent implements OnInit {
           this.filtroDto.area.id = null;
           this.filtroDto.areas = [];
           this.ngxLoader.stop();
+          this.clearFilters();
         },
         (err) => {
           this.ngxLoader.stop();
@@ -118,6 +124,7 @@ export class DebitoPastoralComponent implements OnInit {
       (responseApi: ResponseApi) => {
         this.filtroDto = responseApi["data"];
         this.ngxLoader.stop();
+        this.clearFilters();
       },
       (err) => {
         this.ngxLoader.stop();
@@ -143,4 +150,31 @@ export class DebitoPastoralComponent implements OnInit {
     };
     this.classCss["alert-" + type] = true;
   }
+
+  selectEvent(item) {
+    // do something with selected item
+    console.log('selectEvent');
+  }
+
+  onChangeSearch(search: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+    console.log('onChangeSearch');
+  }
+
+  onFocused(e) {
+    // do something
+    console.log('onChangeSearch');
+  }
+
+  onSearchChange($event) {
+    $event.stopPropagation();
+  }
+
+  clearFilters() {
+    this.filterRegiao = new ZonaDto();
+    this.filterNucleo = new NucleoDto();
+    this.filterArea = new AreaDto();
+  }
+
 }

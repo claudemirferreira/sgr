@@ -9,6 +9,8 @@ import { SharedService } from "src/app/services/shared.service";
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { MatProgressButtonOptions } from "mat-progress-buttons";
+import { NucleoDto } from 'src/app/model/nucleo-dto';
+import { AreaDto } from 'src/app/model/area-dto';
 
 @Component({
   selector: "app-provento-pastoral",
@@ -27,6 +29,10 @@ export class ProventoPastoralComponent implements OnInit {
   anoInicio: number;
   anoFim: number;
   ano: number;
+
+  filterRegiao: ZonaDto = new ZonaDto();
+  filterNucleo: NucleoDto = new NucleoDto();
+  filterArea: AreaDto = new AreaDto();
 
   zonas: [];
   anos: number[];
@@ -72,6 +78,7 @@ export class ProventoPastoralComponent implements OnInit {
         this.filtroDto.areas = responseApi["data"];
         this.filtroDto.area.id = null;
         this.ngxLoader.stop();
+        this.clearFilters();
       },
       (err) => {
         this.ngxLoader.stop();
@@ -99,6 +106,7 @@ export class ProventoPastoralComponent implements OnInit {
           this.filtroDto.area.id = null;
           this.filtroDto.areas = [];
           this.ngxLoader.stop();
+          this.clearFilters();
         },
         (err) => {
           this.ngxLoader.stop();
@@ -116,6 +124,7 @@ export class ProventoPastoralComponent implements OnInit {
       (responseApi: ResponseApi) => {
         this.filtroDto = responseApi["data"];
         this.ngxLoader.stop();
+        this.clearFilters();
       },
       (err) => {
         this.ngxLoader.stop();
@@ -140,5 +149,31 @@ export class ProventoPastoralComponent implements OnInit {
       alert: true,
     };
     this.classCss["alert-" + type] = true;
+  }
+
+  selectEvent(item) {
+    // do something with selected item
+    console.log('selectEvent');
+  }
+
+  onChangeSearch(search: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+    console.log('onChangeSearch');
+  }
+
+  onFocused(e) {
+    // do something
+    console.log('onChangeSearch');
+  }
+
+  onSearchChange($event) {
+    $event.stopPropagation();
+  }
+
+  clearFilters() {
+    this.filterRegiao = new ZonaDto();
+    this.filterNucleo = new NucleoDto();
+    this.filterArea = new AreaDto();
   }
 }
