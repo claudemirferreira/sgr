@@ -75,6 +75,9 @@ export class DebitoFinanceiroComponent implements OnInit {
         console.log("Areas = " + this.filtroDto.areas);
         this.ngxLoader.stop();
         this.clearFilters();
+        this.filtroDto.zona.id = 3;
+        this.filterRegiao.id = 3;
+        //this.filtroDto.zona = this.filtroDto.nucleo.zona;
       },
       (err) => {
         this.ngxLoader.stop();
