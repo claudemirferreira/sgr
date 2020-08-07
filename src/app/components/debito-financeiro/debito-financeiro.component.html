@@ -48,8 +48,7 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-select placeholder="Area" [(ngModel)]="filtroDto.area.id">
-
+      <mat-select placeholder="Area" [(ngModel)]="filtroDto.area.id" (selectionChange)="onChangeArea($event, filtroDto.area)">
 
         <div class="search-select-header">
           <input

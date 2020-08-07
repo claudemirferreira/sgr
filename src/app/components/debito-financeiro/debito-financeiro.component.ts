@@ -1,6 +1,5 @@
 import { AreaDto } from 'src/app/model/area-dto';
 import { NucleoDto } from './../../model/nucleo-dto';
-import { HttpClient } from "@angular/common/http";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { NgxUiLoaderService } from "ngx-ui-loader";
@@ -42,6 +41,11 @@ export class DebitoFinanceiroComponent implements OnInit {
     this.shared = SharedService.getInstance();
   }
 
+  ngOnInit() {
+    this.filtroDto = new FiltroDto();
+    this.carregarDados();
+  }
+
   getPerfil() {
     this.router.navigate(["/lista-rotina-perfil/" + this.shared.idPerfil]);
   }
@@ -68,18 +72,17 @@ export class DebitoFinanceiroComponent implements OnInit {
 
   changeArea() {
     this.ngxLoader.start();
+
     this.relatorioService.carregarArea(this.filtroDto.nucleo.id).subscribe(
       (responseApi: ResponseApi) => {
         this.filtroDto.areas = responseApi["data"];
-        this.filtroDto.area.id = null;
-        console.log("Areas = " + this.filtroDto.areas);
+        this.filtroDto.area.id = null;        
         this.ngxLoader.stop();
         this.clearFilters();
-        this.filtroDto.zona.id = 3;
-        this.filterRegiao.id = 3;
-        //this.filtroDto.zona = this.filtroDto.nucleo.zona;
-      },
-      (err) => {
+
+        const area: AreaDto = this.filtroDto.areas.filter(a => a.nucleo.id == this.filtroDto.nucleo.id)[0];
+        this.filtroDto.zona = area.nucleo.zona;
+      }, (err) => {
         this.ngxLoader.stop();
         this.showMessage({
           type: "error",
@@ -87,11 +90,7 @@ export class DebitoFinanceiroComponent implements OnInit {
         });
       }
     );
-  }
-
-  ngOnInit() {
-    this.filtroDto = new FiltroDto();
-    this.carregarDados();
+    
   }
 
   carregarNucleo() {
@@ -119,8 +118,7 @@ export class DebitoFinanceiroComponent implements OnInit {
 
   carregarDados() {
     this.ngxLoader.start();
-    this.relatorioService.carregarDados().subscribe(
-      (responseApi: ResponseApi) => {
+    this.relatorioService.carregarDados().subscribe( (responseApi: ResponseApi) => {
         this.filtroDto = responseApi["data"];
         this.ngxLoader.stop();
       },
@@ -167,6 +165,12 @@ export class DebitoFinanceiroComponent implements OnInit {
 
   onSearchChange($event) {
     $event.stopPropagation();
+  }
+  
+  onChangeArea($event, area: AreaDto) {
+    const fullArea:AreaDto = this.filtroDto.areas.filter(a => a.id == area.id)[0];
+    this.filtroDto.nucleo = fullArea.nucleo;
+    this.filtroDto.zona = fullArea.nucleo.zona;
   }
 
   clearFilters() {
