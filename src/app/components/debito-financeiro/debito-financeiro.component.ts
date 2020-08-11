@@ -55,8 +55,8 @@ export class DebitoFinanceiroComponent implements OnInit {
     this.filtroDto.nomeRelatorio = "RelatorioDebitoFinanceiro.jasper";
     this.relatorioService.geraPdf(this.filtroDto).subscribe(
       (res) => {
-        this.pdfViewer.pdfSrc = res; // pdfSrc can be Blob or Uint8Array
-        this.pdfViewer.refresh(); // Ask pdf viewer to load/refresh pdf
+        this.pdfViewer.pdfSrc = res;
+        this.pdfViewer.refresh();
         this.ngxLoader.stop();
         this.clearFilters();
       },
@@ -72,11 +72,10 @@ export class DebitoFinanceiroComponent implements OnInit {
 
   changeArea() {
     this.ngxLoader.start();
-
     this.relatorioService.carregarArea(this.filtroDto.nucleo.id).subscribe(
       (responseApi: ResponseApi) => {
         this.filtroDto.areas = responseApi["data"];
-        this.filtroDto.area.id = null;        
+        this.filtroDto.area.id = null;
         this.ngxLoader.stop();
         this.clearFilters();
 
@@ -90,7 +89,6 @@ export class DebitoFinanceiroComponent implements OnInit {
         });
       }
     );
-    
   }
 
   carregarNucleo() {
@@ -166,7 +164,7 @@ export class DebitoFinanceiroComponent implements OnInit {
   onSearchChange($event) {
     $event.stopPropagation();
   }
-  
+
   onChangeArea($event, area: AreaDto) {
     const fullArea:AreaDto = this.filtroDto.areas.filter(a => a.id == area.id)[0];
     this.filtroDto.nucleo = fullArea.nucleo;

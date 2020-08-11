@@ -56,6 +56,11 @@ export class DebitoSecretariaComponent implements OnInit {
     this.router.navigate(["/lista-rotina-perfil/" + this.shared.idPerfil]);
   }
 
+  ngOnInit() {
+    this.filtroDto = new FiltroDto();
+    this.carregarDados();
+  }
+
   gerarRelatorio(): void {
     this.ngxLoader.start();
     this.filtroDto.nomeRelatorio = "RelatorioDebitoSecretaria.jasper";
@@ -74,18 +79,18 @@ export class DebitoSecretariaComponent implements OnInit {
       }
     );
   }
-
   changeArea() {
     this.ngxLoader.start();
     this.relatorioService.carregarArea(this.filtroDto.nucleo.id).subscribe(
       (responseApi: ResponseApi) => {
         this.filtroDto.areas = responseApi["data"];
         this.filtroDto.area.id = null;
-        console.log("Areas = " + this.filtroDto.areas);
         this.ngxLoader.stop();
         this.clearFilters();
-      },
-      (err) => {
+
+        const area: AreaDto = this.filtroDto.areas.filter(a => a.nucleo.id == this.filtroDto.nucleo.id)[0];
+        this.filtroDto.zona = area.nucleo.zona;
+      }, (err) => {
         this.ngxLoader.stop();
         this.showMessage({
           type: "error",
@@ -93,12 +98,6 @@ export class DebitoSecretariaComponent implements OnInit {
         });
       }
     );
-  }
-
-  ngOnInit() {
-    this.filtroDto = new FiltroDto();
-    this.filtroDto.nomeRelatorio = "RelatorioDebitoSecretaria.jasper";
-    this.carregarDados();
   }
 
   carregarNucleo() {
@@ -126,11 +125,9 @@ export class DebitoSecretariaComponent implements OnInit {
 
   carregarDados() {
     this.ngxLoader.start();
-    this.relatorioService.carregarDados().subscribe(
-      (responseApi: ResponseApi) => {
+    this.relatorioService.carregarDados().subscribe( (responseApi: ResponseApi) => {
         this.filtroDto = responseApi["data"];
         this.ngxLoader.stop();
-        this.clearFilters();
       },
       (err) => {
         this.ngxLoader.stop();
@@ -177,9 +174,16 @@ export class DebitoSecretariaComponent implements OnInit {
     $event.stopPropagation();
   }
 
+  onChangeArea($event, area: AreaDto) {
+    const fullArea:AreaDto = this.filtroDto.areas.filter(a => a.id == area.id)[0];
+    this.filtroDto.nucleo = fullArea.nucleo;
+    this.filtroDto.zona = fullArea.nucleo.zona;
+  }
+
   clearFilters() {
     this.filterRegiao = new ZonaDto();
     this.filterNucleo = new NucleoDto();
     this.filterArea = new AreaDto();
   }
+
 }

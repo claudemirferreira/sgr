@@ -6,9 +6,7 @@ import { ResponseApi } from "src/app/model/response-api";
 import { RelatorioService } from "src/app/services/relatorio.service";
 import { ParamRelatorioDto } from "src/app/model/param-relatorio-dto";
 import { SharedService } from "src/app/services/shared.service";
-import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
-import { MatProgressButtonOptions } from "mat-progress-buttons";
 import { NucleoDto } from 'src/app/model/nucleo-dto';
 import { AreaDto } from 'src/app/model/area-dto';
 
@@ -40,7 +38,6 @@ export class ProventoPastoralComponent implements OnInit {
   valido = false;
 
   constructor(
-    private http: HttpClient,
     private router: Router,
     private relatorioService: RelatorioService,
     private ngxLoader: NgxUiLoaderService
@@ -50,6 +47,11 @@ export class ProventoPastoralComponent implements OnInit {
 
   getPerfil() {
     this.router.navigate(["/lista-rotina-perfil/" + this.shared.idPerfil]);
+  }
+
+  ngOnInit() {
+    this.filtroDto = new FiltroDto();
+    this.carregarDados();
   }
 
   gerarRelatorio(): void {
@@ -71,6 +73,7 @@ export class ProventoPastoralComponent implements OnInit {
     );
   }
 
+
   changeArea() {
     this.ngxLoader.start();
     this.relatorioService.carregarArea(this.filtroDto.nucleo.id).subscribe(
@@ -79,8 +82,10 @@ export class ProventoPastoralComponent implements OnInit {
         this.filtroDto.area.id = null;
         this.ngxLoader.stop();
         this.clearFilters();
-      },
-      (err) => {
+
+        const area: AreaDto = this.filtroDto.areas.filter(a => a.nucleo.id == this.filtroDto.nucleo.id)[0];
+        this.filtroDto.zona = area.nucleo.zona;
+      }, (err) => {
         this.ngxLoader.stop();
         this.showMessage({
           type: "error",
@@ -88,11 +93,6 @@ export class ProventoPastoralComponent implements OnInit {
         });
       }
     );
-  }
-
-  ngOnInit() {
-    this.filtroDto = new FiltroDto();
-    this.carregarDados();
   }
 
   carregarNucleo() {
@@ -120,11 +120,9 @@ export class ProventoPastoralComponent implements OnInit {
 
   carregarDados() {
     this.ngxLoader.start();
-    this.relatorioService.carregarDados().subscribe(
-      (responseApi: ResponseApi) => {
+    this.relatorioService.carregarDados().subscribe( (responseApi: ResponseApi) => {
         this.filtroDto = responseApi["data"];
         this.ngxLoader.stop();
-        this.clearFilters();
       },
       (err) => {
         this.ngxLoader.stop();
@@ -171,9 +169,16 @@ export class ProventoPastoralComponent implements OnInit {
     $event.stopPropagation();
   }
 
+  onChangeArea($event, area: AreaDto) {
+    const fullArea:AreaDto = this.filtroDto.areas.filter(a => a.id == area.id)[0];
+    this.filtroDto.nucleo = fullArea.nucleo;
+    this.filtroDto.zona = fullArea.nucleo.zona;
+  }
+
   clearFilters() {
     this.filterRegiao = new ZonaDto();
     this.filterNucleo = new NucleoDto();
     this.filterArea = new AreaDto();
   }
+
 }

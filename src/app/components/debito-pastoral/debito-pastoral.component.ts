@@ -2,13 +2,11 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { ZonaDto } from "./../../model/zona-dto";
 import { ResponseApi } from "./../../model/response-api";
 import { RelatorioService } from "./../../services/relatorio.service";
-import { HttpClient } from "@angular/common/http";
 import { FiltroDto } from "./../../model/filtro-dto";
 import { ParamRelatorioDto } from "./../../model/param-relatorio-dto";
 import { SharedService } from "./../../services/shared.service";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
-import { MatProgressButtonOptions } from "mat-progress-buttons";
 import { AreaDto } from 'src/app/model/area-dto';
 import { NucleoDto } from 'src/app/model/nucleo-dto';
 
@@ -50,6 +48,11 @@ export class DebitoPastoralComponent implements OnInit {
     this.router.navigate(["/lista-rotina-perfil/" + this.shared.idPerfil]);
   }
 
+  ngOnInit() {
+    this.filtroDto = new FiltroDto();
+    this.carregarDados();
+  }
+
   gerarRelatorio(): void {
     this.ngxLoader.start();
     this.filtroDto.nomeRelatorio = "RelatorioDebitoPastoral.jasper";
@@ -75,11 +78,12 @@ export class DebitoPastoralComponent implements OnInit {
       (responseApi: ResponseApi) => {
         this.filtroDto.areas = responseApi["data"];
         this.filtroDto.area.id = null;
-        console.log("Areas = " + this.filtroDto.areas);
         this.ngxLoader.stop();
         this.clearFilters();
-      },
-      (err) => {
+
+        const area: AreaDto = this.filtroDto.areas.filter(a => a.nucleo.id == this.filtroDto.nucleo.id)[0];
+        this.filtroDto.zona = area.nucleo.zona;
+      }, (err) => {
         this.ngxLoader.stop();
         this.showMessage({
           type: "error",
@@ -87,12 +91,6 @@ export class DebitoPastoralComponent implements OnInit {
         });
       }
     );
-  }
-
-  ngOnInit() {
-    this.filtroDto = new FiltroDto();
-
-    this.carregarDados();
   }
 
   carregarNucleo() {
@@ -120,11 +118,9 @@ export class DebitoPastoralComponent implements OnInit {
 
   carregarDados() {
     this.ngxLoader.start();
-    this.relatorioService.carregarDados().subscribe(
-      (responseApi: ResponseApi) => {
+    this.relatorioService.carregarDados().subscribe( (responseApi: ResponseApi) => {
         this.filtroDto = responseApi["data"];
         this.ngxLoader.stop();
-        this.clearFilters();
       },
       (err) => {
         this.ngxLoader.stop();
@@ -169,6 +165,12 @@ export class DebitoPastoralComponent implements OnInit {
 
   onSearchChange($event) {
     $event.stopPropagation();
+  }
+
+  onChangeArea($event, area: AreaDto) {
+    const fullArea:AreaDto = this.filtroDto.areas.filter(a => a.id == area.id)[0];
+    this.filtroDto.nucleo = fullArea.nucleo;
+    this.filtroDto.zona = fullArea.nucleo.zona;
   }
 
   clearFilters() {
