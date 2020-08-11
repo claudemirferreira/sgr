@@ -29,6 +29,8 @@ export class DebitoFinanceiroComponent implements OnInit {
   anos: number[];
   classCss: {};
 
+  selecioneNucelo: NucleoDto = new NucleoDto();
+
   filterRegiao: ZonaDto = new ZonaDto();
   filterNucleo: NucleoDto = new NucleoDto();
   filterArea: AreaDto = new AreaDto();
@@ -43,6 +45,8 @@ export class DebitoFinanceiroComponent implements OnInit {
 
   ngOnInit() {
     this.filtroDto = new FiltroDto();
+    this.selecioneNucelo.id = -1
+    this.selecioneNucelo.nome = 'Selecione um nucleo';
     this.carregarDados();
   }
 
@@ -72,6 +76,7 @@ export class DebitoFinanceiroComponent implements OnInit {
 
   changeArea() {
     this.ngxLoader.start();
+    console.log(this.filtroDto.nucleo.id)
     this.relatorioService.carregarArea(this.filtroDto.nucleo.id).subscribe(
       (responseApi: ResponseApi) => {
         this.filtroDto.areas = responseApi["data"];
@@ -118,6 +123,7 @@ export class DebitoFinanceiroComponent implements OnInit {
     this.ngxLoader.start();
     this.relatorioService.carregarDados().subscribe( (responseApi: ResponseApi) => {
         this.filtroDto = responseApi["data"];
+        this.filtroDto.nucleos.unshift(this.selecioneNucelo);
         this.ngxLoader.stop();
       },
       (err) => {

@@ -33,6 +33,8 @@ export class DebitoSecretariaComponent implements OnInit {
   filtroDto: FiltroDto;
   ano: number;
 
+  selecioneNucelo: NucleoDto = new NucleoDto();
+
   filterRegiao: ZonaDto = new ZonaDto();
   filterNucleo: NucleoDto = new NucleoDto();
   filterArea: AreaDto = new AreaDto();
@@ -56,8 +58,11 @@ export class DebitoSecretariaComponent implements OnInit {
     this.router.navigate(["/lista-rotina-perfil/" + this.shared.idPerfil]);
   }
 
+
   ngOnInit() {
     this.filtroDto = new FiltroDto();
+    this.selecioneNucelo.id = -1
+    this.selecioneNucelo.nome = 'Selecione um nucleo';
     this.carregarDados();
   }
 
@@ -127,6 +132,7 @@ export class DebitoSecretariaComponent implements OnInit {
     this.ngxLoader.start();
     this.relatorioService.carregarDados().subscribe( (responseApi: ResponseApi) => {
         this.filtroDto = responseApi["data"];
+        this.filtroDto.nucleos.unshift(this.selecioneNucelo);
         this.ngxLoader.stop();
       },
       (err) => {
