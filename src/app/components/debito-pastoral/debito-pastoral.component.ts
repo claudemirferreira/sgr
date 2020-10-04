@@ -28,7 +28,8 @@ export class DebitoPastoralComponent implements OnInit {
   anoFim: number;
   ano: number;
 
-  selecioneNucelo: NucleoDto = new NucleoDto();
+  selecioneNucleo: NucleoDto = new NucleoDto();
+  selecioneZona: ZonaDto = new ZonaDto();
 
   filterRegiao: ZonaDto = new ZonaDto();
   filterNucleo: NucleoDto = new NucleoDto();
@@ -52,8 +53,12 @@ export class DebitoPastoralComponent implements OnInit {
 
   ngOnInit() {
     this.filtroDto = new FiltroDto();
-    this.selecioneNucelo.id = -1
-    this.selecioneNucelo.nome = 'Selecione um nucleo';
+    this.selecioneNucleo.id = -1
+    this.selecioneNucleo.nome = 'Selecione um item';
+
+    this.selecioneZona.id = -1
+    this.selecioneZona.nome = 'Selecione um item';
+
     this.carregarDados();
   }
 
@@ -124,7 +129,8 @@ export class DebitoPastoralComponent implements OnInit {
     this.ngxLoader.start();
     this.relatorioService.carregarDados().subscribe( (responseApi: ResponseApi) => {
         this.filtroDto = responseApi["data"];
-        this.filtroDto.nucleos.unshift(this.selecioneNucelo);
+        this.filtroDto.nucleos.unshift(this.selecioneNucleo);
+        this.filtroDto.zonas.unshift(this.selecioneZona);
         this.ngxLoader.stop();
       },
       (err) => {

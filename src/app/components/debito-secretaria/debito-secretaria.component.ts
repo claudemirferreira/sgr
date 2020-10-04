@@ -34,6 +34,7 @@ export class DebitoSecretariaComponent implements OnInit {
   ano: number;
 
   selecioneNucelo: NucleoDto = new NucleoDto();
+  selecioneZona: ZonaDto = new ZonaDto();
 
   filterRegiao: ZonaDto = new ZonaDto();
   filterNucleo: NucleoDto = new NucleoDto();
@@ -62,7 +63,12 @@ export class DebitoSecretariaComponent implements OnInit {
   ngOnInit() {
     this.filtroDto = new FiltroDto();
     this.selecioneNucelo.id = -1
-    this.selecioneNucelo.nome = 'Selecione um nucleo';
+    this.selecioneNucelo.nome = 'Selecione um item';
+
+    this.selecioneZona.id = -1
+    this.selecioneZona.nome = 'Selecione um item';
+
+
     this.carregarDados();
   }
 
@@ -133,6 +139,7 @@ export class DebitoSecretariaComponent implements OnInit {
     this.relatorioService.carregarDados().subscribe( (responseApi: ResponseApi) => {
         this.filtroDto = responseApi["data"];
         this.filtroDto.nucleos.unshift(this.selecioneNucelo);
+        this.filtroDto.zonas.unshift(this.selecioneZona);
         this.ngxLoader.stop();
       },
       (err) => {
