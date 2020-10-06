@@ -25,7 +25,8 @@ export class SaldoCongregacaoComponent implements OnInit {
   filtroDto: FiltroDto;
   ano: number;
 
-  selecioneNucelo: NucleoDto = new NucleoDto();
+  selecioneNucleo: NucleoDto = new NucleoDto();
+  selecioneZona: ZonaDto = new ZonaDto();
 
   filterRegiao: ZonaDto = new ZonaDto();
   filterNucleo: NucleoDto = new NucleoDto();
@@ -49,8 +50,13 @@ export class SaldoCongregacaoComponent implements OnInit {
 
   ngOnInit() {
     this.filtroDto = new FiltroDto();
-    this.selecioneNucelo.id = -1
-    this.selecioneNucelo.nome = 'Selecione um nucleo';
+    this.selecioneNucleo.id = -1
+    this.selecioneNucleo.nome = 'Selecione um nucleo';
+
+
+    this.selecioneZona.id = -1
+    this.selecioneZona.nome = 'Selecione um item';
+
     this.carregarDados();
   }
 
@@ -122,7 +128,12 @@ export class SaldoCongregacaoComponent implements OnInit {
     this.ngxLoader.start();
     this.relatorioService.carregarDados().subscribe( (responseApi: ResponseApi) => {
         this.filtroDto = responseApi["data"];
-        this.filtroDto.nucleos.unshift(this.selecioneNucelo);
+        if (!this.shared.user.nucleo && this.shared.user.zona) {
+          this.filtroDto.nucleos.unshift(this.selecioneNucleo);
+        }
+        if (this.shared.user.zona) {
+          this.filtroDto.zonas.unshift(this.selecioneZona);
+        }
         this.ngxLoader.stop();
       },
       (err) => {

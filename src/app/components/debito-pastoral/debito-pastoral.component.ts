@@ -1,4 +1,4 @@
-import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { NgxUiLoaderService } from "ngx-ui-loader";
 import { ZonaDto } from "./../../model/zona-dto";
 import { ResponseApi } from "./../../model/response-api";
 import { RelatorioService } from "./../../services/relatorio.service";
@@ -7,8 +7,8 @@ import { ParamRelatorioDto } from "./../../model/param-relatorio-dto";
 import { SharedService } from "./../../services/shared.service";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
-import { AreaDto } from 'src/app/model/area-dto';
-import { NucleoDto } from 'src/app/model/nucleo-dto';
+import { AreaDto } from "src/app/model/area-dto";
+import { NucleoDto } from "src/app/model/nucleo-dto";
 
 @Component({
   selector: "app-debito-pastoral",
@@ -16,7 +16,6 @@ import { NucleoDto } from 'src/app/model/nucleo-dto';
   styleUrls: ["./debito-pastoral.component.css"],
 })
 export class DebitoPastoralComponent implements OnInit {
-
   @ViewChild("pdfViewer")
   public pdfViewer;
 
@@ -53,11 +52,11 @@ export class DebitoPastoralComponent implements OnInit {
 
   ngOnInit() {
     this.filtroDto = new FiltroDto();
-    this.selecioneNucleo.id = -1
-    this.selecioneNucleo.nome = 'Selecione um item';
+    this.selecioneNucleo.id = -1;
+    this.selecioneNucleo.nome = "Selecione um item";
 
-    this.selecioneZona.id = -1
-    this.selecioneZona.nome = 'Selecione um item';
+    this.selecioneZona.id = -1;
+    this.selecioneZona.nome = "Selecione um item";
 
     this.carregarDados();
   }
@@ -90,9 +89,12 @@ export class DebitoPastoralComponent implements OnInit {
         this.ngxLoader.stop();
         this.clearFilters();
 
-        const area: AreaDto = this.filtroDto.areas.filter(a => a.nucleo.id == this.filtroDto.nucleo.id)[0];
+        const area: AreaDto = this.filtroDto.areas.filter(
+          (a) => a.nucleo.id == this.filtroDto.nucleo.id
+        )[0];
         this.filtroDto.zona = area.nucleo.zona;
-      }, (err) => {
+      },
+      (err) => {
         this.ngxLoader.stop();
         this.showMessage({
           type: "error",
@@ -127,10 +129,15 @@ export class DebitoPastoralComponent implements OnInit {
 
   carregarDados() {
     this.ngxLoader.start();
-    this.relatorioService.carregarDados().subscribe( (responseApi: ResponseApi) => {
+    this.relatorioService.carregarDados().subscribe(
+      (responseApi: ResponseApi) => {
         this.filtroDto = responseApi["data"];
-        this.filtroDto.nucleos.unshift(this.selecioneNucleo);
-        this.filtroDto.zonas.unshift(this.selecioneZona);
+        if (!this.shared.user.nucleo && this.shared.user.zona) {
+          this.filtroDto.nucleos.unshift(this.selecioneNucleo);
+        }
+        if (this.shared.user.zona) {
+          this.filtroDto.zonas.unshift(this.selecioneZona);
+        }
         this.ngxLoader.stop();
       },
       (err) => {
@@ -160,18 +167,18 @@ export class DebitoPastoralComponent implements OnInit {
 
   selectEvent(item) {
     // do something with selected item
-    console.log('selectEvent');
+    console.log("selectEvent");
   }
 
   onChangeSearch(search: string) {
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.
-    console.log('onChangeSearch');
+    console.log("onChangeSearch");
   }
 
   onFocused(e) {
     // do something
-    console.log('onChangeSearch');
+    console.log("onChangeSearch");
   }
 
   onSearchChange($event) {
@@ -179,7 +186,9 @@ export class DebitoPastoralComponent implements OnInit {
   }
 
   onChangeArea($event, area: AreaDto) {
-    const fullArea:AreaDto = this.filtroDto.areas.filter(a => a.id == area.id)[0];
+    const fullArea: AreaDto = this.filtroDto.areas.filter(
+      (a) => a.id == area.id
+    )[0];
     this.filtroDto.nucleo = fullArea.nucleo;
     this.filtroDto.zona = fullArea.nucleo.zona;
   }
@@ -189,5 +198,4 @@ export class DebitoPastoralComponent implements OnInit {
     this.filterNucleo = new NucleoDto();
     this.filterArea = new AreaDto();
   }
-
 }
