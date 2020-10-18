@@ -107,7 +107,7 @@ export class ProventoPastoralComponent implements OnInit {
   carregarNucleo() {
     this.ngxLoader.start();
     this.relatorioService
-      .carregarNucleo(this.filtroDto.zona.id.toString())
+      .carregarNucleo(this.filtroDto.zona.id)
       .subscribe(
         (responseApi: ResponseApi) => {
           this.filtroDto.nucleos = responseApi["data"];

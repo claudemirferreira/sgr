@@ -16,6 +16,8 @@ import { NucleoDto } from "src/app/model/nucleo-dto";
   styleUrls: ["./debito-pastoral.component.css"],
 })
 export class DebitoPastoralComponent implements OnInit {
+  keyword = "nome";
+
   @ViewChild("pdfViewer")
   public pdfViewer;
 
@@ -26,6 +28,9 @@ export class DebitoPastoralComponent implements OnInit {
   anoInicio: number;
   anoFim: number;
   ano: number;
+
+  @ViewChild("item")
+  item: AreaDto;
 
   selecioneNucleo: NucleoDto = new NucleoDto();
   selecioneZona: ZonaDto = new ZonaDto();
@@ -44,6 +49,9 @@ export class DebitoPastoralComponent implements OnInit {
     private ngxLoader: NgxUiLoaderService
   ) {
     this.shared = SharedService.getInstance();
+    this.item = new AreaDto();
+    this.item.id = 1;
+    this.item.nome = "Usa";
   }
 
   getPerfil() {
@@ -57,6 +65,9 @@ export class DebitoPastoralComponent implements OnInit {
 
     this.selecioneZona.id = -1;
     this.selecioneZona.nome = "Selecione um item";
+    this.item = new AreaDto();
+    this.item.id = 1;
+    this.item.nome = "Usa";
 
     this.carregarDados();
   }
@@ -78,6 +89,31 @@ export class DebitoPastoralComponent implements OnInit {
         });
       }
     );
+  }
+
+  selectZona(zona: ZonaDto) {
+    this.ngxLoader.start();
+    if (zona.id > 0) {
+      this.relatorioService.carregarNucleo(zona.id).subscribe(
+        (responseApi: ResponseApi) => {
+          this.filtroDto.nucleos = responseApi["data"];
+          this.filtroDto.nucleo = new NucleoDto();
+          this.filtroDto.nucleo.id = -1;
+          this.filtroDto.nucleo.nome = "selecione um item";
+          this.filtroDto.area.id = null;
+          this.filtroDto.areas = [];
+          this.ngxLoader.stop();
+          this.clearFilters();
+        },
+        (err) => {
+          this.ngxLoader.stop();
+          this.showMessage({
+            type: "error",
+            text: err["error"]["errors"][0],
+          });
+        }
+      );
+    }
   }
 
   changeArea() {
@@ -104,18 +140,17 @@ export class DebitoPastoralComponent implements OnInit {
     );
   }
 
-  carregarNucleo() {
+  selectNucleo(nucleo: NucleoDto) {
     this.ngxLoader.start();
-    this.relatorioService
-      .carregarNucleo(this.filtroDto.zona.id.toString())
-      .subscribe(
+    if (nucleo.id > 0) {
+      this.relatorioService.carregarArea(nucleo.id).subscribe(
         (responseApi: ResponseApi) => {
-          this.filtroDto.nucleos = responseApi["data"];
-          this.filtroDto.nucleo.id = null;
+          this.filtroDto.areas = responseApi["data"];
           this.filtroDto.area.id = null;
-          this.filtroDto.areas = [];
           this.ngxLoader.stop();
           this.clearFilters();
+
+          this.filtroDto.zona = nucleo.zona;
         },
         (err) => {
           this.ngxLoader.stop();
@@ -125,6 +160,7 @@ export class DebitoPastoralComponent implements OnInit {
           });
         }
       );
+    }
   }
 
   carregarDados() {
@@ -165,8 +201,16 @@ export class DebitoPastoralComponent implements OnInit {
     this.classCss["alert-" + type] = true;
   }
 
-  selectEvent(item) {
-    // do something with selected item
+  selectArea(area: AreaDto) {
+    if (area.id > 0) {
+      this.filtroDto.area = area;
+      this.filtroDto.nucleo = area.nucleo;
+      this.filtroDto.zona = area.nucleo.zona;
+      console.log("selectEvent");
+    }
+  }
+
+  selectEvent(area: NucleoDto) {
     console.log("selectEvent");
   }
 
@@ -182,6 +226,7 @@ export class DebitoPastoralComponent implements OnInit {
   }
 
   onSearchChange($event) {
+    alert(this.filtroDto.areas.length);
     $event.stopPropagation();
   }
 

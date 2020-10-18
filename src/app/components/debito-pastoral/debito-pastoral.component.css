@@ -15,7 +15,7 @@ margin-right: 12px;
 }
 
 body {
-  background-color: #eaeaea;
+  background-color: #9e8d8d;
 }
 
 .titulo {
@@ -25,8 +25,6 @@ body {
   text-align: left;
   width: 100%;
 }
-
-
 
 .search-select-header {
   box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(0, 0, 0, 0.14), 0 0 0 0 rgba(0, 0, 0, 0.12);
@@ -39,7 +37,6 @@ body {
   width: auto;
 }
 
-
 .search-header-searchbox {
   font-size: 15px;
   border: none;
@@ -47,4 +44,38 @@ body {
   height: 100%;
   width: 100%;
   padding: 0;
+}
+
+.auto {
+  width: 100%;
+  display: inline-block;
+  background-color: #eaeaea !important;
+  padding-bottom: 12px;
+}
+
+.ng-autocomplete {
+  width: 100%;
+  max-width: 250px;
+  display: inline-block;
+  padding-right: 5px;
+  background-color: #eaeaea !important;
+}
+
+
+:host ::ng-deep .autocomplete-container .input-container input {
+  background: transparent !important;
+  box-shadow: none !important;
+  width: auto !important;
+  background-color: #eaeaea !important;
+  display: inline-block;
+}
+
+.mat-card-subtitle{
+  padding-right: 5px;
+  padding-left: 5px;
+  height: 3px;
+}
+
+span {
+  margin-left: 5px;
 }

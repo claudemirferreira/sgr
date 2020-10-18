@@ -15,7 +15,7 @@ export class RelatorioService {
     return this.http.get(`${HELP_DESK_API}/api/relatorio/carregarDados`);
   }
 
-  carregarNucleo(id: string) {
+  carregarNucleo(id: number) {
     return this.http.get(`${HELP_DESK_API}/api/relatorio/carregarNucleo/${id}`);
   }
 

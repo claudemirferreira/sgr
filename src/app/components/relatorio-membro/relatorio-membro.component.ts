@@ -123,7 +123,7 @@ export class RelatorioMembroComponent implements OnInit {
 
   carregarNucleo() {
     this.ngxLoader.start();
-    this.relatorioService.carregarNucleo(this.filtroDto.zona.id.toString()).subscribe((responseApi: ResponseApi) => {
+    this.relatorioService.carregarNucleo(this.filtroDto.zona.id).subscribe((responseApi: ResponseApi) => {
       this.filtroDto.nucleos = responseApi['data'];
       this.filtroDto.areas = [];
       this.ngxLoader.stop();
