@@ -117,12 +117,6 @@ export class RelatorioTemplateService implements OnInit {
     this.relatorioService.carregarDados().subscribe(
       (responseApi: ResponseApi) => {
         this.filtroDto = responseApi["data"];
-        if (!this.shared.user.nucleo && this.shared.user.zona) {
-          //this.filtroDto.nucleos.unshift(this.selecioneNucleo);
-        }
-        if (this.shared.user.zona) {
-          //this.filtroDto.zonas.unshift(this.selecioneZona);
-        }
         this.ngxLoader.stop();
       },
       (err) => {

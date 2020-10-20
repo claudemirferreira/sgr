@@ -3,80 +3,81 @@
 <mat-card style="background-color: #eaeaea">
   <mat-card-content>
     <div class="auto">
-    <div class="ng-autocomplete">
-      <mat-card-subtitle>Região</mat-card-subtitle>
-      <ng-autocomplete
-        placeHolder="informe a região"
-        [data]="filtroDto.zonas"
-        [searchKeyword]="keyword"
-        (selected)="selectZona($event)"
-        (inputChanged)="onChangeSearch($event)"
-        (inputFocused)="onFocused($event)"
-        [itemTemplate]="itemTemplate"
-        [notFoundTemplate]="notFoundTemplate"
-        [initialValue]="filtroDto.zona"
-        [ngModel]="filtroDto.zona.nome"
-      >
-      </ng-autocomplete>
+      <div class="ng-autocomplete">
+        <mat-card-subtitle>Região</mat-card-subtitle>
+        <ng-autocomplete
+          placeHolder="informe a região"
+          [data]="filtroDto.zonas"
+          [searchKeyword]="keyword"
+          (selected)="selectZona($event)"
+          (inputChanged)="onChangeSearch($event)"
+          (inputFocused)="onFocused($event)"
+          [itemTemplate]="itemTemplate"
+          [notFoundTemplate]="notFoundTemplate"
+          [initialValue]="filtroDto.zona"
+          [ngModel]="filtroDto.zona.nome"
+        >
+        </ng-autocomplete>
 
-      <ng-template #itemTemplate let-item>
-        <a [innerHTML]="item.nome"></a>
-      </ng-template>
+        <ng-template #itemTemplate let-item>
+          <a [innerHTML]="item.nome"></a>
+        </ng-template>
 
-      <ng-template #notFoundTemplate let-notFound>
-        <div [innerHTML]="notFound"></div>
-      </ng-template>
+        <ng-template #notFoundTemplate let-notFound>
+          <div [innerHTML]="notFound"></div>
+        </ng-template>
+      </div>
+
+      <div class="ng-autocomplete">
+        <mat-card-subtitle>Nucleo</mat-card-subtitle>
+        <ng-autocomplete
+          placeHolder="informe o nucleo"
+          [data]="filtroDto.nucleos"
+          [searchKeyword]="keyword"
+          (selected)="selectNucleo($event)"
+          (inputChanged)="onChangeSearch($event)"
+          (inputFocused)="onFocused($event)"
+          [itemTemplate]="itemTemplate"
+          [notFoundTemplate]="notFoundTemplate"
+          [initialValue]="filtroDto.nucleo"
+          [ngModel]="filtroDto.nucleo.nome"
+        >
+        </ng-autocomplete>
+
+        <ng-template #itemTemplate let-item>
+          <a [innerHTML]="item.nome"></a>
+        </ng-template>
+
+        <ng-template #notFoundTemplate let-notFound>
+          <div [innerHTML]="notFound"></div>
+        </ng-template>
+      </div>
+
+      <div class="ng-autocomplete">
+        <mat-card-subtitle>Area</mat-card-subtitle>
+        <ng-autocomplete
+          placeHolder="informe a area"
+          [data]="filtroDto.areas"
+          [searchKeyword]="keyword"
+          (selected)="selectArea($event)"
+          (inputChanged)="onChangeSearch($event)"
+          (inputFocused)="onFocused($event)"
+          [itemTemplate]="itemTemplate"
+          [notFoundTemplate]="notFoundTemplate"
+          [initialValue]="filtroDto.area"
+          [ngModel]="filtroDto.area.nome"
+        >
+        </ng-autocomplete>
+
+        <ng-template #itemTemplate let-item>
+          <a [innerHTML]="item.nome"></a>
+        </ng-template>
+
+        <ng-template #notFoundTemplate let-notFound>
+          <div [innerHTML]="notFound"></div>
+        </ng-template>
+      </div>
     </div>
-
-    <div class="ng-autocomplete">
-      <mat-card-subtitle>Nucleo</mat-card-subtitle>
-      <ng-autocomplete
-        placeHolder="informe o nucleo"
-        [data]="filtroDto.nucleos"
-        [searchKeyword]="keyword"
-        (selected)="selectNucleo($event)"
-        (inputChanged)="onChangeSearch($event)"
-        (inputFocused)="onFocused($event)"
-        [itemTemplate]="itemTemplate"
-        [notFoundTemplate]="notFoundTemplate"
-        [initialValue]="filtroDto.nucleo"
-        [ngModel]="filtroDto.nucleo.nome"
-      >
-      </ng-autocomplete>
-
-      <ng-template #itemTemplate let-item>
-        <a [innerHTML]="item.nome"></a>
-      </ng-template>
-
-      <ng-template #notFoundTemplate let-notFound>
-        <div [innerHTML]="notFound"></div>
-      </ng-template>
-    </div>
-
-    <div class="ng-autocomplete">
-      <mat-card-subtitle>Area</mat-card-subtitle>
-      <ng-autocomplete
-        placeHolder="informe a area"
-        [data]="filtroDto.areas"
-        [searchKeyword]="keyword"
-        (selected)="selectArea($event)"
-        (inputChanged)="onChangeSearch($event)"
-        (inputFocused)="onFocused($event)"
-        [itemTemplate]="itemTemplate"
-        [notFoundTemplate]="notFoundTemplate"
-        [initialValue]="filtroDto.area"
-      >
-      </ng-autocomplete>
-
-      <ng-template #itemTemplate let-item>
-        <a [innerHTML]="item.nome"></a>
-      </ng-template>
-
-      <ng-template #notFoundTemplate let-notFound>
-        <div [innerHTML]="notFound"></div>
-      </ng-template>
-    </div>
-  </div>
     <mat-form-field>
       <mat-select placeholder="Ano" [(ngModel)]="filtroDto.ano">
         <mat-option *ngFor="let ano of filtroDto.anos" [value]="ano">
@@ -87,17 +88,22 @@
   </mat-card-content>
 
   <mat-card-actions>
-    <button mat-raised-button (click)="getPerfil()">
-      <i class="material-icons">undo</i>Voltar
-    </button>
+    <div class="example-button-row botoes">
+      <button mat-raised-button (click)="getPerfil()">
+        <i class="material-icons">undo</i>Voltar
+      </button>
 
-    <button
-      mat-raised-button
-      [disabled]="filtroDto.zona.id < 0"
-      (click)="gerarRelatorio()"
-    >
-      <i class="material-icons">print</i>imprimir
-    </button>
+      <button
+        mat-raised-button
+        [disabled]="filtroDto.zona.id < 0"
+        (click)="gerarRelatorio()">
+        <i class="material-icons">print</i>imprimir
+      </button>
+
+      <button mat-raised-button (click)="ngOnInit()">
+        <i class="material-icons">restore</i>Limpar
+      </button>
+    </div>
   </mat-card-actions>
 </mat-card>
 <ngx-ui-loader></ngx-ui-loader>

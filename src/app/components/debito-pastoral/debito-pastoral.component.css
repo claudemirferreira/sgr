@@ -13,6 +13,15 @@ mat-select input {
 
 }
 
+.example-button-row button,
+.example-button-row a {
+  margin-right: 8px;
+}
+
+.botoes {
+  display: inline-block;
+}
+
 button {
 margin-right: 12px;
 }
