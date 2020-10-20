@@ -80,6 +80,9 @@ export class RelatorioTemplateService implements OnInit {
         (responseApi: ResponseApi) => {
           this.filtroDto.nucleos = responseApi["data"];
           this.filtroDto.nucleo = new NucleoDto();
+          if(this.filtroDto.nucleos.length == 1){
+            this.filtroDto.nucleo = this.filtroDto.nucleos[0];
+          }
           this.filtroDto.area.id = null;
           this.filtroDto.areas = [];
           this.ngxLoader.stop();
