@@ -1,17 +1,30 @@
 mat-form-field {
   margin-right: 12px;
+
 }
 
 mat-select {
-margin-right: 12px;
+  margin-right: 12px;
+
 }
 
 mat-select input {
   margin-right: 12px;
-  }
+}
+
+.example-button-row button,
+.example-button-row a {
+  margin: 5px 2px;
+}
+
+.botoes {
+  display: inline-block;
+  padding: 10px;;
+}
 
 button {
-margin-right: 12px;
+  margin-right: 12px;
+  margin-top: 5px;
 }
 
 body {
@@ -43,17 +56,17 @@ body {
   display: inline-block;
 }
 
+.mat-card-subtitle{
+  padding-right: 5px;
+  padding-left: 5px;
+  height: 3px;
+}
+
 .auto {
   width: 100%;
   display: inline-block;
   background-color: #eaeaea !important;
   padding-bottom: 12px;
-}
-
-.mat-card-subtitle{
-  padding-right: 5px;
-  padding-left: 5px;
-  height: 3px;
 }
 
 span {

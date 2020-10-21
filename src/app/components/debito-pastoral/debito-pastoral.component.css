@@ -10,20 +10,21 @@ mat-select {
 
 mat-select input {
   margin-right: 12px;
-
 }
 
 .example-button-row button,
 .example-button-row a {
-  margin-right: 8px;
+  margin: 5px 2px;
 }
 
 .botoes {
   display: inline-block;
+  padding: 10px;;
 }
 
 button {
-margin-right: 12px;
+  margin-right: 12px;
+  margin-top: 5px;
 }
 
 body {
