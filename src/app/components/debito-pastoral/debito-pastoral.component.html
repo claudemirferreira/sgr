@@ -78,6 +78,7 @@
         </ng-template>
       </div>
     </div>
+
     <mat-form-field>
       <mat-select placeholder="Ano" [(ngModel)]="filtroDto.ano">
         <mat-option *ngFor="let ano of filtroDto.anos" [value]="ano">
@@ -96,7 +97,8 @@
       <button
         mat-raised-button
         [disabled]="filtroDto.zona.id < 0"
-        (click)="gerarRelatorio()">
+        (click)="gerarRelatorio()"
+      >
         <i class="material-icons">print</i>imprimir
       </button>
 

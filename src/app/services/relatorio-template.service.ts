@@ -14,6 +14,17 @@ import { SharedService } from './shared.service';
   providedIn: 'root'
 })
 export class RelatorioTemplateService implements OnInit {
+  data = [
+    {
+      id: 1,
+      nome: 'Usa'
+    },
+    {
+      id: 2,
+      nome: 'England'
+    }
+ ];
+
   keyword = "nome";
   @ViewChild("pdfViewer")
   public pdfViewer;
@@ -117,12 +128,27 @@ export class RelatorioTemplateService implements OnInit {
     this.relatorioService.carregarDados().subscribe(
       (responseApi: ResponseApi) => {
         this.filtroDto = responseApi["data"];
+        this.checkValores();
+        console.log(JSON.stringify(this.filtroDto.area));
         this.ngxLoader.stop();
       },
       (err) => {
         this.ngxLoader.stop();
       }
     );
+  }
+
+  private checkValores(){
+    if (this.filtroDto.area.id == 0)
+      this.filtroDto.area.id = null;
+      this.filtroDto.area.nome = '';
+    if (this.filtroDto.nucleo.id == 0)
+      this.filtroDto.nucleo.id = null;
+      this.filtroDto.nucleo.nome = '';
+    if (this.filtroDto.zona.id == 0)
+      this.filtroDto.zona.id = null;
+      this.filtroDto.zona.nome = '';
+
   }
 
   selectArea(area: AreaDto) {
