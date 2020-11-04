@@ -62,6 +62,7 @@
           (selected)="selectArea($event)"
           (inputChanged)="onChangeSearch($event)"
           (inputFocused)="onFocused($event)"
+          (inputCleared)="inputCleared($event)"
           [itemTemplate]="itemTemplate"
           [notFoundTemplate]="notFoundTemplate"
           [initialValue]="filtroDto.area"

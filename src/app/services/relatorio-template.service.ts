@@ -91,6 +91,8 @@ export class RelatorioTemplateService implements OnInit {
         (responseApi: ResponseApi) => {
           this.filtroDto.nucleos = responseApi["data"];
           this.filtroDto.nucleo = new NucleoDto();
+          this.filtroDto.nucleo.id = null;
+          this.filtroDto.nucleo.nome = '';
           if(this.filtroDto.nucleos.length == 1){
             this.filtroDto.nucleo = this.filtroDto.nucleos[0];
           }
@@ -111,9 +113,14 @@ export class RelatorioTemplateService implements OnInit {
       this.relatorioService.carregarArea(nucleo.id).subscribe(
         (responseApi: ResponseApi) => {
           this.filtroDto.areas = responseApi["data"];
+          this.filtroDto.area = new AreaDto();
           this.filtroDto.area.id = null;
-          this.ngxLoader.stop();
+          this.filtroDto.area.nome = '';
 
+          if(this.filtroDto.areas.length == 1){
+            this.filtroDto.area = this.filtroDto.areas[0];
+          }
+          this.ngxLoader.stop();
           this.filtroDto.zona = nucleo.zona;
         },
         (err) => {
@@ -129,7 +136,15 @@ export class RelatorioTemplateService implements OnInit {
       (responseApi: ResponseApi) => {
         this.filtroDto = responseApi["data"];
         this.checkValores();
-        console.log(JSON.stringify(this.filtroDto.area));
+        if(this.filtroDto.zonas.length == 1){
+          this.filtroDto.zona = this.filtroDto.zonas[0];
+        }
+        if(this.filtroDto.nucleos.length == 1){
+          this.filtroDto.nucleo = this.filtroDto.nucleos[0];
+        }
+        if(this.filtroDto.areas.length == 1){
+          this.filtroDto.area = this.filtroDto.areas[0];
+        }
         this.ngxLoader.stop();
       },
       (err) => {
@@ -153,6 +168,7 @@ export class RelatorioTemplateService implements OnInit {
 
   selectArea(area: AreaDto) {
     if (area.id > 0) {
+      //this.ngOnInit();
       this.filtroDto.area = area;
       this.filtroDto.nucleo = area.nucleo;
       this.filtroDto.zona = area.nucleo.zona;
@@ -178,6 +194,12 @@ export class RelatorioTemplateService implements OnInit {
   onSearchChange($event) {
     alert(this.filtroDto.areas.length);
     $event.stopPropagation();
+  }
+
+  inputCleared($event){
+    $event.stopPropagation();
+    console.log('inputCleared='+$event);
+
   }
 
 }
