@@ -196,10 +196,19 @@ export class RelatorioTemplateService implements OnInit {
     $event.stopPropagation();
   }
 
-  inputCleared($event){
-    $event.stopPropagation();
-    console.log('inputCleared='+$event);
+  zonaCleared() {
+    this.filtroDto.zona.id = null;
+    this.filtroDto.zona.nome = '';
+  }
 
+  nucleoCleared() {
+    this.filtroDto.nucleo.id = null;
+    this.filtroDto.nucleo.nome = '';
+  }
+
+  areaCleared() {
+    this.filtroDto.area.id = null;
+    this.filtroDto.area.nome = '';
   }
 
 }
