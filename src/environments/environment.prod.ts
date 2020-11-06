@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  URL: 'http://www.ieadam.atendendovoce.com.br:8080'
+  URL: 'http://177.153.4.193:8080'
 };
