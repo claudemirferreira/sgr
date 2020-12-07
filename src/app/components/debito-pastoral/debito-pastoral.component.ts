@@ -7,8 +7,6 @@ import { ParamRelatorioDto } from "./../../model/param-relatorio-dto";
 import { SharedService } from "./../../services/shared.service";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
-import { AreaDto } from "src/app/model/area-dto";
-import { NucleoDto } from "src/app/model/nucleo-dto";
 import { RelatorioTemplateService } from 'src/app/services/relatorio-template.service';
 
 @Component({

@@ -14,16 +14,6 @@ import { SharedService } from './shared.service';
   providedIn: 'root'
 })
 export class RelatorioTemplateService implements OnInit {
-  data = [
-    {
-      id: 1,
-      nome: 'Usa'
-    },
-    {
-      id: 2,
-      nome: 'England'
-    }
- ];
 
   keyword = "nome";
   @ViewChild("pdfViewer")
@@ -207,8 +197,9 @@ export class RelatorioTemplateService implements OnInit {
   }
 
   areaCleared() {
-    this.filtroDto.area.id = null;
-    this.filtroDto.area.nome = '';
+    //this.filtroDto.area.id = null;
+    //this.filtroDto.area.nome = '';
+    //$event.stopPropagation();
   }
 
 }

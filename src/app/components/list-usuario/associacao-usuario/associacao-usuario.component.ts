@@ -104,7 +104,7 @@ export class AssociacaoUsuarioComponent implements OnInit {
   }
 
   onChangeUsuario(usuario) {
-    this.usuarioService.update(usuario).subscribe((responseApi: ResponseApi) => {
+    this.usuarioService.updateUser(usuario).subscribe((responseApi: ResponseApi) => {
     }, err => {
       console.log('erro de autenticação=' + JSON.stringify(err.status));
       if (err.status == '400')

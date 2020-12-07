@@ -32,6 +32,10 @@ export class UsuarioService {
     return this.http.put(`${HELP_DESK_API}/api/user`,user);
   }
 
+  updateUser(user: Usuario){
+    return this.http.put(`${HELP_DESK_API}/api/user/${user.id}`,user);
+  }
+
   findAll(page:number,count:number){
     return this.http.get(`${HELP_DESK_API}/api/user/${page}/${count}`);
   }
