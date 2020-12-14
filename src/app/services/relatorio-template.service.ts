@@ -76,7 +76,7 @@ export class RelatorioTemplateService implements OnInit {
 
   selectZona(zona: ZonaDto) {
     this.ngxLoader.start();
-    if (zona.id > 0) {
+    //if (zona.id > 0) {
       this.relatorioService.carregarNucleo(zona.id).subscribe(
         (responseApi: ResponseApi) => {
           this.filtroDto.nucleos = responseApi["data"];
@@ -94,12 +94,11 @@ export class RelatorioTemplateService implements OnInit {
           this.ngxLoader.stop();
         }
       );
-    }
+    //}
   }
 
   selectNucleo(nucleo: NucleoDto) {
     this.ngxLoader.start();
-    if (nucleo.id > 0) {
       this.relatorioService.carregarArea(nucleo.id).subscribe(
         (responseApi: ResponseApi) => {
           this.filtroDto.areas = responseApi["data"];
@@ -117,7 +116,6 @@ export class RelatorioTemplateService implements OnInit {
           this.ngxLoader.stop();
         }
       );
-    }
   }
 
   carregarDados() {
@@ -126,6 +124,36 @@ export class RelatorioTemplateService implements OnInit {
       (responseApi: ResponseApi) => {
         this.filtroDto = responseApi["data"];
         this.checkValores();
+
+        if(this.filtroDto.zonas.length < 2){
+          try {
+            document.getElementById('zona').remove();
+          } catch (error) {
+
+          }
+        }
+        if(this.filtroDto.zonas.length > 1){
+          try {
+            document.getElementById('zonaInput').remove();
+          } catch (error) {
+
+          }
+        }
+        if(this.filtroDto.nucleos.length < 2){
+          try {
+            document.getElementById('nucleo').remove();
+          } catch (error) {
+
+          }
+        }
+        if(this.filtroDto.nucleos.length > 1){
+          try {
+            document.getElementById('nucleoInput').remove();
+          } catch (error) {
+
+          }
+        }
+
         if(this.filtroDto.zonas.length == 1){
           this.filtroDto.zona = this.filtroDto.zonas[0];
         }
@@ -171,35 +199,24 @@ export class RelatorioTemplateService implements OnInit {
   }
 
   onChangeSearch(search: string) {
-    // fetch remote data from here
-    // And reassign the 'data' which is binded to 'data' property.
-    console.log("onChangeSearch");
   }
 
   onFocused(e) {
-    // do something
-    console.log("onChangeSearch");
   }
 
   onSearchChange($event) {
-    alert(this.filtroDto.areas.length);
     $event.stopPropagation();
   }
 
   zonaCleared() {
-    this.filtroDto.zona.id = null;
-    this.filtroDto.zona.nome = '';
+
   }
 
   nucleoCleared() {
-    this.filtroDto.nucleo.id = null;
-    this.filtroDto.nucleo.nome = '';
+
   }
 
   areaCleared() {
-    //this.filtroDto.area.id = null;
-    //this.filtroDto.area.nome = '';
-    //$event.stopPropagation();
   }
 
 }

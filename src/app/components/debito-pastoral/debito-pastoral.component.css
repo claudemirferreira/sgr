@@ -46,9 +46,31 @@ body {
   padding-right: 5px;
   font-weight:bold;
   color: black;
+  padding-left: 5px;
 }
 
+.input {
+  font-size: 14px;
+  box-sizing: border-box;
+  border: none;
+  box-shadow: none;
+  outline: 0;
+  background-color: #fff;
+  width: 100%;
+  padding: 0 15px;
+  line-height: 40px;
+  height: 40px;
+  max-width: 250px;
+  display: inline-block;
 
+}
+
+.divInput{
+  max-width: 250px;
+  width: 250px;
+  display: inline-block;
+  padding-left: 5px;
+}
 
 .mat-card-subtitle{
   padding-right: 5px;

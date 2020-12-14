@@ -33,6 +33,7 @@ export class UsuarioService {
   }
 
   updateUser(user: Usuario){
+    console.log('updateUser/'+user.id);
     return this.http.put(`${HELP_DESK_API}/api/user/${user.id}`,user);
   }
 
