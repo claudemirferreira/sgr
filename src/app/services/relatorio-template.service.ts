@@ -21,6 +21,7 @@ export class RelatorioTemplateService implements OnInit {
 
   shared: SharedService;
   filtroDto: FiltroDto;
+  dto: FiltroDto;
   anoInicio: number;
   anoFim: number;
   ano: number;
@@ -75,47 +76,54 @@ export class RelatorioTemplateService implements OnInit {
   }
 
   selectZona(zona: ZonaDto) {
-    this.ngxLoader.start();
-    //if (zona.id > 0) {
-      this.relatorioService.carregarNucleo(zona.id).subscribe(
-        (responseApi: ResponseApi) => {
-          this.filtroDto.nucleos = responseApi["data"];
-          this.filtroDto.nucleo = new NucleoDto();
-          this.filtroDto.nucleo.id = null;
-          this.filtroDto.nucleo.nome = '';
-          if(this.filtroDto.nucleos.length == 1){
-            this.filtroDto.nucleo = this.filtroDto.nucleos[0];
+    if(zona.id >= 0){
+      this.filtroDto.nucleo.nome = '';
+      this.ngxLoader.start();
+        this.relatorioService.carregarNucleo(zona.id).subscribe(
+          (responseApi: ResponseApi) => {
+            
+            this.dto = responseApi["data"];
+
+            this.filtroDto.nucleos = this.dto.nucleos;
+            this.filtroDto.nucleo.id = -1;
+            this.filtroDto.nucleo.nome = '';
+            if(this.filtroDto.nucleos.length == 1){
+              this.filtroDto.nucleo = this.filtroDto.nucleos[0];
+            }
+            this.filtroDto.area.id = null;
+            this.filtroDto.area.nome = '';
+            this.filtroDto.areas = [];
+            this.filtroDto.areas = this.dto.areas;
+            this.ngxLoader.stop();
+          },
+          (err) => {
+            this.ngxLoader.stop();
           }
-          this.filtroDto.area.id = null;
-          this.filtroDto.areas = [];
-          this.ngxLoader.stop();
-        },
-        (err) => {
-          this.ngxLoader.stop();
-        }
-      );
-    //}
+        );
+    }
   }
 
   selectNucleo(nucleo: NucleoDto) {
-    this.ngxLoader.start();
-      this.relatorioService.carregarArea(nucleo.id).subscribe(
-        (responseApi: ResponseApi) => {
-          this.filtroDto.areas = responseApi["data"];
-          this.filtroDto.area = new AreaDto();
-          this.filtroDto.area.id = null;
-          this.filtroDto.area.nome = '';
+    if(nucleo.id >= 0){
+      this.ngxLoader.start();
+        this.relatorioService.carregarArea(nucleo.id).subscribe(
+          (responseApi: ResponseApi) => {
+            this.filtroDto.areas = responseApi["data"];
+            this.filtroDto.area = new AreaDto();
+            this.filtroDto.area.id = null;
+            this.filtroDto.area.nome = '';
 
-          if(this.filtroDto.areas.length == 1){
-            this.filtroDto.area = this.filtroDto.areas[0];
+            if(this.filtroDto.areas.length == 1){
+              this.filtroDto.area = this.filtroDto.areas[0];
+            }
+            this.ngxLoader.stop();
+            this.filtroDto.zona = nucleo.zona;
+          },
+          (err) => {
+            this.ngxLoader.stop();
           }
-          this.ngxLoader.stop();
-          this.filtroDto.zona = nucleo.zona;
-        },
-        (err) => {
-          this.ngxLoader.stop();
-        }
-      );
+        );
+      }
   }
 
   carregarDados() {
@@ -157,11 +165,15 @@ export class RelatorioTemplateService implements OnInit {
         if(this.filtroDto.zonas.length == 1){
           this.filtroDto.zona = this.filtroDto.zonas[0];
         }
+
         if(this.filtroDto.nucleos.length == 1){
           this.filtroDto.nucleo = this.filtroDto.nucleos[0];
+          this.filtroDto.zona =  this.filtroDto.nucleo.zona;
         }
         if(this.filtroDto.areas.length == 1){
           this.filtroDto.area = this.filtroDto.areas[0];
+          this.filtroDto.nucleo =  this.filtroDto.area.nucleo;
+          this.filtroDto.zona =  this.filtroDto.nucleo.zona;
         }
         this.ngxLoader.stop();
       },
@@ -186,7 +198,6 @@ export class RelatorioTemplateService implements OnInit {
 
   selectArea(area: AreaDto) {
     if (area.id > 0) {
-      //this.ngOnInit();
       this.filtroDto.area = area;
       this.filtroDto.nucleo = area.nucleo;
       this.filtroDto.zona = area.nucleo.zona;
@@ -209,11 +220,11 @@ export class RelatorioTemplateService implements OnInit {
   }
 
   zonaCleared() {
-
+    this.carregarDados();
   }
 
   nucleoCleared() {
-
+    this.selectZona(this.filtroDto.zona);
   }
 
   areaCleared() {
