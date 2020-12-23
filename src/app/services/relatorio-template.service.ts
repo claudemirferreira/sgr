@@ -81,7 +81,7 @@ export class RelatorioTemplateService implements OnInit {
       this.ngxLoader.start();
         this.relatorioService.carregarNucleo(zona.id).subscribe(
           (responseApi: ResponseApi) => {
-            
+
             this.dto = responseApi["data"];
 
             this.filtroDto.nucleos = this.dto.nucleos;
@@ -224,7 +224,11 @@ export class RelatorioTemplateService implements OnInit {
   }
 
   nucleoCleared() {
-    this.selectZona(this.filtroDto.zona);
+    if(this.filtroDto.zonas.length > 0){
+      this.selectZona(this.filtroDto.zona);
+    }else{
+      this.carregarDados();
+    }
   }
 
   areaCleared() {
