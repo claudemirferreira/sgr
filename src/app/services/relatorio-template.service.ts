@@ -48,6 +48,8 @@ export class RelatorioTemplateService implements OnInit {
 
   gerarRelatorio(): void {
     this.ngxLoader.start();
+    console.log(JSON.stringify('zona='+this.filtroDto.zona));
+    console.log(JSON.stringify('nucleo='+this.filtroDto.nucleo))
     this.relatorioService.geraPdf(this.filtroDto).subscribe(
       (res) => {
         this.pdfViewer.pdfSrc = res; // pdfSrc can be Blob or Uint8Array
@@ -61,6 +63,9 @@ export class RelatorioTemplateService implements OnInit {
   }
 
   print(nomeRelatorio: string): void {
+    console.log('zona'+ this.filtroDto.zona);
+    console.log(JSON.stringify(this.filtroDto.zona));
+    console.log(JSON.stringify(this.filtroDto.nucleo));
     this.ngxLoader.start();
     this.filtroDto.nomeRelatorio = nomeRelatorio;
     this.relatorioService.geraPdf(this.filtroDto).subscribe(
@@ -104,6 +109,30 @@ export class RelatorioTemplateService implements OnInit {
   }
 
   selectNucleo(nucleo: NucleoDto) {
+    if(nucleo.id >= 0){
+      this.ngxLoader.start();
+        this.relatorioService.carregarArea(nucleo.id).subscribe(
+          (responseApi: ResponseApi) => {
+            this.filtroDto.areas = responseApi["data"];
+            this.filtroDto.area = new AreaDto();
+            this.filtroDto.area.id = null;
+            this.filtroDto.area.nome = '';
+            this.filtroDto.nucleo = nucleo;
+
+            if(this.filtroDto.areas.length == 1){
+              this.filtroDto.area = this.filtroDto.areas[0];
+            }
+            this.ngxLoader.stop();
+            this.filtroDto.zona = nucleo.zona;
+          },
+          (err) => {
+            this.ngxLoader.stop();
+          }
+        );
+      }
+  }
+
+  selectNucleoOLd(nucleo: NucleoDto) {
     if(nucleo.id >= 0){
       this.ngxLoader.start();
         this.relatorioService.carregarArea(nucleo.id).subscribe(
@@ -232,6 +261,8 @@ export class RelatorioTemplateService implements OnInit {
   }
 
   areaCleared() {
+    this.filtroDto.area.id = null;
+    this.filtroDto.area.nome = '';
   }
 
 }

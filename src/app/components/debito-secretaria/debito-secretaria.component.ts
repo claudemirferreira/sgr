@@ -1,10 +1,5 @@
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { ZonaDto } from "./../../model/zona-dto";
-import { ResponseApi } from "./../../model/response-api";
 import { RelatorioService } from "./../../services/relatorio.service";
-import { HttpClient } from "@angular/common/http";
-import { FiltroDto } from "./../../model/filtro-dto";
-import { ParamRelatorioDto } from "./../../model/param-relatorio-dto";
 import { SharedService } from "./../../services/shared.service";
 import {
   Component,
