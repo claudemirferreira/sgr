@@ -262,7 +262,7 @@ export class RelatorioTemplateService implements OnInit {
 
   areaCleared() {
     this.filtroDto.area.id = null;
-    this.filtroDto.area.nome = '';
+    //this.filtroDto.area.nome = '';
   }
 
 }
