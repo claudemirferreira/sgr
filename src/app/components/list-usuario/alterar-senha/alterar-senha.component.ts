@@ -53,6 +53,11 @@ export class AlterarSenhaComponent implements OnInit {
     );
   }
 
+  cancel(event) {
+    event.preventDefault();
+    this.onNoClick();
+}
+
   onNoClick(): void {
     this.dialogRef.close();
   }

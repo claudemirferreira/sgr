@@ -4,7 +4,7 @@
 	<div class="topo"></div>
 	<div class="divcentro"></div>
 	<div class="item ico_home" routerLink="/perfil"></div>
-	<div class="item ico_conf"></div>
+	<div class="item ico_conf" (click)="openDialogSenha(shared.user.id)"></div>
 	<div class="item ico_sair" routerLink="/login"></div>
 </section>
 <div fxLayout="row" fxLayoutAlign="end center" >
