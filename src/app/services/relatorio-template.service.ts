@@ -191,6 +191,23 @@ export class RelatorioTemplateService implements OnInit {
           }
         }
 
+
+        
+        if(this.filtroDto.areas.length < 2){
+          try {
+            document.getElementById('area').remove();
+          } catch (error) {
+
+          }
+        }
+        if(this.filtroDto.areas.length > 1){
+          try {
+            document.getElementById('areaInput').remove();
+          } catch (error) {
+
+          }
+        }
+
         if(this.filtroDto.zonas.length == 1){
           this.filtroDto.zona = this.filtroDto.zonas[0];
         }

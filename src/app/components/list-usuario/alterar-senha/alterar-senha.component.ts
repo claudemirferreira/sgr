@@ -29,7 +29,7 @@ export class AlterarSenhaComponent implements OnInit {
     this.service.findById(this.idUsuario).subscribe(
       (responseApi: ResponseApi) => {
         this.usuario = responseApi["data"];
-        this.usuario.senha = 'ieadam';
+        this.usuario.senha = '';
         this.createForm();
         console.log(JSON.stringify(this.usuario));
       },
